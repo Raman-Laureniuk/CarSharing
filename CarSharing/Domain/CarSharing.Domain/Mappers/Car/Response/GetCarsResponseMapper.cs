@@ -18,6 +18,7 @@
 
             return new CarDto()
             {
+                CarId = car.Id,
                 Model = car.Model,
                 Year = car.Year,
                 Color = car.Color,

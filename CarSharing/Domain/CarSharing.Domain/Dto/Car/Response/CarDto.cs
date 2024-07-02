@@ -1,7 +1,10 @@
 ﻿namespace CarSharing.Domain.Dto.Car.Response
 {
+    using System;
+
     public class CarDto
     {
+        public Guid CarId { get; set; }
         public string Model { get; set; }
         public int Year { get; set; }
         public string Color { get; set; }
