@@ -6,7 +6,7 @@
     {
         public int Id { get; set; }
 
-        public decimal RatePerHour { get; set; }
+        public decimal PricePerHour { get; set; }
 
         public virtual ICollection<Car> Cars { get; set; }
     }

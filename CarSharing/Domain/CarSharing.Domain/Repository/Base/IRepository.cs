@@ -10,6 +10,7 @@
         Task UpdateAsync(T item, bool commit = false);
         Task DeleteAsync(object id, bool commit = false);
         Task<List<T>> GetAllAsync();
+        Task<T> GetByIdAsync(object id);
 
         Task CommitAsync();
     }
