@@ -20,7 +20,7 @@
                 LicenseNumber = addClientRequestDto.LicenseNumber,
                 PhoneNumber = addClientRequestDto.PhoneNumber,
                 Email = addClientRequestDto.Email,
-                IsConfirmed = false,
+                IsActive = false,
                 IsBlocked = false
             };
         }

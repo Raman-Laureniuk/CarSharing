@@ -33,7 +33,7 @@
                     throw new ArgumentOutOfRangeException($"Client {request.ClientId} not found.");
                 }
 
-                client.IsConfirmed = true;
+                client.IsActive = true;
 
                 await repo.UpdateAsync(client, true);
             }
