@@ -4,6 +4,7 @@
 
     public class WalletDto
     {
+        public int WalletId { get; set; }
         public Guid ClientId { get; set; }
         public string EncryptedWalletData { get; set; }
     }
