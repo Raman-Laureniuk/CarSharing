@@ -11,6 +11,6 @@
         public DateTime StartDateUtc { get; set; }
         public DateTime? EndDateUtc { get; set; }
         public decimal? TotalAmount { get; set; }
-        public int StatusId { get; set; }
+        public string Status { get; set; }
     }
 }
