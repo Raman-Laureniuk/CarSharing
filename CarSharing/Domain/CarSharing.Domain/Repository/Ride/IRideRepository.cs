@@ -9,6 +9,7 @@
 
     public interface IRideRepository : IRepository<Ride>
     {
-        Task<List<Ride>> GetRidesAsync(Guid carId, RideStatus status);
+        Task<List<Ride>> GetRidesForCarAsync(Guid carId, RideStatus status);
+        Task<List<Ride>> GetRidesForClientAsync(Guid clientId);
     }
 }
