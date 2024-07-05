@@ -30,7 +30,7 @@
             
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                List<Ride> rides = await repo.GetRidesForCarAsync(request.CarId, RideStatus.Active);
+                List<Ride> rides = await repo.GetRidesForCarAndClientAsync(request.CarId, request.ClientId, RideStatus.Active);
                 Ride ride = rides.Single();
 
                 DateTime endDateUtc = DateTime.UtcNow;

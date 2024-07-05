@@ -11,5 +11,6 @@
     {
         Task<List<Ride>> GetRidesForCarAsync(Guid carId, RideStatus status);
         Task<List<Ride>> GetRidesForClientAsync(Guid clientId);
+        Task<List<Ride>> GetRidesForCarAndClientAsync(Guid carId, Guid clientId, RideStatus status);
     }
 }
