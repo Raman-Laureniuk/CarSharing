@@ -6,12 +6,12 @@
     using System.Threading.Tasks;
     using CarSharing.Domain.Commands.Ride;
     using CarSharing.Domain.Commands.Wallet;
-    using CarSharing.Domain.Constants;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Dto.Wallet.Request;
     using CarSharing.Domain.Dto.Wallet.Response;
     using CarSharing.Domain.Entities;
+    using CarSharing.Domain.Enums.Ride;
     using CarSharing.Domain.Exceptions.Ride;
     using CarSharing.Domain.Mappers.Ride.Request;
     using CarSharing.Domain.Repository.Ride;
@@ -40,9 +40,9 @@
 
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                List<Ride> activeRides = await repo.GetRides(request.ClientId, CarUsageStatusNameKeys.ACTIVE);
+                List<Ride> activeRides = await repo.GetRides(request.ClientId, RideStatus.Active);
 
-                if (activeRides.Any())
+                if (activeRides?.Any() ?? false)
                 {
                     throw new CarInUseException($"Car {request.CarId} is already in use.");
                 }

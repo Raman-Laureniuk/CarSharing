@@ -3,6 +3,7 @@
     using System;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Entities;
+    using CarSharing.Domain.Enums.Ride;
 
     internal static class StartRideRequestMapper
     {
@@ -21,7 +22,7 @@
                 StartDateUtc = DateTime.UtcNow,
                 EndDateUtc = null,
                 TotalAmount = null,
-                StatusId = 1  // TODO: Remove CarUsageStatus entity and use enum or string here.
+                Status = RideStatus.Active
             };
         }
     }

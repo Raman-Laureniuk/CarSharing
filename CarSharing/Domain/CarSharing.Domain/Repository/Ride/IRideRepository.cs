@@ -4,10 +4,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using CarSharing.Domain.Entities;
+    using CarSharing.Domain.Enums.Ride;
     using CarSharing.Domain.Repository.Base;
 
     public interface IRideRepository : IRepository<Ride>
     {
-        Task<List<Ride>> GetRides(Guid carId, string statusNameKey);
+        Task<List<Ride>> GetRides(Guid carId, RideStatus rideStatus);
     }
 }
