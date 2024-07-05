@@ -1,34 +1,35 @@
-﻿namespace CarSharing.Domain.Commands.CarUsage.Impl
+﻿namespace CarSharing.Domain.Commands.Ride.Impl
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using CarSharing.Domain.Commands.Ride;
     using CarSharing.Domain.Commands.Wallet;
     using CarSharing.Domain.Constants;
-    using CarSharing.Domain.Dto.CarUsage.Request;
-    using CarSharing.Domain.Dto.CarUsage.Response;
+    using CarSharing.Domain.Dto.Ride.Request;
+    using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Dto.Wallet.Request;
     using CarSharing.Domain.Dto.Wallet.Response;
     using CarSharing.Domain.Entities;
-    using CarSharing.Domain.Exceptions.CarUsage;
-    using CarSharing.Domain.Mappers.CarUsage.Request;
-    using CarSharing.Domain.Repository.CarUsage;
-    using CarSharing.Domain.RepositoryFactory.CarUsage;
+    using CarSharing.Domain.Exceptions.Ride;
+    using CarSharing.Domain.Mappers.Ride.Request;
+    using CarSharing.Domain.Repository.Ride;
+    using CarSharing.Domain.RepositoryFactory.Ride;
 
-    internal class StartUsageCommandAsync : IStartUsageCommandAsync
+    internal class StartRideCommandAsync : IStartRideCommandAsync
     {
         private readonly IGetWalletsCommandAsync _getWalletsCommand;
-        private readonly ICarUsageRepositoryFactory _repoFactory;
+        private readonly IRideRepositoryFactory _repoFactory;
 
-        public StartUsageCommandAsync(IGetWalletsCommandAsync getWalletsCommand,
-            ICarUsageRepositoryFactory repoFactory)
+        public StartRideCommandAsync(IGetWalletsCommandAsync getWalletsCommand,
+            IRideRepositoryFactory repoFactory)
         {
             _getWalletsCommand = getWalletsCommand ?? throw new ArgumentNullException(nameof(getWalletsCommand));
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<StartUsageResponseDto> ExecuteAsync(StartUsageRequestDto request)
+        public async Task<StartRideResponseDto> ExecuteAsync(StartRideRequestDto request)
         {
             if (request == null)
             {
@@ -37,24 +38,24 @@
 
             await ThrowIfWalletIsNotClients(request.ClientId, request.WalletId);  // TODO: move to decorator.
 
-            using (ICarUsageRepository repo = _repoFactory.CreateRepository())
+            using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                List<CarUsage> activeCarUsages = await repo.GetCarUsages(request.ClientId, CarUsageStatusNameKeys.ACTIVE);
+                List<Ride> activeRides = await repo.GetRides(request.ClientId, CarUsageStatusNameKeys.ACTIVE);
 
-                if (activeCarUsages.Any())
+                if (activeRides.Any())
                 {
                     throw new CarInUseException($"Car {request.CarId} is already in use.");
                 }
 
-                CarUsage carUsage = request.ToCarUsageEntity();
+                Ride ride = request.ToRideEntity();
 
-                await repo.CreateAsync(carUsage, true);
+                await repo.CreateAsync(ride, true);
 
-                return new StartUsageResponseDto()
+                return new StartRideResponseDto()
                 {
                     Success = true,
-                    CarUsageId = carUsage.Id,
-                    StartUsageTimeUtc = carUsage.StartDateUtc
+                    RideId = ride.Id,
+                    StartDateUtc = ride.StartDateUtc
                 };
             }
         }

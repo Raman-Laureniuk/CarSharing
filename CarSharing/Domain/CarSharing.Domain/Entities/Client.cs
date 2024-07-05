@@ -16,6 +16,6 @@
         public bool IsBlocked { get; set; }
 
         public virtual ICollection<Wallet> Wallets { get; set; }
-        public virtual ICollection<CarUsage> CarUsages { get; set; }
+        public virtual ICollection<Ride> Rides { get; set; }
     }
 }

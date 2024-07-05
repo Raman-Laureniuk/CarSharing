@@ -15,6 +15,6 @@
 
         public virtual Tariff Tariff { get; set; }
         public virtual CarCoordinates Coordinates { get; set; }
-        public virtual ICollection<CarUsage> CarUsages { get; set; }
+        public virtual ICollection<Ride> Rides { get; set; }
     }
 }

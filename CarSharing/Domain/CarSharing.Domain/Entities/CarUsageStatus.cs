@@ -9,6 +9,6 @@
         public string NameKey { get; set; }
         public string DisplayName { get; set; }
 
-        public virtual ICollection<CarUsage> CarUsages { get; set; }
+        public virtual ICollection<Ride> CarUsages { get; set; }
     }
 }

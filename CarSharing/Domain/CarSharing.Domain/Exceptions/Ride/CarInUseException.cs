@@ -1,4 +1,4 @@
-﻿namespace CarSharing.Domain.Exceptions.CarUsage
+﻿namespace CarSharing.Domain.Exceptions.Ride
 {
     using System;
 

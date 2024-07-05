@@ -11,6 +11,6 @@
         public string EncryptedWalletData { get; set; }
 
         public virtual Client Client { get; set; }
-        public virtual ICollection<CarUsage> CarUsages { get; set; }
+        public virtual ICollection<Ride> Rides { get; set; }
     }
 }

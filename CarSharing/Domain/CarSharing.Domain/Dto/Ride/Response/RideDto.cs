@@ -1,10 +1,10 @@
-﻿namespace CarSharing.Domain.Dto.CarUsage.Response
+﻿namespace CarSharing.Domain.Dto.Ride.Response
 {
     using System;
 
-    public class CarUsageDto
+    public class RideDto
     {
-        public int CarUsageId { get; set; }
+        public int RideId { get; set; }
         public Guid ClientId { get; set; }
         public int WalletId { get; set; }
         public Guid CarId { get; set; }

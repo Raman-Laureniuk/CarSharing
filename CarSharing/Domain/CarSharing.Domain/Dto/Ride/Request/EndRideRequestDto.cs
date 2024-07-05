@@ -1,8 +1,8 @@
-﻿namespace CarSharing.Domain.Dto.CarUsage.Request
+﻿namespace CarSharing.Domain.Dto.Ride.Request
 {
     using System;
 
-    public class EndUsageRequestDto
+    public class EndRideRequestDto
     {
         public Guid CarId { get; set; }
         public Guid ClientId { get; set; }
