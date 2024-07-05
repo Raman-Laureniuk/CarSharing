@@ -40,7 +40,7 @@
 
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                List<Ride> activeRides = await repo.GetRides(request.ClientId, RideStatus.Active);
+                List<Ride> activeRides = await repo.GetRidesAsync(request.ClientId, RideStatus.Active);
 
                 if (activeRides?.Any() ?? false)
                 {
