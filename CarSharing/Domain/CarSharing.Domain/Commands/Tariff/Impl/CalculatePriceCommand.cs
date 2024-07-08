@@ -8,6 +8,20 @@
     {
         public CalculatePriceResponseDto Execute(CalculatePriceRequestDto request)
         {
+            Check(request);
+            
+            decimal pricePerHour = request.Tariff.PricePerHour;
+            int totalHours = (int)Math.Ceiling(request.RidePeriod.TotalHours);
+            decimal price = pricePerHour * totalHours;
+
+            return new CalculatePriceResponseDto()
+            {
+                Price = price
+            };
+        }
+
+        private void Check(CalculatePriceRequestDto request)
+        {
             if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
@@ -17,15 +31,6 @@
             {
                 throw new ArgumentNullException(nameof(request.Tariff));
             }
-
-            decimal pricePerHour = request.Tariff.PricePerHour;
-            int totalHours = (int)Math.Ceiling(request.RidePeriod.TotalHours);
-            decimal price = pricePerHour * totalHours;
-
-            return new CalculatePriceResponseDto()
-            {
-                Price = price
-            };
         }
     }
 }
