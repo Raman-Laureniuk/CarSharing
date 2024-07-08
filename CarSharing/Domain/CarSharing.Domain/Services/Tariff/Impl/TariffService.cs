@@ -12,21 +12,29 @@
         private readonly IDeleteTariffCommandAsync _deleteTariffCommand;
         private readonly IGetTariffsCommandAsync _getTariffsCommand;
         private readonly IUpdateTariffCommandAsync _updateTariffCommand;
+        private readonly ICalculatePriceCommand _calculatePriceCommand;
 
         public TariffService(IAddTariffCommandAsync addTariffCommand,
             IDeleteTariffCommandAsync deleteTariffCommand,
             IGetTariffsCommandAsync getTariffsCommand,
-            IUpdateTariffCommandAsync updateTariffCommand)
+            IUpdateTariffCommandAsync updateTariffCommand,
+            ICalculatePriceCommand calculatePriceCommand)
         {
             _addTariffCommand = addTariffCommand ?? throw new ArgumentNullException(nameof(addTariffCommand));
             _deleteTariffCommand = deleteTariffCommand ?? throw new ArgumentNullException(nameof(deleteTariffCommand));
             _getTariffsCommand = getTariffsCommand ?? throw new ArgumentNullException(nameof(getTariffsCommand));
             _updateTariffCommand = updateTariffCommand ?? throw new ArgumentNullException(nameof(updateTariffCommand));
+            _calculatePriceCommand = calculatePriceCommand ?? throw new ArgumentNullException(nameof(calculatePriceCommand));
         }
 
         public Task<AddTariffResponseDto> AddTariffAsync(AddTariffRequestDto request)
         {
             return _addTariffCommand.ExecuteAsync(request);
+        }
+
+        public CalculatePriceResponseDto CalculatePrice(CalculatePriceRequestDto request)
+        {
+            return _calculatePriceCommand.Execute(request);
         }
 
         public Task<DeleteTariffResponseDto> DeleteTariffAsync(DeleteTariffRequestDto request)

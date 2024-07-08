@@ -1,4 +1,4 @@
-﻿namespace CarSharing.Domain.Dto.Tariff.Response
+﻿namespace CarSharing.Domain.Dto.Tariff
 {
     public class TariffDto
     {

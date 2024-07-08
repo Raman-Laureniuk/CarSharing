@@ -10,5 +10,6 @@
         Task<UpdateTariffResponseDto> UpdateTariffAsync(UpdateTariffRequestDto request);
         Task<DeleteTariffResponseDto> DeleteTariffAsync(DeleteTariffRequestDto request);
         Task<GetTariffsResponseDto> GetTariffsAsync(GetTariffsRequestDto request);
+        CalculatePriceResponseDto CalculatePrice(CalculatePriceRequestDto request);
     }
 }
