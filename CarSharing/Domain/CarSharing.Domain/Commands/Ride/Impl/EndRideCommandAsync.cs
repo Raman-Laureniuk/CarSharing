@@ -58,6 +58,24 @@
 
         private decimal GetPrice(Ride ride)
         {
+            Check(ride);
+            
+            TimeSpan ridePeriod = ride.EndDateUtc.Value - ride.StartDateUtc;
+            TariffDto tariff = ride.Car.Tariff.ToTariffDto();
+
+            CalculatePriceRequestDto request = new CalculatePriceRequestDto()
+            {
+                Tariff = tariff,
+                RidePeriod = ridePeriod
+            };
+
+            CalculatePriceResponseDto response = _calculatePriceCommand.Execute(request);
+
+            return response.Price;
+        }
+
+        private void Check(Ride ride)
+        {
             if (ride == null)
             {
                 throw new ArgumentNullException(nameof(ride));
@@ -77,19 +95,6 @@
             {
                 throw new ArgumentNullException(nameof(ride.Car.Tariff));
             }
-
-            TimeSpan ridePeriod = ride.EndDateUtc.Value - ride.StartDateUtc;
-            TariffDto tariff = ride.Car.Tariff.ToTariffDto();
-
-            CalculatePriceRequestDto request = new CalculatePriceRequestDto()
-            {
-                Tariff = tariff,
-                RidePeriod = ridePeriod
-            };
-
-            CalculatePriceResponseDto response = _calculatePriceCommand.Execute(request);
-
-            return response.Price;
         }
     }
 }
