@@ -4,7 +4,7 @@
 
     public class EndRideRequestDto
     {
-        public Guid CarId { get; set; }
+        public int RideId { get; set; }
         public Guid ClientId { get; set; }
     }
 }

@@ -1,19 +1,20 @@
 ﻿namespace CarSharing.Domain.Commands.Ride.Impl
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using CarSharing.Domain.Commands.Ride;
     using CarSharing.Domain.Commands.Tariff;
+    using CarSharing.Domain.Dto.Payment.Request;
+    using CarSharing.Domain.Dto.Payment.Response;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Dto.Tariff;
     using CarSharing.Domain.Dto.Tariff.Request;
-    using CarSharing.Domain.Dto.Tariff.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Enums.Ride;
+    using CarSharing.Domain.Exceptions.Ride;
     using CarSharing.Domain.Mappers.Tariff;
+    using CarSharing.Domain.Providers.Payment;
     using CarSharing.Domain.Repository.Ride;
     using CarSharing.Domain.RepositoryFactory.Ride;
 
@@ -21,12 +22,15 @@
     {
         private readonly ICalculatePriceCommand _calculatePriceCommand;
         private readonly IRideRepositoryFactory _repoFactory;
+        private readonly IPaymentProvider _paymentProvider;
 
         public EndRideCommandAsync(ICalculatePriceCommand calculatePriceCommand,
-            IRideRepositoryFactory repoFactory)
+            IRideRepositoryFactory repoFactory,
+            IPaymentProvider paymentProvider)
         {
             _calculatePriceCommand = calculatePriceCommand ?? throw new ArgumentNullException(nameof(calculatePriceCommand));
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
+            _paymentProvider = paymentProvider ?? throw new ArgumentNullException(nameof(paymentProvider));
         }
 
         public async Task<EndRideResponseDto> ExecuteAsync(EndRideRequestDto request)
@@ -35,55 +39,49 @@
             {
                 throw new ArgumentNullException(nameof(request));
             }
-            
+
+            Ride ride = await GetRideAsync(request.RideId);
+            CheckRide(ride, request.ClientId);
+
+            DateTime endDateUtc = DateTime.UtcNow;
+            decimal price = GetPrice(ride.Car.Tariff.ToTariffDto(), endDateUtc - ride.StartDateUtc);
+
+            string authorizeToken = await AuthorizeAsync(price, ride.Wallet.EncryptedWalletData);
+
+            try
+            {
+                await UpdateRideAsync(ride, endDateUtc, price);
+            }
+            catch (Exception)
+            {
+                await CancelAsync(authorizeToken);
+
+                throw;
+            }
+
+            await FinalizeAsync(authorizeToken, price);
+
+            return new EndRideResponseDto()
+            {
+                Success = true,
+                EndDateUtc = endDateUtc,
+                TotalAmount = price
+            };
+        }
+
+        private async Task<Ride> GetRideAsync(int rideId)
+        {
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                List<Ride> rides = await repo.GetRidesForCarAndClientAsync(request.CarId, request.ClientId, RideStatus.Active);  // TODO: Include car with tariff
-                Ride ride = rides.Single();
-
-                ride.Status = RideStatus.Finished;
-                ride.EndDateUtc = DateTime.UtcNow;
-                ride.TotalAmount = GetPrice(ride);
-
-                await repo.UpdateAsync(ride, true);
-
-                return new EndRideResponseDto()
-                {
-                    Success = true,
-                    EndDateUtc = ride.EndDateUtc.Value,
-                    TotalAmount = ride.TotalAmount.Value
-                };
+                return await repo.GetByIdAsync(rideId, "Car.Tariff", "Wallet");
             }
         }
 
-        private decimal GetPrice(Ride ride)
-        {
-            Check(ride);
-            
-            TimeSpan ridePeriod = ride.EndDateUtc.Value - ride.StartDateUtc;
-            TariffDto tariff = ride.Car.Tariff.ToTariffDto();
-
-            CalculatePriceRequestDto request = new CalculatePriceRequestDto()
-            {
-                Tariff = tariff,
-                RidePeriod = ridePeriod
-            };
-
-            CalculatePriceResponseDto response = _calculatePriceCommand.Execute(request);
-
-            return response.Price;
-        }
-
-        private void Check(Ride ride)
+        private void CheckRide(Ride ride, Guid clientId)
         {
             if (ride == null)
             {
                 throw new ArgumentNullException(nameof(ride));
-            }
-
-            if (ride.EndDateUtc == null)
-            {
-                throw new ArgumentNullException(nameof(ride.EndDateUtc));
             }
 
             if (ride.Car == null)
@@ -95,6 +93,70 @@
             {
                 throw new ArgumentNullException(nameof(ride.Car.Tariff));
             }
+
+            if (ride.Wallet == null)
+            {
+                throw new ArgumentNullException(nameof(ride.Wallet));
+            }
+
+            if (ride.ClientId != clientId)
+            {
+                throw new ArgumentException($"Ride {ride.Id} doesn't belong to client {clientId}.");
+            }
+
+            if (ride.Status != RideStatus.Active)
+            {
+                throw new WrongStatusException($"Ride {ride.Id} has wrong status {ride.Status}.");
+            }
+        }
+
+        private decimal GetPrice(TariffDto tariff, TimeSpan period)
+        {
+            return _calculatePriceCommand.Execute(new CalculatePriceRequestDto()
+            {
+                RidePeriod = period,
+                Tariff = tariff
+            }).Price;
+        }
+
+        private async Task<string> AuthorizeAsync(decimal authorizeAmount, string encryptedWalletData)
+        {
+            AuthorizeResponseDto response = await _paymentProvider.AuthorizeAsync(new AuthorizeRequestDto()
+            {
+                AuthorizeAmount = authorizeAmount,
+                EncryptedWalletData = encryptedWalletData
+            });
+
+            return response.AuthorizeToken;
+        }
+
+        private async Task UpdateRideAsync(Ride ride, DateTime endDateUtc, decimal totalAmount)
+        {
+            ride.Status = RideStatus.Finished;
+            ride.EndDateUtc = endDateUtc;
+            ride.TotalAmount = totalAmount;
+
+            using (IRideRepository repo = _repoFactory.CreateRepository())
+            {
+                await repo.UpdateAsync(ride, true);
+            }
+        }
+
+        private Task FinalizeAsync(string authorizeToken, decimal finalizeAmount)
+        {
+            return _paymentProvider.FinalizeAsync(new FinalizeRequestDto()
+            {
+                AuthorizeToken = authorizeToken,
+                FinalizeAmount = finalizeAmount
+            });
+        }
+
+        private Task CancelAsync(string authorizeToken)
+        {
+            return _paymentProvider.CancelAsync(new CancelRequestDto()
+            {
+                AuthorizeToken = authorizeToken
+            });
         }
     }
 }
