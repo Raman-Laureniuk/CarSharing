@@ -46,7 +46,7 @@
             DateTime endDateUtc = DateTime.UtcNow;
             decimal price = GetPrice(ride.Car.Tariff.ToTariffDto(), endDateUtc - ride.StartDateUtc);
 
-            string authorizeToken = await AuthorizeAsync(price, ride.Wallet.EncryptedWalletData);
+            string authorizeToken = await AuthorizePaymentAsync(price, ride.Wallet.EncryptedWalletData);
 
             try
             {
@@ -54,12 +54,12 @@
             }
             catch (Exception)
             {
-                await CancelAsync(authorizeToken);
+                await CancelPaymentAsync(authorizeToken);
 
                 throw;
             }
 
-            await FinalizeAsync(authorizeToken, price);
+            await FinalizePaymentAsync(authorizeToken, price);
 
             return new EndRideResponseDto()
             {
@@ -74,6 +74,18 @@
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
                 return await repo.GetByIdAsync(rideId, "Car.Tariff", "Wallet");
+            }
+        }
+
+        private async Task UpdateRideAsync(Ride ride, DateTime endDateUtc, decimal totalAmount)
+        {
+            ride.Status = RideStatus.Finished;
+            ride.EndDateUtc = endDateUtc;
+            ride.TotalAmount = totalAmount;
+
+            using (IRideRepository repo = _repoFactory.CreateRepository())
+            {
+                await repo.UpdateAsync(ride, true);
             }
         }
 
@@ -119,7 +131,7 @@
             }).Price;
         }
 
-        private async Task<string> AuthorizeAsync(decimal authorizeAmount, string encryptedWalletData)
+        private async Task<string> AuthorizePaymentAsync(decimal authorizeAmount, string encryptedWalletData)
         {
             AuthorizeResponseDto response = await _paymentProvider.AuthorizeAsync(new AuthorizeRequestDto()
             {
@@ -130,19 +142,7 @@
             return response.AuthorizeToken;
         }
 
-        private async Task UpdateRideAsync(Ride ride, DateTime endDateUtc, decimal totalAmount)
-        {
-            ride.Status = RideStatus.Finished;
-            ride.EndDateUtc = endDateUtc;
-            ride.TotalAmount = totalAmount;
-
-            using (IRideRepository repo = _repoFactory.CreateRepository())
-            {
-                await repo.UpdateAsync(ride, true);
-            }
-        }
-
-        private Task FinalizeAsync(string authorizeToken, decimal finalizeAmount)
+        private Task FinalizePaymentAsync(string authorizeToken, decimal finalizeAmount)
         {
             return _paymentProvider.FinalizeAsync(new FinalizeRequestDto()
             {
@@ -151,7 +151,7 @@
             });
         }
 
-        private Task CancelAsync(string authorizeToken)
+        private Task CancelPaymentAsync(string authorizeToken)
         {
             return _paymentProvider.CancelAsync(new CancelRequestDto()
             {
