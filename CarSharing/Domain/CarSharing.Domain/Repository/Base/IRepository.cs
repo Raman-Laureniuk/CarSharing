@@ -11,7 +11,7 @@
         Task UpsertAsync(T item, bool commit = false);
         Task DeleteAsync(object id, bool commit = false);
         Task<List<T>> GetAllAsync();
-        Task<T> GetByIdAsync(object id);
+        Task<T> GetByIdAsync(object id, params string[] include);
 
         Task CommitAsync();
     }
