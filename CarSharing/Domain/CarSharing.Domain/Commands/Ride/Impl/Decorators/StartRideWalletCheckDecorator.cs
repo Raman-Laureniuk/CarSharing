@@ -29,6 +29,16 @@
             return await _decoratee.ExecuteAsync(request);
         }
 
+        private async Task ThrowIfWalletIsNotClients(Guid clientId, int walletId)
+        {
+            bool isClientsWallet = await IsClientsWallet(clientId, walletId);
+
+            if (!isClientsWallet)
+            {
+                throw new ArgumentException($"Wallet {walletId} doesn't belong to client {clientId}.");
+            }
+        }
+
         private async Task<bool> IsClientsWallet(Guid clientId, int walletId)
         {
             GetWalletsRequestDto request = new GetWalletsRequestDto()
@@ -42,16 +52,6 @@
                 ?.Wallets
                 ?.Select(x => x.WalletId)
                 .Contains(walletId) ?? false;
-        }
-
-        private async Task ThrowIfWalletIsNotClients(Guid clientId, int walletId)
-        {
-            bool isClientsWallet = await IsClientsWallet(clientId, walletId);
-
-            if (!isClientsWallet)
-            {
-                throw new ArgumentException($"Wallet {walletId} doesn't belong to client {clientId}.");
-            }
         }
     }
 }
