@@ -7,7 +7,17 @@
     {
         public bool Equals(TransactionItem x, TransactionItem y)
         {
-            return x?.TransactionId == y?.TransactionId;
+            if (x == null && y == null)
+            {
+                return true;
+            }
+
+            if (x == null || y == null)
+            {
+                return false;
+            }
+
+            return x.TransactionId == y.TransactionId;
         }
 
         public int GetHashCode([DisallowNull] TransactionItem obj)
