@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarSharing.Domain", "Domain
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{471CE9EE-8944-47C3-ABCD-EB101AF22767}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.Infrastructure", "Infrastructure\CarSharing.Infrastructure\CarSharing.Infrastructure.csproj", "{927925F8-E86A-465B-AB53-C3778D5D7568}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarSharing.Infrastructure", "Infrastructure\CarSharing.Infrastructure\CarSharing.Infrastructure.csproj", "{927925F8-E86A-465B-AB53-C3778D5D7568}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.Repository.Entity", "Infrastructure\CarSharing.Repository.Entity\CarSharing.Repository.Entity.csproj", "{7037237A-844B-4AF1-91A8-3CB00B58BAD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{927925F8-E86A-465B-AB53-C3778D5D7568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{927925F8-E86A-465B-AB53-C3778D5D7568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{927925F8-E86A-465B-AB53-C3778D5D7568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7037237A-844B-4AF1-91A8-3CB00B58BAD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7037237A-844B-4AF1-91A8-3CB00B58BAD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7037237A-844B-4AF1-91A8-3CB00B58BAD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7037237A-844B-4AF1-91A8-3CB00B58BAD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{AECBF453-AC80-4CF9-981A-DF9DDE55ECB6} = {737BE423-9A00-4063-99CC-CDF867883093}
 		{927925F8-E86A-465B-AB53-C3778D5D7568} = {471CE9EE-8944-47C3-ABCD-EB101AF22767}
+		{7037237A-844B-4AF1-91A8-3CB00B58BAD8} = {471CE9EE-8944-47C3-ABCD-EB101AF22767}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D49C77C1-94A0-4B75-845D-16BB1313C271}
