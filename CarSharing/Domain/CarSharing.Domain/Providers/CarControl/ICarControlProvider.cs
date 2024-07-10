@@ -4,7 +4,7 @@
     using CarSharing.Domain.Dto.CarControl.Request;
     using CarSharing.Domain.Dto.CarControl.Response;
 
-    internal interface ICarControlProvider
+    public interface ICarControlProvider
     {
         Task<LockResponseDto> LockCarAsync(LockRequestDto request);
         Task<UnlockResponseDto> UnlockCarAsync(UnlockRequestDto request);

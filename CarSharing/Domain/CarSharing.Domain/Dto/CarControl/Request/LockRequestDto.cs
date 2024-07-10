@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class LockRequestDto
+    public class LockRequestDto
     {
         public Guid CarId { get; set; }
     }
