@@ -1,8 +1,8 @@
-﻿namespace CarSharing.Domain.Commands.Ride.Impl.Decorators
+﻿namespace CarSharing.Domain.Commands.Ride.End.Impl.Decorators
 {
     using System;
     using System.Threading.Tasks;
-    using CarSharing.Domain.Commands.Ride;
+    using CarSharing.Domain.Commands.Ride.End;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Entities;

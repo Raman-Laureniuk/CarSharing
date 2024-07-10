@@ -1,4 +1,4 @@
-﻿namespace CarSharing.Domain.Commands.Ride
+﻿namespace CarSharing.Domain.Commands.Ride.Start
 {
     using CarSharing.Domain.Commands.Base;
     using CarSharing.Domain.Dto.Ride.Request;

@@ -1,9 +1,9 @@
-﻿namespace CarSharing.Domain.Commands.Ride.Impl.Decorators
+﻿namespace CarSharing.Domain.Commands.Ride.Start.Impl.Decorators
 {
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using CarSharing.Domain.Commands.Ride;
+    using CarSharing.Domain.Commands.Ride.Start;
     using CarSharing.Domain.Commands.Wallet;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
@@ -21,7 +21,7 @@
             _getWalletsCommand = getWalletsCommand ?? throw new ArgumentNullException(nameof(getWalletsCommand));
             _decoratee = decoratee ?? throw new ArgumentNullException(nameof(decoratee));
         }
-        
+
         public async Task<StartRideResponseDto> ExecuteAsync(StartRideRequestDto request)
         {
             if (request != null)

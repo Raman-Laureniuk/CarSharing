@@ -1,8 +1,8 @@
-﻿namespace CarSharing.Domain.Commands.Ride.Impl
+﻿namespace CarSharing.Domain.Commands.Ride.End.Impl
 {
     using System;
     using System.Threading.Tasks;
-    using CarSharing.Domain.Commands.Ride;
+    using CarSharing.Domain.Commands.Ride.End;
     using CarSharing.Domain.Commands.Tariff;
     using CarSharing.Domain.Dto.Payment.Request;
     using CarSharing.Domain.Dto.Payment.Response;

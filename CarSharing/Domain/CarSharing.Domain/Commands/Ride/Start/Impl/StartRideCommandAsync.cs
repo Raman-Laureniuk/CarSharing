@@ -1,38 +1,44 @@
-﻿namespace CarSharing.Domain.Commands.Ride.Impl
+﻿namespace CarSharing.Domain.Commands.Ride.Start.Impl
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
-    using CarSharing.Domain.Commands.Ride;
+    using CarSharing.Domain.Commands.Ride.Start;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Entities;
-    using CarSharing.Domain.Mappers.Ride.Response;
+    using CarSharing.Domain.Mappers.Ride.Request;
     using CarSharing.Domain.Repository.Ride;
     using CarSharing.Domain.RepositoryFactory.Ride;
 
-    internal class GetRideHistoryCommandAsync : IGetRideHistoryCommandAsync
+    internal class StartRideCommandAsync : IStartRideCommandAsync
     {
         private readonly IRideRepositoryFactory _repoFactory;
 
-        public GetRideHistoryCommandAsync(IRideRepositoryFactory repoFactory)
+        public StartRideCommandAsync(IRideRepositoryFactory repoFactory)
         {
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<GetRideHistoryResponseDto> ExecuteAsync(GetRideHistoryRequestDto request)
+        public async Task<StartRideResponseDto> ExecuteAsync(StartRideRequestDto request)
         {
             if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
 
+            Ride ride = request.ToRideEntity();
+
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                List<Ride> rides = await repo.GetRidesForClientAsync(request.ClientId);
-
-                return rides.ToGetRideHistoryResponseDto();
+                await repo.CreateAsync(ride, true);
             }
+
+            return new StartRideResponseDto()
+            {
+                Success = true,
+                RideId = ride.Id,
+                StartDateUtc = ride.StartDateUtc
+            };
         }
     }
 }

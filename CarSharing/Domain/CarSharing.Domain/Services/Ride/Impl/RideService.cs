@@ -2,7 +2,9 @@
 {
     using System;
     using System.Threading.Tasks;
-    using CarSharing.Domain.Commands.Ride;
+    using CarSharing.Domain.Commands.Ride.End;
+    using CarSharing.Domain.Commands.Ride.GetHistory;
+    using CarSharing.Domain.Commands.Ride.Start;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
 
