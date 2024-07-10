@@ -2,7 +2,7 @@
 {
     public class FinalizeRequestDto
     {
-        public string AuthorizeToken { get; set; }
+        public string TransactionId { get; set; }
         public decimal FinalizeAmount { get; set; }
     }
 }

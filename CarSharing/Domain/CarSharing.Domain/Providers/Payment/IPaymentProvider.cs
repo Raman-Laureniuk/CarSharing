@@ -4,7 +4,7 @@
     using CarSharing.Domain.Dto.Payment.Request;
     using CarSharing.Domain.Dto.Payment.Response;
 
-    internal interface IPaymentProvider
+    public interface IPaymentProvider
     {
         Task<AuthorizeResponseDto> AuthorizeAsync(AuthorizeRequestDto request);
         Task<FinalizeResponseDto> FinalizeAsync(FinalizeRequestDto request);

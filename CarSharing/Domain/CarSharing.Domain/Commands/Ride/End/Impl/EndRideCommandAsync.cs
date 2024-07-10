@@ -44,7 +44,7 @@
             DateTime endDateUtc = DateTime.UtcNow;
             decimal price = GetPrice(ride.Car.Tariff.ToTariffDto(), endDateUtc - ride.StartDateUtc);
 
-            string authorizeToken = await AuthorizePaymentAsync(price, ride.Wallet.EncryptedWalletData);
+            string transactionId = await AuthorizePaymentAsync(price, ride.Wallet.EncryptedWalletData);
 
             try
             {
@@ -52,12 +52,12 @@
             }
             catch (Exception)
             {
-                await CancelPaymentAsync(authorizeToken);
+                await CancelPaymentAsync(transactionId);
 
                 throw;
             }
 
-            await FinalizePaymentAsync(authorizeToken, price);
+            await FinalizePaymentAsync(transactionId, price);
 
             return new EndRideResponseDto()
             {
@@ -104,23 +104,23 @@
                 EncryptedWalletData = encryptedWalletData
             });
 
-            return response.AuthorizeToken;
+            return response.TransactionId;
         }
 
-        private Task FinalizePaymentAsync(string authorizeToken, decimal finalizeAmount)
+        private Task FinalizePaymentAsync(string transactionId, decimal finalizeAmount)
         {
             return _paymentProvider.FinalizeAsync(new FinalizeRequestDto()
             {
-                AuthorizeToken = authorizeToken,
+                TransactionId = transactionId,
                 FinalizeAmount = finalizeAmount
             });
         }
 
-        private Task CancelPaymentAsync(string authorizeToken)
+        private Task CancelPaymentAsync(string transactionId)
         {
             return _paymentProvider.CancelAsync(new CancelRequestDto()
             {
-                AuthorizeToken = authorizeToken
+                TransactionId = transactionId
             });
         }
     }

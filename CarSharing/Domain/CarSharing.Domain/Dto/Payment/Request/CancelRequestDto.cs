@@ -2,6 +2,6 @@
 {
     public class CancelRequestDto
     {
-        public string AuthorizeToken { get; set; }
+        public string TransactionId { get; set; }
     }
 }

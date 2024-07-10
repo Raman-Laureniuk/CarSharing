@@ -3,7 +3,6 @@
     public class AuthorizeResponseDto
     {
         public bool Success { get; set; }
-        public string AuthorizeToken { get; set; }
         public string TransactionId { get; set; }
     }
 }
