@@ -24,7 +24,10 @@
         
         public async Task<StartRideResponseDto> ExecuteAsync(StartRideRequestDto request)
         {
-            await ThrowIfWalletIsNotClients(request.ClientId, request.WalletId);
+            if (request != null)
+            {
+                await ThrowIfWalletIsNotClients(request.ClientId, request.WalletId);
+            }
 
             return await _decoratee.ExecuteAsync(request);
         }
