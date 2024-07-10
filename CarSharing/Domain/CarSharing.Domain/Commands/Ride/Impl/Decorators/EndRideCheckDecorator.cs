@@ -2,18 +2,21 @@
 {
     using System;
     using System.Threading.Tasks;
+    using CarSharing.Domain.Commands.Ride;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Entities;
+    using CarSharing.Domain.Enums.Ride;
+    using CarSharing.Domain.Exceptions.Ride;
     using CarSharing.Domain.Repository.Ride;
     using CarSharing.Domain.RepositoryFactory.Ride;
 
-    internal class EndRideClientCheckDecorator : IEndRideCommandAsync
+    internal class EndRideCheckDecorator : IEndRideCommandAsync
     {
         private IRideRepositoryFactory _repoFactory;
         private readonly IEndRideCommandAsync _decoratee;
 
-        public EndRideClientCheckDecorator(IRideRepositoryFactory repoFactory,
+        public EndRideCheckDecorator(IRideRepositoryFactory repoFactory,
             IEndRideCommandAsync decoratee)
         {
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
@@ -24,29 +27,32 @@
         {
             if (request != null)
             {
-                await ThrowIfWrongClient(request.RideId, request.ClientId);
+                await CheckRideAsync(request.RideId, request.ClientId);
             }
 
             return await _decoratee.ExecuteAsync(request);
         }
 
-        private async Task ThrowIfWrongClient(int rideId, Guid clientId)
+        private async Task CheckRideAsync(int rideId, Guid clientId)
         {
-            Guid rideClientId = await GetRideClientId(rideId);
+            Ride ride = await GetRideAsync(rideId);
 
-            if (rideClientId != clientId)
+            if (ride.ClientId != clientId)
             {
                 throw new ArgumentException($"Ride {rideId} doesn't belong to client {clientId}.");
             }
+
+            if (ride.Status != RideStatus.Active)
+            {
+                throw new WrongStatusException($"Ride {ride.Id} has wrong status {ride.Status}.");
+            }
         }
 
-        private async Task<Guid> GetRideClientId(int rideId)
+        private async Task<Ride> GetRideAsync(int rideId)
         {
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                Ride ride = await repo.GetByIdAsync(rideId);
-
-                return ride.ClientId;
+                return await repo.GetByIdAsync(rideId);
             }
         }
     }

@@ -12,7 +12,6 @@
     using CarSharing.Domain.Dto.Tariff.Request;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Enums.Ride;
-    using CarSharing.Domain.Exceptions.Ride;
     using CarSharing.Domain.Mappers.Tariff;
     using CarSharing.Domain.Providers.Payment;
     using CarSharing.Domain.Repository.Ride;
@@ -41,7 +40,6 @@
             }
 
             Ride ride = await GetRideAsync(request.RideId);
-            CheckRide(ride, request.ClientId);
 
             DateTime endDateUtc = DateTime.UtcNow;
             decimal price = GetPrice(ride.Car.Tariff.ToTariffDto(), endDateUtc - ride.StartDateUtc);
@@ -86,39 +84,6 @@
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
                 await repo.UpdateAsync(ride, true);
-            }
-        }
-
-        private void CheckRide(Ride ride, Guid clientId)
-        {
-            if (ride == null)
-            {
-                throw new ArgumentNullException(nameof(ride));
-            }
-
-            if (ride.Car == null)
-            {
-                throw new ArgumentNullException(nameof(ride.Car));
-            }
-
-            if (ride.Car.Tariff == null)
-            {
-                throw new ArgumentNullException(nameof(ride.Car.Tariff));
-            }
-
-            if (ride.Wallet == null)
-            {
-                throw new ArgumentNullException(nameof(ride.Wallet));
-            }
-
-            if (ride.ClientId != clientId)
-            {
-                throw new ArgumentException($"Ride {ride.Id} doesn't belong to client {clientId}.");
-            }
-
-            if (ride.Status != RideStatus.Active)
-            {
-                throw new WrongStatusException($"Ride {ride.Id} has wrong status {ride.Status}.");
             }
         }
 
