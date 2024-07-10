@@ -27,18 +27,21 @@
 
         public async Task<EndRideResponseDto> ExecuteAsync(EndRideRequestDto request)
         {
-            Guid carId = await GetCarIdAsync(request.RideId);
-            
             try
             {
                 return await _decoratee.ExecuteAsync(request);
             }
             finally
             {
-                await _carControlProvider.LockCarAsync(new LockRequestDto()
+                if (request != null)
                 {
-                    CarId = carId
-                });
+                    Guid carId = await GetCarIdAsync(request.RideId);
+
+                    await _carControlProvider.LockCarAsync(new LockRequestDto()
+                    {
+                        CarId = carId
+                    });
+                }
             }
         }
 
