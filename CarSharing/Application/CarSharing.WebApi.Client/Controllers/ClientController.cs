@@ -19,6 +19,7 @@
             _clientService = clientService ?? throw new ArgumentNullException(nameof(clientService));
         }
 
+        [HttpPost]
         [Route("client/register")]
         public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync(AddClientRequestMessage request)
         {
@@ -27,6 +28,7 @@
             return Ok(response.ToAddClientResponseMessage());
         }
 
+        [HttpPut]
         [Route("client/update")]
         public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync(UpdateClientRequestMessage request)
         {
