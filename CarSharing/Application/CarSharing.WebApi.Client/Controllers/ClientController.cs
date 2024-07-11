@@ -22,7 +22,6 @@
         }
 
         [HttpPost]
-        [Route("register")]
         public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync(AddClientRequestMessage request)
         {
             AddClientResponseDto response = await _clientService.AddClientAsync(request.ToAddClientRequestDto());
@@ -31,7 +30,6 @@
         }
 
         [HttpPut]
-        [Route("update")]
         public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync(UpdateClientRequestMessage request)
         {
             UpdateClientResponseDto response = await _clientService.UpdateClientAsync(request.ToUpdateClientRequestDto());
