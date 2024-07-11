@@ -10,6 +10,7 @@
     using CarSharing.WebApi.Client.Messages.Client.Response;
     using Microsoft.AspNetCore.Mvc;
 
+    [ApiController]
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
