@@ -14,7 +14,8 @@
 
             return new DeleteWalletRequestDto()
             {
-                WalletId = deleteWalletRequestMessage.WalletId
+                WalletId = deleteWalletRequestMessage.WalletId,
+                ClientId = deleteWalletRequestMessage.ClientId
             };
         }
     }
