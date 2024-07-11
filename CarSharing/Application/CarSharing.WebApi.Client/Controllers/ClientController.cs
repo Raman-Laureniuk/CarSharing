@@ -22,7 +22,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync(AddClientRequestMessage request)
+        public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync([FromBody] AddClientRequestMessage request)
         {
             AddClientResponseDto response = await _clientService.AddClientAsync(request.ToAddClientRequestDto());
 
@@ -30,7 +30,7 @@
         }
 
         [HttpPut]
-        public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync(UpdateClientRequestMessage request)
+        public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync([FromBody] UpdateClientRequestMessage request)
         {
             UpdateClientResponseDto response = await _clientService.UpdateClientAsync(request.ToUpdateClientRequestDto());
 
