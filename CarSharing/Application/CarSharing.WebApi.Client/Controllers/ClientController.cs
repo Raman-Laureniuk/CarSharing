@@ -10,6 +10,7 @@
     using CarSharing.WebApi.Client.Messages.Client.Response;
     using Microsoft.AspNetCore.Mvc;
 
+    [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
     {
@@ -21,7 +22,7 @@
         }
 
         [HttpPost]
-        [Route("client/register")]
+        [Route("register")]
         public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync(AddClientRequestMessage request)
         {
             AddClientResponseDto response = await _clientService.AddClientAsync(request.ToAddClientRequestDto());
@@ -30,7 +31,7 @@
         }
 
         [HttpPut]
-        [Route("client/update")]
+        [Route("update")]
         public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync(UpdateClientRequestMessage request)
         {
             UpdateClientResponseDto response = await _clientService.UpdateClientAsync(request.ToUpdateClientRequestDto());
