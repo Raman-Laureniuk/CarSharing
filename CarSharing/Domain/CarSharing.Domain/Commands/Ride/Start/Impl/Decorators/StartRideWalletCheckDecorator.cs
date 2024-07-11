@@ -14,9 +14,10 @@
         private readonly ICheckWalletForClientCommandAsync _checkWalletForClientCommand;
         private readonly IStartRideCommandAsync _decoratee;
 
-        public StartRideWalletCheckDecorator(IGetWalletsCommandAsync getWalletsCommand,
+        public StartRideWalletCheckDecorator(ICheckWalletForClientCommandAsync checkWalletForClientCommand,
             IStartRideCommandAsync decoratee)
         {
+            _checkWalletForClientCommand = checkWalletForClientCommand ?? throw new ArgumentNullException(nameof(checkWalletForClientCommand));
             _decoratee = decoratee ?? throw new ArgumentNullException(nameof(decoratee));
         }
 
