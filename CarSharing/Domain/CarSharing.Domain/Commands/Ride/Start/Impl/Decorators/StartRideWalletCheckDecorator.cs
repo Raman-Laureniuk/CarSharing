@@ -1,7 +1,6 @@
 ﻿namespace CarSharing.Domain.Commands.Ride.Start.Impl.Decorators
 {
     using System;
-    using System.Linq;
     using System.Threading.Tasks;
     using CarSharing.Domain.Commands.Ride.Start;
     using CarSharing.Domain.Commands.Wallet;
@@ -12,13 +11,12 @@
 
     internal class StartRideWalletCheckDecorator : IStartRideCommandAsync
     {
-        private readonly IGetWalletsCommandAsync _getWalletsCommand;
+        private readonly ICheckWalletForClientCommandAsync _checkWalletForClientCommand;
         private readonly IStartRideCommandAsync _decoratee;
 
         public StartRideWalletCheckDecorator(IGetWalletsCommandAsync getWalletsCommand,
             IStartRideCommandAsync decoratee)
         {
-            _getWalletsCommand = getWalletsCommand ?? throw new ArgumentNullException(nameof(getWalletsCommand));
             _decoratee = decoratee ?? throw new ArgumentNullException(nameof(decoratee));
         }
 
@@ -44,17 +42,15 @@
 
         private async Task<bool> IsClientsWallet(Guid clientId, int walletId)
         {
-            GetWalletsRequestDto request = new GetWalletsRequestDto()
+            CheckWalletForClientRequestDto request = new CheckWalletForClientRequestDto()
             {
-                ClientId = clientId
+                ClientId = clientId,
+                WalletId = walletId
             };
 
-            GetWalletsResponseDto walletsResponse = await _getWalletsCommand.ExecuteAsync(request);
+            CheckWalletForClientResponseDto response = await _checkWalletForClientCommand.ExecuteAsync(request);
 
-            return walletsResponse
-                ?.Wallets
-                ?.Select(x => x.WalletId)
-                .Contains(walletId) ?? false;
+            return response?.DoesWalletBelongToClient ?? false;
         }
     }
 }
