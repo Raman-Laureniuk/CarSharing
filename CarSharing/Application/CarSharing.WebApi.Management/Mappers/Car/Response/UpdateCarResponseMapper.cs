@@ -1,0 +1,21 @@
+﻿namespace CarSharing.WebApi.Management.Mappers.Car.Response
+{
+    using CarSharing.Domain.Dto.Car.Response;
+    using CarSharing.WebApi.Management.Messages.Car.Response;
+
+    internal static class UpdateCarResponseMapper
+    {
+        public static UpdateCarResponseMessage ToUpdateCarResponseMessage(this UpdateCarResponseDto dto)
+        {
+            if (dto == null)
+            {
+                return null;
+            }
+
+            return new UpdateCarResponseMessage()
+            {
+                Success = dto.Success
+            };
+        }
+    }
+}
