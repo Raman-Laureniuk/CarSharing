@@ -18,7 +18,7 @@
 
             return new TariffDto()
             {
-                TariffId = tariff.Id,
+                TariffId = tariff.TariffId,
                 PricePerHour = tariff.PricePerHour
             };
         }

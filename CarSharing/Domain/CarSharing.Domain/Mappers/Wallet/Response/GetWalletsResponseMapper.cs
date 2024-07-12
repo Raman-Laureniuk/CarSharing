@@ -18,7 +18,7 @@
 
             return new WalletDto()
             {
-                WalletId = wallet.Id,
+                WalletId = wallet.WalletId,
                 ClientId = wallet.ClientId,
                 EncryptedWalletData = wallet.EncryptedWalletData
             };

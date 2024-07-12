@@ -4,7 +4,7 @@
 
     public class UpdateCarRequestMessage
     {
-        public Guid Id { get; set; }
+        public Guid CarId { get; set; }
         public string Model { get; set; }
         public int Year { get; set; }
         public string Color { get; set; }

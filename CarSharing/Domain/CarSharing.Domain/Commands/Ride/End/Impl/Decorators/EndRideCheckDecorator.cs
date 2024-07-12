@@ -44,7 +44,7 @@
 
             if (ride.Status != RideStatus.Active)
             {
-                throw new WrongStatusException($"Ride {ride.Id} has wrong status {ride.Status}.");
+                throw new WrongStatusException($"Ride {ride.RideId} has wrong status {ride.Status}.");
             }
         }
 

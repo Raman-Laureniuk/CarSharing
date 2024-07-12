@@ -18,7 +18,7 @@
 
             return new RideDto()
             {
-                RideId = ride.Id,
+                RideId = ride.RideId,
                 ClientId = ride.ClientId,
                 WalletId = ride.WalletId,
                 Car = ride.Car.ToCarDto(),

@@ -5,7 +5,7 @@
 
     public class Wallet
     {
-        public int Id { get; set; }
+        public int WalletId { get; set; }
         
         public Guid ClientId { get; set; }
         public string EncryptedWalletData { get; set; }

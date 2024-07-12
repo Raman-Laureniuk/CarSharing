@@ -5,7 +5,7 @@
 
     public class Ride
     {
-        public int Id { get; set; }
+        public int RideId { get; set; }
 
         public Guid ClientId { get; set; }
         public int WalletId { get; set; }

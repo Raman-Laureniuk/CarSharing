@@ -4,6 +4,6 @@
 
     public class AddCarResponseMessage
     {
-        public Guid Id { get; set; }
+        public Guid CarId { get; set; }
     }
 }

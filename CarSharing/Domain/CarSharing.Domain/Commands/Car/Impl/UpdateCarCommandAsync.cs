@@ -26,11 +26,11 @@
 
             using (ICarRepository repo = _repoFactory.CreateRepository())
             {
-                Car car = await repo.GetByIdAsync(request.Id);
+                Car car = await repo.GetByIdAsync(request.CarId);
 
                 if (car == null)
                 {
-                    throw new ArgumentOutOfRangeException($"Car {request.Id} not found.");
+                    throw new ArgumentOutOfRangeException($"Car {request.CarId} not found.");
                 }
 
                 car.Model = request.Model;

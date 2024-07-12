@@ -34,7 +34,7 @@
 
             return new AddTariffResponseDto()
             {
-                Id = tariff.Id
+                TariffId = tariff.TariffId
             };
         }
     }

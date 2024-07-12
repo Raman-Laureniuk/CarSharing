@@ -4,6 +4,6 @@
 
     public class AddCarResponseDto
     {
-        public Guid Id { get; set; }
+        public Guid CarId { get; set; }
     }
 }

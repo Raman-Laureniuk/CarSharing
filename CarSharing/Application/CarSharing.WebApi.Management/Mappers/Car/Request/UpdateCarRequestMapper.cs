@@ -14,7 +14,7 @@
 
             return new UpdateCarRequestDto()
             {
-                Id = message.Id,
+                CarId = message.CarId,
                 Model = message.Model,
                 Year = message.Year,
                 Color = message.Color,

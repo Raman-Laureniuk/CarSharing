@@ -18,7 +18,7 @@
 
             return new ClientDto()
             {
-                ClientId = client.Id,
+                ClientId = client.ClientId,
                 Name = client.Name,
                 Surname = client.Surname,
                 LicenseNumber = client.LicenseNumber,

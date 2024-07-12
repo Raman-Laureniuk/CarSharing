@@ -34,7 +34,7 @@
 
             return new AddWalletResponseDto()
             {
-                WalletId = wallet.Id
+                WalletId = wallet.WalletId
             };
         }
     }

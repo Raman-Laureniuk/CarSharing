@@ -2,6 +2,6 @@
 {
     public class AddTariffResponseDto
     {
-        public int Id { get; set; }
+        public int TariffId { get; set; }
     }
 }

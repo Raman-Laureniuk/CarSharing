@@ -36,7 +36,7 @@
             return new StartRideResponseDto()
             {
                 Success = true,
-                RideId = ride.Id,
+                RideId = ride.RideId,
                 StartDateUtc = ride.StartDateUtc
             };
         }

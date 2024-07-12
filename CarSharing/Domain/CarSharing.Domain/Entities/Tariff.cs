@@ -4,7 +4,7 @@
 
     public class Tariff
     {
-        public int Id { get; set; }
+        public int TariffId { get; set; }
 
         public decimal PricePerHour { get; set; }
 
