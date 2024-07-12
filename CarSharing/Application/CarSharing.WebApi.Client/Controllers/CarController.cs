@@ -20,6 +20,7 @@
             _carService = carService ?? throw new ArgumentNullException(nameof(carService));
         }
 
+        // TODO: Return only available cars.
         [HttpGet]
         public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync()
         {
