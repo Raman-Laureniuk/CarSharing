@@ -31,7 +31,7 @@
         }
 
         [HttpDelete]
-        public async Task<ActionResult<DeleteWalletResponseMessage>> DeleteWalletAsync([FromQuery] int walletId, [FromQuery] Guid clientId)
+        public async Task<ActionResult<DeleteWalletResponseMessage>> DeleteWalletAsync([FromQuery] int walletId, [FromQuery] Guid clientId)  // TODO: Remove ClientId after auth implementation
         {
             DeleteWalletResponseDto response = await _walletService.DeleteWalletAsync(new DeleteWalletRequestDto()
             {
@@ -43,7 +43,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetWalletsResponseMessage>> GetWalletsAsync([FromQuery] Guid clientId)
+        public async Task<ActionResult<GetWalletsResponseMessage>> GetWalletsAsync([FromQuery] Guid clientId)  // TODO: Remove ClientId after auth implementation
         {
             GetWalletsResponseDto response = await _walletService.GetWalletsAsync(new GetWalletsRequestDto()
             {
