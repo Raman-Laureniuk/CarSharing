@@ -24,7 +24,7 @@
 
         [HttpPost]
         [Route("start")]
-        public async Task<ActionResult<StartRideResponseMessage>> StartRideAsync(StartRideRequestMessage request)
+        public async Task<ActionResult<StartRideResponseMessage>> StartRideAsync([FromBody] StartRideRequestMessage request)
         {
             StartRideResponseDto response = await _rideService.StartRideAsync(request.ToStartRideRequestDto());
 
@@ -33,7 +33,7 @@
 
         [HttpPost]
         [Route("end")]
-        public async Task<ActionResult<EndRideResponseMessage>> EndRideAsync(EndRideRequestMessage request)
+        public async Task<ActionResult<EndRideResponseMessage>> EndRideAsync([FromBody] EndRideRequestMessage request)
         {
             EndRideResponseDto response = await _rideService.EndRideAsync(request.ToEndRideRequestDto());
 
