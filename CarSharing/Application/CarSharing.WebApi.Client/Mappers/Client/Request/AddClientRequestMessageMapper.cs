@@ -5,20 +5,20 @@
 
     internal static class AddClientRequestMessageMapper
     {
-        public static AddClientRequestDto ToAddClientRequestDto(this AddClientRequestMessage AddClientRequestMessage)
+        public static AddClientRequestDto ToAddClientRequestDto(this AddClientRequestMessage message)
         {
-            if (AddClientRequestMessage == null)
+            if (message == null)
             {
                 return null;
             }
 
             return new AddClientRequestDto()
             {
-                Name = AddClientRequestMessage.Name,
-                Surname = AddClientRequestMessage.Surname,
-                LicenseNumber = AddClientRequestMessage.LicenseNumber,
-                PhoneNumber = AddClientRequestMessage.PhoneNumber,
-                Email = AddClientRequestMessage.Email
+                Name = message.Name,
+                Surname = message.Surname,
+                LicenseNumber = message.LicenseNumber,
+                PhoneNumber = message.PhoneNumber,
+                Email = message.Email
             };
         }
     }

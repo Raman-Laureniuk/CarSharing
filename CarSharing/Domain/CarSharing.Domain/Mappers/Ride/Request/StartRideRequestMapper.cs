@@ -7,18 +7,18 @@
 
     internal static class StartRideRequestMapper
     {
-        public static Ride ToRideEntity(this StartRideRequestDto startRideRequestDto)
+        public static Ride ToRideEntity(this StartRideRequestDto dto)
         {
-            if (startRideRequestDto == null)
+            if (dto == null)
             {
-                throw new ArgumentNullException(nameof(startRideRequestDto));
+                throw new ArgumentNullException(nameof(dto));
             }
 
             return new Ride()
             {
-                ClientId = startRideRequestDto.ClientId,
-                WalletId = startRideRequestDto.WalletId,
-                CarId = startRideRequestDto.CarId,
+                ClientId = dto.ClientId,
+                WalletId = dto.WalletId,
+                CarId = dto.CarId,
                 StartDateUtc = DateTime.UtcNow,
                 EndDateUtc = null,
                 TotalAmount = null,

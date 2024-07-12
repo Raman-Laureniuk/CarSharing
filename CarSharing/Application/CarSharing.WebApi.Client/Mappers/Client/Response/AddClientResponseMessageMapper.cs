@@ -5,16 +5,16 @@
 
     internal static class AddClientResponseMessageMapper
     {
-        public static AddClientResponseMessage ToAddClientResponseMessage(this AddClientResponseDto addClientResponseDto)
+        public static AddClientResponseMessage ToAddClientResponseMessage(this AddClientResponseDto dto)
         {
-            if (addClientResponseDto == null)
+            if (dto == null)
             {
                 return null;
             }
 
             return new AddClientResponseMessage()
             {
-                ClientId = addClientResponseDto.ClientId
+                ClientId = dto.ClientId
             };
         }
     }

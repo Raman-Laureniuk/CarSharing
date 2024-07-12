@@ -5,16 +5,16 @@
 
     internal static class UpdateClientResponseMessageMapper
     {
-        public static UpdateClientResponseMessage ToUpdateClientResponseMessage(this UpdateClientResponseDto updateClientResponseDto)
+        public static UpdateClientResponseMessage ToUpdateClientResponseMessage(this UpdateClientResponseDto dto)
         {
-            if (updateClientResponseDto == null)
+            if (dto == null)
             {
                 return null;
             }
 
             return new UpdateClientResponseMessage()
             {
-                Success = updateClientResponseDto.Success
+                Success = dto.Success
             };
         }
     }

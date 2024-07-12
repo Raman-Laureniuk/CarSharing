@@ -6,16 +6,16 @@
 
     internal static class AddTariffRequestMapper
     {
-        public static Tariff ToTariffEntity(this AddTariffRequestDto addTariffRequestDto)
+        public static Tariff ToTariffEntity(this AddTariffRequestDto dto)
         {
-            if (addTariffRequestDto == null)
+            if (dto == null)
             {
-                throw new ArgumentNullException(nameof(addTariffRequestDto));
+                throw new ArgumentNullException(nameof(dto));
             }
 
             return new Tariff()
             {
-                PricePerHour = addTariffRequestDto.PricePerHour
+                PricePerHour = dto.PricePerHour
             };
         }
     }

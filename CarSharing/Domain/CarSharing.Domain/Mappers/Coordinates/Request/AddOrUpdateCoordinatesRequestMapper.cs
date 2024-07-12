@@ -6,18 +6,18 @@
 
     internal static class AddOrUpdateCoordinatesRequestMapper
     {
-        public static CarCoordinates ToCarCoordinates(this AddOrUpdateCoordinatesRequestDto addOrUpdateCoordinatesRequestDto)
+        public static CarCoordinates ToCarCoordinates(this AddOrUpdateCoordinatesRequestDto dto)
         {
-            if (addOrUpdateCoordinatesRequestDto == null)
+            if (dto == null)
             {
-                throw new ArgumentNullException(nameof(addOrUpdateCoordinatesRequestDto));
+                throw new ArgumentNullException(nameof(dto));
             }
 
             return new CarCoordinates()
             {
-                CarId = addOrUpdateCoordinatesRequestDto.CarId,
-                Latitude = addOrUpdateCoordinatesRequestDto.Latitude,
-                Longitude = addOrUpdateCoordinatesRequestDto.Longitude
+                CarId = dto.CarId,
+                Latitude = dto.Latitude,
+                Longitude = dto.Longitude
             };
         }
     }

@@ -5,16 +5,16 @@
 
     internal static class DeleteWalletResponseMessageMapper
     {
-        public static DeleteWalletResponseMessage ToDeleteWalletResponseMessage(this DeleteWalletResponseDto deleteWalletResponseDto)
+        public static DeleteWalletResponseMessage ToDeleteWalletResponseMessage(this DeleteWalletResponseDto dto)
         {
-            if (deleteWalletResponseDto == null)
+            if (dto == null)
             {
                 return null;
             }
 
             return new DeleteWalletResponseMessage()
             {
-                Success = deleteWalletResponseDto.Success
+                Success = dto.Success
             };
         }
     }

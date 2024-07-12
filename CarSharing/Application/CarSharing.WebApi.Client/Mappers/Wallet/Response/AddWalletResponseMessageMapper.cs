@@ -5,16 +5,16 @@
 
     internal static class AddWalletResponseMessageMapper
     {
-        public static AddWalletResponseMessage ToAddWalletResponseMessage(this AddWalletResponseDto addWalletResponseDto)
+        public static AddWalletResponseMessage ToAddWalletResponseMessage(this AddWalletResponseDto dto)
         {
-            if (addWalletResponseDto == null)
+            if (dto == null)
             {
                 return null;
             }
 
             return new AddWalletResponseMessage()
             {
-                WalletId = addWalletResponseDto.WalletId
+                WalletId = dto.WalletId
             };
         }
     }

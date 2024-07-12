@@ -5,21 +5,21 @@
 
     internal static class UpdateClientRequestMessageMapper
     {
-        public static UpdateClientRequestDto ToUpdateClientRequestDto(this UpdateClientRequestMessage updateClientRequestMessage)
+        public static UpdateClientRequestDto ToUpdateClientRequestDto(this UpdateClientRequestMessage message)
         {
-            if (updateClientRequestMessage == null)
+            if (message == null)
             {
                 return null;
             }
 
             return new UpdateClientRequestDto()
             {
-                ClientId = updateClientRequestMessage.ClientId,
-                Name = updateClientRequestMessage.Name,
-                Surname = updateClientRequestMessage.Surname,
-                LicenseNumber = updateClientRequestMessage.LicenseNumber,
-                PhoneNumber = updateClientRequestMessage.PhoneNumber,
-                Email = updateClientRequestMessage.Email
+                ClientId = message.ClientId,
+                Name = message.Name,
+                Surname = message.Surname,
+                LicenseNumber = message.LicenseNumber,
+                PhoneNumber = message.PhoneNumber,
+                Email = message.Email
             };
         }
     }

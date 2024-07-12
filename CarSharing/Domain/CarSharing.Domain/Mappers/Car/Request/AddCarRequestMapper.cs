@@ -6,20 +6,20 @@
 
     internal static class AddCarRequestMapper
     {
-        public static Car ToCarEntity(this AddCarRequestDto addCarRequestDto)
+        public static Car ToCarEntity(this AddCarRequestDto dto)
         {
-            if (addCarRequestDto == null)
+            if (dto == null)
             {
-                throw new ArgumentNullException(nameof(addCarRequestDto));
+                throw new ArgumentNullException(nameof(dto));
             }
 
             return new Car()
             {
-                Model = addCarRequestDto.Model,
-                Year = addCarRequestDto.Year,
-                Color = addCarRequestDto.Color,
-                PlateNumber = addCarRequestDto.PlateNumber,
-                TariffId = addCarRequestDto.TariffId
+                Model = dto.Model,
+                Year = dto.Year,
+                Color = dto.Color,
+                PlateNumber = dto.PlateNumber,
+                TariffId = dto.TariffId
             };
         }
     }

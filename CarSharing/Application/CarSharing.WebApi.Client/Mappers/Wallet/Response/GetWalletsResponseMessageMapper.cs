@@ -5,16 +5,16 @@
 
     internal static class GetWalletsResponseMessageMapper
     {
-        public static GetWalletsResponseMessage ToGetWalletsResponseMessage(this GetWalletsResponseDto getWalletsResponseDto)
+        public static GetWalletsResponseMessage ToGetWalletsResponseMessage(this GetWalletsResponseDto dto)
         {
-            if (getWalletsResponseDto == null)
+            if (dto == null)
             {
                 return null;
             }
 
             return new GetWalletsResponseMessage()
             {
-                Wallets = getWalletsResponseDto.Wallets.ToWalletMessage()
+                Wallets = dto.Wallets.ToWalletMessage()
             };
         }
     }

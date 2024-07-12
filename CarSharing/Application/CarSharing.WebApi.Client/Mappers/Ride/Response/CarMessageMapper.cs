@@ -5,19 +5,19 @@
 
     internal static class CarMessageMapper
     {
-        public static CarMessage ToCarMessage(this CarDto carDto)
+        public static CarMessage ToCarMessage(this CarDto dto)
         {
-            if (carDto == null)
+            if (dto == null)
             {
                 return null;
             }
 
             return new CarMessage()
             {
-                CarId = carDto.CarId,
-                Model = carDto.Model,
-                Color = carDto.Color,
-                PlateNumber = carDto.PlateNumber
+                CarId = dto.CarId,
+                Model = dto.Model,
+                Color = dto.Color,
+                PlateNumber = dto.PlateNumber
             };
         }
     }

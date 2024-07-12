@@ -6,17 +6,17 @@
 
     internal static class AddWalletRequestMapper
     {
-        public static Wallet ToWalletEntity(this AddWalletRequestDto addWalletRequestDto)
+        public static Wallet ToWalletEntity(this AddWalletRequestDto dto)
         {
-            if (addWalletRequestDto == null)
+            if (dto == null)
             {
-                throw new ArgumentNullException(nameof(addWalletRequestDto));
+                throw new ArgumentNullException(nameof(dto));
             }
 
             return new Wallet()
             {
-                ClientId = addWalletRequestDto.ClientId,
-                EncryptedWalletData = addWalletRequestDto.EncryptedWalletData
+                ClientId = dto.ClientId,
+                EncryptedWalletData = dto.EncryptedWalletData
             };
         }
     }

@@ -8,29 +8,29 @@
 
     internal static class RideMessageMapper
     {
-        public static RideMessage ToRideMessage(this RideDto rideDto)
+        public static RideMessage ToRideMessage(this RideDto dto)
         {
-            if (rideDto == null)
+            if (dto == null)
             {
                 return null;
             }
 
             return new RideMessage()
             {
-                RideId = rideDto.RideId,
-                ClientId = rideDto.ClientId,
-                WalletId = rideDto.WalletId,
-                Car = rideDto.Car.ToCarMessage(),
-                StartDateUtc = rideDto.StartDateUtc,
-                EndDateUtc = rideDto.EndDateUtc,
-                TotalAmount = rideDto.TotalAmount,
-                Status = rideDto.Status
+                RideId = dto.RideId,
+                ClientId = dto.ClientId,
+                WalletId = dto.WalletId,
+                Car = dto.Car.ToCarMessage(),
+                StartDateUtc = dto.StartDateUtc,
+                EndDateUtc = dto.EndDateUtc,
+                TotalAmount = dto.TotalAmount,
+                Status = dto.Status
             };
         }
 
-        public static List<RideMessage> ToRideMessage(this IEnumerable<RideDto> rideDto)
+        public static List<RideMessage> ToRideMessage(this IEnumerable<RideDto> dto)
         {
-            return rideDto
+            return dto
                 .OrEmptyIfNull()
                 .Select(ToRideMessage)
                 .ToList();

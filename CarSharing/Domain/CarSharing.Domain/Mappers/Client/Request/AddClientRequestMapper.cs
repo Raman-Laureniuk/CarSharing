@@ -6,20 +6,20 @@
 
     internal static class AddClientRequestMapper
     {
-        public static Client ToClientEntity(this AddClientRequestDto addClientRequestDto)
+        public static Client ToClientEntity(this AddClientRequestDto dto)
         {
-            if (addClientRequestDto == null)
+            if (dto == null)
             {
-                throw new ArgumentNullException(nameof(addClientRequestDto));
+                throw new ArgumentNullException(nameof(dto));
             }
 
             return new Client()
             {
-                Name = addClientRequestDto.Name,
-                Surname = addClientRequestDto.Surname,
-                LicenseNumber = addClientRequestDto.LicenseNumber,
-                PhoneNumber = addClientRequestDto.PhoneNumber,
-                Email = addClientRequestDto.Email,
+                Name = dto.Name,
+                Surname = dto.Surname,
+                LicenseNumber = dto.LicenseNumber,
+                PhoneNumber = dto.PhoneNumber,
+                Email = dto.Email,
                 IsActive = false,
                 IsBlocked = false
             };

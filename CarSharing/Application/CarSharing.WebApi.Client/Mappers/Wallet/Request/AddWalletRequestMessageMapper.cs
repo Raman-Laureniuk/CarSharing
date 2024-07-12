@@ -5,17 +5,17 @@
 
     internal static class AddWalletRequestMessageMapper
     {
-        public static AddWalletRequestDto ToAddWalletRequestDto(this AddWalletRequestMessage addWalletRequestMessage)
+        public static AddWalletRequestDto ToAddWalletRequestDto(this AddWalletRequestMessage message)
         {
-            if (addWalletRequestMessage == null)
+            if (message == null)
             {
                 return null;
             }
 
             return new AddWalletRequestDto()
             {
-                ClientId = addWalletRequestMessage.ClientId,
-                EncryptedWalletData = addWalletRequestMessage.EncryptedWalletData
+                ClientId = message.ClientId,
+                EncryptedWalletData = message.EncryptedWalletData
             };
         }
     }
