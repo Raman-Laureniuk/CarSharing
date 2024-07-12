@@ -3,7 +3,7 @@
     using CarSharing.Domain.Dto.Client.Request;
     using CarSharing.WebApi.Client.Messages.Client.Request;
 
-    internal static class UpdateClientRequestMessageMapper
+    internal static class UpdateClientRequestMapper
     {
         public static UpdateClientRequestDto ToUpdateClientRequestDto(this UpdateClientRequestMessage message)
         {

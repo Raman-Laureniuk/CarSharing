@@ -3,18 +3,18 @@
     using CarSharing.Domain.Dto.Client.Response;
     using CarSharing.WebApi.Client.Messages.Client.Response;
 
-    internal static class AddClientResponseMessageMapper
+    internal static class UpdateClientResponseMapper
     {
-        public static AddClientResponseMessage ToAddClientResponseMessage(this AddClientResponseDto dto)
+        public static UpdateClientResponseMessage ToUpdateClientResponseMessage(this UpdateClientResponseDto dto)
         {
             if (dto == null)
             {
                 return null;
             }
 
-            return new AddClientResponseMessage()
+            return new UpdateClientResponseMessage()
             {
-                ClientId = dto.ClientId
+                Success = dto.Success
             };
         }
     }

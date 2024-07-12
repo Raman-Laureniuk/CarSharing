@@ -6,7 +6,7 @@
     using CarSharing.Domain.Tools.Extensions;
     using CarSharing.WebApi.Client.Messages.Wallet.Response;
 
-    internal static class WalletMessageMapper
+    internal static class WalletMapper
     {
         public static WalletMessage ToWalletMessage(this WalletDto dto)
         {

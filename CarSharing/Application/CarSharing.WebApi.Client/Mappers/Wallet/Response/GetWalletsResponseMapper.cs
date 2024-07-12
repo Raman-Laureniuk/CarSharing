@@ -3,18 +3,18 @@
     using CarSharing.Domain.Dto.Wallet.Response;
     using CarSharing.WebApi.Client.Messages.Wallet.Response;
 
-    internal static class AddWalletResponseMessageMapper
+    internal static class GetWalletsResponseMapper
     {
-        public static AddWalletResponseMessage ToAddWalletResponseMessage(this AddWalletResponseDto dto)
+        public static GetWalletsResponseMessage ToGetWalletsResponseMessage(this GetWalletsResponseDto dto)
         {
             if (dto == null)
             {
                 return null;
             }
 
-            return new AddWalletResponseMessage()
+            return new GetWalletsResponseMessage()
             {
-                WalletId = dto.WalletId
+                Wallets = dto.Wallets.ToWalletMessage()
             };
         }
     }

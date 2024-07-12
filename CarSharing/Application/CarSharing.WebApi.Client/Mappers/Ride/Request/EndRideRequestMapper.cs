@@ -3,7 +3,7 @@
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.WebApi.Client.Messages.Ride.Request;
 
-    internal static class EndRideRequestMessageMapper
+    internal static class EndRideRequestMapper
     {
         public static EndRideRequestDto ToEndRideRequestDto(this EndRideRequestMessage message)
         {

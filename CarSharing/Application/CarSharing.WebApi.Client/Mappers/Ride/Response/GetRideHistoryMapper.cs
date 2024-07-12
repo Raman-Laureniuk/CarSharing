@@ -3,21 +3,18 @@
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.WebApi.Client.Messages.Ride.Response;
 
-    internal static class CarMessageMapper
+    internal static class GetRideHistoryMapper
     {
-        public static CarMessage ToCarMessage(this CarDto dto)
+        public static GetRideHistoryResponseMessage ToGetRideHistoryResponseMessage(this GetRideHistoryResponseDto dto)
         {
             if (dto == null)
             {
                 return null;
             }
 
-            return new CarMessage()
+            return new GetRideHistoryResponseMessage()
             {
-                CarId = dto.CarId,
-                Model = dto.Model,
-                Color = dto.Color,
-                PlateNumber = dto.PlateNumber
+                Rides = dto.Rides.ToRideMessage()
             };
         }
     }

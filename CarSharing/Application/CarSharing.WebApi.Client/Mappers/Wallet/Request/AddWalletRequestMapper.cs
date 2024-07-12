@@ -3,7 +3,7 @@
     using CarSharing.Domain.Dto.Wallet.Request;
     using CarSharing.WebApi.Client.Messages.Wallet.Request;
 
-    internal static class AddWalletRequestMessageMapper
+    internal static class AddWalletRequestMapper
     {
         public static AddWalletRequestDto ToAddWalletRequestDto(this AddWalletRequestMessage message)
         {

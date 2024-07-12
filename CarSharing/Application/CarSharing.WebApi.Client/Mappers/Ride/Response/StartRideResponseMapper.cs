@@ -3,20 +3,20 @@
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.WebApi.Client.Messages.Ride.Response;
 
-    internal static class EndRideResponseMessageMapper
+    internal static class StartRideResponseMapper
     {
-        public static EndRideResponseMessage ToEndRideResponseMessage(this EndRideResponseDto dto)
+        public static StartRideResponseMessage ToStartRideResponseMessage(this StartRideResponseDto dto)
         {
             if (dto == null)
             {
                 return null;
             }
 
-            return new EndRideResponseMessage()
+            return new StartRideResponseMessage()
             {
                 Success = dto.Success,
-                EndDateUtc = dto.EndDateUtc,
-                TotalAmount = dto.TotalAmount
+                RideId = dto.RideId,
+                StartDateUtc = dto.StartDateUtc
             };
         }
     }

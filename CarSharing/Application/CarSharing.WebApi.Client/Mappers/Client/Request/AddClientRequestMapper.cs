@@ -3,7 +3,7 @@
     using CarSharing.Domain.Dto.Client.Request;
     using CarSharing.WebApi.Client.Messages.Client.Request;
 
-    internal static class AddClientRequestMessageMapper
+    internal static class AddClientRequestMapper
     {
         public static AddClientRequestDto ToAddClientRequestDto(this AddClientRequestMessage message)
         {

@@ -3,7 +3,7 @@
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.WebApi.Client.Messages.Ride.Request;
 
-    internal static class StartRideRequestMessageMapper
+    internal static class StartRideRequestMapper
     {
         public static StartRideRequestDto ToStartRideRequestDto(this StartRideRequestMessage message)
         {
