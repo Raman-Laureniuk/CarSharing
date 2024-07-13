@@ -7,10 +7,10 @@
     using CarSharing.Domain.Tools.Extensions;
     using Microsoft.EntityFrameworkCore;
 
-    public class Repository<T> : IRepository<T>
+    internal class Repository<T> : IRepository<T>
         where T : class
     {
-        private readonly CarSharingContext _context;
+        protected readonly CarSharingContext _context;
 
         public Repository(IConfigProvider configProvider)
         {
