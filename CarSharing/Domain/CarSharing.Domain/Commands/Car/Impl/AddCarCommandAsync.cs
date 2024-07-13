@@ -20,6 +20,11 @@
 
         public async Task<AddCarResponseDto> ExecuteAsync(AddCarRequestDto request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             Car car = request.ToCarEntity();
 
             using (ICarRepository repo = _repoFactory.CreateRepository())
