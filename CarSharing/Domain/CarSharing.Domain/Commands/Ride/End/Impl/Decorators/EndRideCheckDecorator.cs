@@ -7,7 +7,7 @@
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Enums.Ride;
-    using CarSharing.Domain.Exceptions.Ride;
+    using CarSharing.Domain.Exceptions;
     using CarSharing.Domain.Repository.Ride;
     using CarSharing.Domain.RepositoryFactory.Ride;
 
