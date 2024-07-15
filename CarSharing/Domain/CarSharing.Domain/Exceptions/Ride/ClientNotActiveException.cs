@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class ClientNotActiveException : ApplicationException
+    public class ClientNotActiveException : ApplicationException
     {
         public ClientNotActiveException()
             : base()
