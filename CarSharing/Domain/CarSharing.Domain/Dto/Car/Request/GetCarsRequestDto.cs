@@ -2,5 +2,6 @@
 {
     public class GetCarsRequestDto
     {
+        public bool? isAvailable { get; set; }
     }
 }

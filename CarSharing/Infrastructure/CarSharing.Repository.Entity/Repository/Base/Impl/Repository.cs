@@ -1,6 +1,7 @@
 ﻿namespace CarSharing.Repository.Entity.Repository.Base.Impl
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using CarSharing.Domain.Providers.Config;
     using CarSharing.Domain.Repository.Base;
@@ -58,10 +59,14 @@
 
         public Task<List<T>> GetAllAsync()
         {
-            return _context
-                .Set<T>()
+            return GetAllImpl()
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        protected IQueryable<T> GetAllImpl()
+        {
+            return _context.Set<T>();
         }
 
         public async Task<T> GetByIdAsync(object id, params string[] include)

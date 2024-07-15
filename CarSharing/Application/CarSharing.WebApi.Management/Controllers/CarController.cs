@@ -52,7 +52,10 @@
         [HttpGet]
         public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync()
         {
-            GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto());
+            GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()
+            {
+                isAvailable = null
+            });
 
             return Ok(response.ToGetCarsResponseMessage());
         }

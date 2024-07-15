@@ -20,11 +20,13 @@
             _carService = carService ?? throw new ArgumentNullException(nameof(carService));
         }
 
-        // TODO: Return only available cars.
         [HttpGet]
         public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync()
         {
-            GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto());
+            GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()
+            {
+                isAvailable = true
+            });
 
             return Ok(response.ToGetCarsResponseMessage());
         }

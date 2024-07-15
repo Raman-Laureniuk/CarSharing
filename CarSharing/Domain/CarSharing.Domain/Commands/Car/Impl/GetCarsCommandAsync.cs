@@ -21,9 +21,14 @@
 
         public async Task<GetCarsResponseDto> ExecuteAsync(GetCarsRequestDto request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+            
             using (ICarRepository repo = _repoFactory.CreateRepository())
             {
-                List<Car> cars = await repo.GetAllAsync();  // TODO: optimize with Include and Offset/Limit
+                List<Car> cars = await repo.GetAsync(request.isAvailable);  // TODO: optimize with Include and Offset/Limit
 
                 return cars.ToGetCarsResponseDto();
             }
