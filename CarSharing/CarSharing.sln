@@ -17,9 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarSharing.WebApi.Client", "Application\CarSharing.WebApi.Client\CarSharing.WebApi.Client.csproj", "{7593FC41-6FF4-4298-B29A-88117FF9BD59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.WebApi.Management", "Application\CarSharing.WebApi.Management\CarSharing.WebApi.Management.csproj", "{7AEE3996-0FED-4351-8062-21F5FFC04AFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarSharing.WebApi.Management", "Application\CarSharing.WebApi.Management\CarSharing.WebApi.Management.csproj", "{7AEE3996-0FED-4351-8062-21F5FFC04AFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.WebApi.Geo", "Application\CarSharing.WebApi.Geo\CarSharing.WebApi.Geo.csproj", "{025BDA8F-BD3F-422F-9529-865D73E31BD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarSharing.WebApi.Geo", "Application\CarSharing.WebApi.Geo\CarSharing.WebApi.Geo.csproj", "{025BDA8F-BD3F-422F-9529-865D73E31BD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.WebApi.Common", "Application\CarSharing.WebApi.Common\CarSharing.WebApi.Common.csproj", "{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{025BDA8F-BD3F-422F-9529-865D73E31BD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{025BDA8F-BD3F-422F-9529-865D73E31BD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{025BDA8F-BD3F-422F-9529-865D73E31BD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{7593FC41-6FF4-4298-B29A-88117FF9BD59} = {A6265DBB-4B00-4042-A4A2-A9FF1A7876FF}
 		{7AEE3996-0FED-4351-8062-21F5FFC04AFE} = {A6265DBB-4B00-4042-A4A2-A9FF1A7876FF}
 		{025BDA8F-BD3F-422F-9529-865D73E31BD2} = {A6265DBB-4B00-4042-A4A2-A9FF1A7876FF}
+		{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA} = {A6265DBB-4B00-4042-A4A2-A9FF1A7876FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D49C77C1-94A0-4B75-845D-16BB1313C271}
