@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class CarMessage
+    public class RideCarMessage
     {
         public Guid CarId { get; set; }
         public string Model { get; set; }
