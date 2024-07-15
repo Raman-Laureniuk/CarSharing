@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\CarSharing.Domain\CarSharing.Domain.csproj" />
+    <ProjectReference Include="..\CarSharing.WebApi.Common\CarSharing.WebApi.Common.csproj" />
   </ItemGroup>
 
 </Project>
