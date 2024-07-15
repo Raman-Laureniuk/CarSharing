@@ -6,6 +6,7 @@
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Entities;
+    using CarSharing.Domain.Exceptions;
     using CarSharing.Domain.Exceptions.Ride;
     using CarSharing.Domain.Repository.Client;
     using CarSharing.Domain.RepositoryFactory.Client;
@@ -47,6 +48,11 @@
             using (IClientRepository repo = _repoFactory.CreateRepository())
             {
                 Client client = await repo.GetByIdAsync(clientId);
+
+                if (client == null)
+                {
+                    throw new NotFoundException($"Client {clientId} not found.");
+                }
 
                 return client.IsActive;
             }
