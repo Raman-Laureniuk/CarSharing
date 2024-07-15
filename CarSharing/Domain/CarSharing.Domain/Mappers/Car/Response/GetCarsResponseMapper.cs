@@ -1,6 +1,5 @@
 ﻿namespace CarSharing.Domain.Mappers.Car.Response
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using CarSharing.Domain.Dto.Car.Response;
@@ -13,7 +12,7 @@
         {
             if (car == null)
             {
-                throw new ArgumentNullException(nameof(car));
+                return null;
             }
 
             return new CarDto()

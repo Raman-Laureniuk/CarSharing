@@ -11,7 +11,7 @@
         {
             if (dto == null)
             {
-                throw new ArgumentNullException(nameof(dto));
+                return null;
             }
 
             return new Ride()

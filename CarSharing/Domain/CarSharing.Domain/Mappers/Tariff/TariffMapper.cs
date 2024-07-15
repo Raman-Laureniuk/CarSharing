@@ -1,6 +1,5 @@
 ﻿namespace CarSharing.Domain.Mappers.Tariff
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using CarSharing.Domain.Dto.Tariff;
@@ -13,7 +12,7 @@
         {
             if (tariff == null)
             {
-                throw new ArgumentNullException(nameof(tariff));
+                return null;
             }
 
             return new TariffDto()

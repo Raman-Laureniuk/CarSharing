@@ -1,6 +1,5 @@
 ﻿namespace CarSharing.Domain.Mappers.Coordinates.Request
 {
-    using System;
     using CarSharing.Domain.Dto.Coordinates.Request;
     using CarSharing.Domain.Entities;
 
@@ -10,7 +9,7 @@
         {
             if (dto == null)
             {
-                throw new ArgumentNullException(nameof(dto));
+                return null;
             }
 
             return new CarCoordinates()

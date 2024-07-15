@@ -1,6 +1,5 @@
 ﻿namespace CarSharing.Domain.Mappers.Ride.Response
 {
-    using System;
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Entities;
 
@@ -10,7 +9,7 @@
         {
             if (car == null)
             {
-                throw new ArgumentNullException(nameof(car));
+                return null;
             }
 
             return new CarDto()

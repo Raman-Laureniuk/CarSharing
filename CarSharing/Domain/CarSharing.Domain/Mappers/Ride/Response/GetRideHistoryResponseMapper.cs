@@ -1,6 +1,5 @@
 ﻿namespace CarSharing.Domain.Mappers.Ride.Response
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using CarSharing.Domain.Dto.Ride.Response;
@@ -13,7 +12,7 @@
         {
             if (ride == null)
             {
-                throw new ArgumentNullException(nameof(ride));
+                return null;
             }
 
             return new RideDto()
