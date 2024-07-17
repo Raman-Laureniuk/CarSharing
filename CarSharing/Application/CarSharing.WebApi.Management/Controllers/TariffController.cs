@@ -5,10 +5,12 @@
     using CarSharing.Domain.Dto.Tariff.Request;
     using CarSharing.Domain.Dto.Tariff.Response;
     using CarSharing.Domain.Services.Tariff;
+    using CarSharing.WebApi.Common.Roles;
     using CarSharing.WebApi.Management.Mappers.Tariff.Request;
     using CarSharing.WebApi.Management.Mappers.Tariff.Response;
     using CarSharing.WebApi.Management.Messages.Tariff.Request;
     using CarSharing.WebApi.Management.Messages.Tariff.Response;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
@@ -23,6 +25,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleNames.ADMIN)]
         public async Task<ActionResult<AddTariffResponseMessage>> AddTariffAsync([FromBody] AddTariffRequestMessage request)
         {
             AddTariffResponseDto response = await _tariffService.AddTariffAsync(request.ToAddTariffRequestDto());
@@ -31,6 +34,7 @@
         }
 
         [HttpPut]
+        [Authorize(Roles = RoleNames.ADMIN)]
         public async Task<ActionResult<UpdateTariffResponseMessage>> UpdateTariffAsync([FromBody] UpdateTariffRequestMessage request)
         {
             UpdateTariffResponseDto response = await _tariffService.UpdateTariffAsync(request.ToUpdateTariffRequestDto());
@@ -39,6 +43,7 @@
         }
 
         [HttpDelete]
+        [Authorize(Roles = RoleNames.ADMIN)]
         public async Task<ActionResult<DeleteTariffResponseMessage>> DeleteTariffAsync([FromQuery] int tariffId)
         {
             DeleteTariffResponseDto response = await _tariffService.DeleteTariffAsync(new DeleteTariffRequestDto()
@@ -50,6 +55,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleNames.ADMIN)]
         public async Task<ActionResult<GetTariffsResponseMessage>> GetTariffsAsync()
         {
             GetTariffsResponseDto response = await _tariffService.GetTariffsAsync(new GetTariffsRequestDto());

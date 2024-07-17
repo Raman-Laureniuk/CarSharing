@@ -8,6 +8,8 @@
     using CarSharing.WebApi.Client.Mappers.Client.Response;
     using CarSharing.WebApi.Client.Messages.Client.Request;
     using CarSharing.WebApi.Client.Messages.Client.Response;
+    using CarSharing.WebApi.Common.Roles;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
@@ -30,6 +32,7 @@
         }
 
         [HttpPut]
+        [Authorize(Roles = RoleNames.USER)]
         public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync([FromBody] UpdateClientRequestMessage request)
         {
             UpdateClientResponseDto response = await _clientService.UpdateClientAsync(request.ToUpdateClientRequestDto());

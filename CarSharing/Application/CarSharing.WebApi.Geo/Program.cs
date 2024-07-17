@@ -1,9 +1,12 @@
 namespace CarSharing.WebApi.Geo
 {
+    using System.Text;
     using CarSharing.WebApi.Common.Handlers;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
 
     public class Program
     {
@@ -18,6 +21,20 @@ namespace CarSharing.WebApi.Geo
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddExceptionHandler<ExceptionHandler>();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["CarSharing.WebApi.Client.Auth.ValidIssuer"],
+                        ValidAudience = builder.Configuration["CarSharing.WebApi.Client.Auth.ValidAudience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["CarSharing.WebApi.Client.Auth.SigningKey"]))
+                    };
+                });
 
             var app = builder.Build();
 

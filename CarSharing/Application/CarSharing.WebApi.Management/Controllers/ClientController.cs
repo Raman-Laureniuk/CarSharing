@@ -5,10 +5,12 @@
     using CarSharing.Domain.Dto.Client.Request;
     using CarSharing.Domain.Dto.Client.Response;
     using CarSharing.Domain.Services.Client;
+    using CarSharing.WebApi.Common.Roles;
     using CarSharing.WebApi.Management.Mappers.Client.Request;
     using CarSharing.WebApi.Management.Mappers.Client.Response;
     using CarSharing.WebApi.Management.Messages.Client.Request;
     using CarSharing.WebApi.Management.Messages.Client.Response;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
@@ -23,6 +25,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleNames.ADMIN)]
         public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync([FromBody] AddClientRequestMessage request)
         {
             AddClientResponseDto response = await _clientService.AddClientAsync(request.ToAddClientRequestDto());
@@ -31,6 +34,7 @@
         }
 
         [HttpPut]
+        [Authorize(Roles = RoleNames.ADMIN)]
         public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync([FromBody] UpdateClientRequestMessage request)
         {
             UpdateClientResponseDto response = await _clientService.UpdateClientAsync(request.ToUpdateClientRequestDto());
@@ -39,6 +43,7 @@
         }
 
         [HttpDelete]
+        [Authorize(Roles = RoleNames.ADMIN)]
         public async Task<ActionResult<DeleteClientResponseMessage>> DeleteClientAsync([FromQuery] Guid clientId)
         {
             DeleteClientResponseDto response = await _clientService.DeleteClientAsync(new DeleteClientRequestDto()
@@ -50,6 +55,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleNames.ADMIN)]
         public async Task<ActionResult<GetClientsResponseMessage>> GetClientsAsync()  // TODO: offset/limit
         {
             GetClientsResponseDto response = await _clientService.GetClientsAsync(new GetClientsRequestDto());
@@ -58,6 +64,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleNames.ADMIN)]
         [Route("activate")]
         public async Task<ActionResult<ActivateClientResponseMessage>> ActivateClientAsync([FromBody] ActivateClientRequestMessage request)
         {
@@ -67,6 +74,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleNames.ADMIN)]
         [Route("deactivate")]
         public async Task<ActionResult<DeactivateClientResponseMessage>> DeactivateClientAsync([FromBody] DeactivateClientRequestMessage request)
         {
