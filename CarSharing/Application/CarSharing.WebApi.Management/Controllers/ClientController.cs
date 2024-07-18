@@ -24,24 +24,6 @@
             _clientService = clientService ?? throw new ArgumentNullException(nameof(clientService));
         }
 
-        [HttpPost]
-        [Authorize(Roles = RoleNames.ADMIN)]
-        public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync([FromBody] AddClientRequestMessage request)
-        {
-            AddClientResponseDto response = await _clientService.AddClientAsync(request.ToAddClientRequestDto());
-
-            return Ok(response.ToAddClientResponseMessage());
-        }
-
-        [HttpPut]
-        [Authorize(Roles = RoleNames.ADMIN)]
-        public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync([FromBody] UpdateClientRequestMessage request)
-        {
-            UpdateClientResponseDto response = await _clientService.UpdateClientAsync(request.ToUpdateClientRequestDto());
-
-            return Ok(response.ToUpdateClientResponseMessage());
-        }
-
         [HttpDelete]
         [Authorize(Roles = RoleNames.ADMIN)]
         public async Task<ActionResult<DeleteClientResponseMessage>> DeleteClientAsync([FromQuery] Guid clientId)
