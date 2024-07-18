@@ -24,7 +24,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.Geo)]
+        [Authorize(Roles = $"{RoleNames.Geo},{RoleNames.Admin}")]
         public async Task<ActionResult<AddOrUpdateCoordinatesResponseMessage>> AddOrUpdateCoordinatesAsync([FromBody] AddOrUpdateCoordinatesRequestMessage request)
         {
             AddUpdateCoordinatesResponseDto response = await _coordinatesService.AddOrUpdateCoordinatesAsync(request.ToAddOrUpdateCoordinatesRequestDto());
