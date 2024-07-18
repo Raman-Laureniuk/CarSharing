@@ -23,7 +23,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.USER)]
+        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync()
         {
             GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()

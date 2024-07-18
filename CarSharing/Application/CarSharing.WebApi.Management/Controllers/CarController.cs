@@ -25,7 +25,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<AddCarResponseMessage>> AddCarAsync([FromBody] AddCarRequestMessage request)
         {
             AddCarResponseDto response = await _carService.AddCarAsync(request.ToAddCarRequestDto());
@@ -34,7 +34,7 @@
         }
 
         [HttpPut]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<UpdateCarResponseMessage>> UpdateCarAsync([FromBody] UpdateCarRequestMessage request)
         {
             UpdateCarResponseDto response = await _carService.UpdateCarAsync(request.ToUpdateCarRequestDto());
@@ -43,7 +43,7 @@
         }
 
         [HttpDelete]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<DeleteCarResponseMessage>> DeleteCarAsync([FromQuery] Guid carId)
         {
             DeleteCarResponseDto response = await _carService.DeleteCarAsync(new DeleteCarRequestDto()
@@ -55,7 +55,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync()
         {
             GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()

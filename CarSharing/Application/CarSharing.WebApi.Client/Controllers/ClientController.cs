@@ -23,7 +23,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.USER)]
+        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync()
         {
             AddClientResponseDto response = await _clientService.AddClientAsync(User.ToAddClientRequestDto());
@@ -32,7 +32,7 @@
         }
 
         [HttpPut]
-        [Authorize(Roles = RoleNames.USER)]
+        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync()
         {
             UpdateClientResponseDto response = await _clientService.UpdateClientAsync(User.ToUpdateClientRequestDto());

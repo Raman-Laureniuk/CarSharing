@@ -25,7 +25,7 @@
         }
 
         [HttpDelete]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<DeleteClientResponseMessage>> DeleteClientAsync([FromQuery] Guid clientId)
         {
             DeleteClientResponseDto response = await _clientService.DeleteClientAsync(new DeleteClientRequestDto()
@@ -37,7 +37,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<GetClientsResponseMessage>> GetClientsAsync()  // TODO: offset/limit
         {
             GetClientsResponseDto response = await _clientService.GetClientsAsync(new GetClientsRequestDto());
@@ -46,7 +46,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         [Route("activate")]
         public async Task<ActionResult<ActivateClientResponseMessage>> ActivateClientAsync([FromBody] ActivateClientRequestMessage request)
         {
@@ -56,7 +56,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         [Route("deactivate")]
         public async Task<ActionResult<DeactivateClientResponseMessage>> DeactivateClientAsync([FromBody] DeactivateClientRequestMessage request)
         {

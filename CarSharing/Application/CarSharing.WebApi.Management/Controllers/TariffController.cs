@@ -25,7 +25,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<AddTariffResponseMessage>> AddTariffAsync([FromBody] AddTariffRequestMessage request)
         {
             AddTariffResponseDto response = await _tariffService.AddTariffAsync(request.ToAddTariffRequestDto());
@@ -34,7 +34,7 @@
         }
 
         [HttpPut]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<UpdateTariffResponseMessage>> UpdateTariffAsync([FromBody] UpdateTariffRequestMessage request)
         {
             UpdateTariffResponseDto response = await _tariffService.UpdateTariffAsync(request.ToUpdateTariffRequestDto());
@@ -43,7 +43,7 @@
         }
 
         [HttpDelete]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<DeleteTariffResponseMessage>> DeleteTariffAsync([FromQuery] int tariffId)
         {
             DeleteTariffResponseDto response = await _tariffService.DeleteTariffAsync(new DeleteTariffRequestDto()
@@ -55,7 +55,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.ADMIN)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<GetTariffsResponseMessage>> GetTariffsAsync()
         {
             GetTariffsResponseDto response = await _tariffService.GetTariffsAsync(new GetTariffsRequestDto());

@@ -25,7 +25,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.USER)]
+        [Authorize(Roles = RoleNames.User)]
         [Route("start")]
         public async Task<ActionResult<StartRideResponseMessage>> StartRideAsync([FromBody] StartRideRequestMessage request)
         {
@@ -35,7 +35,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.USER)]
+        [Authorize(Roles = RoleNames.User)]
         [Route("end")]
         public async Task<ActionResult<EndRideResponseMessage>> EndRideAsync([FromBody] EndRideRequestMessage request)
         {
@@ -45,7 +45,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.USER)]
+        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<GetRideHistoryResponseMessage>> GetRideHistoryAsync([FromQuery] Guid clientId)  // TODO: Remove clientId after auth implementation
         {
             GetRideHistoryResponseDto response = await _rideService.GetRideHistoryAsync(new GetRideHistoryRequestDto()

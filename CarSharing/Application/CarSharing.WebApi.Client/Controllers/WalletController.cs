@@ -25,7 +25,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.USER)]
+        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<AddWalletResponseMessage>> AddWalletAsync([FromBody] AddWalletRequestMessage request)
         {
             AddWalletResponseDto response = await _walletService.AddWalletAsync(request.ToAddWalletRequestDto());
@@ -34,7 +34,7 @@
         }
 
         [HttpDelete]
-        [Authorize(Roles = RoleNames.USER)]
+        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<DeleteWalletResponseMessage>> DeleteWalletAsync([FromQuery] int walletId, [FromQuery] Guid clientId)  // TODO: Remove ClientId after auth implementation
         {
             DeleteWalletResponseDto response = await _walletService.DeleteWalletAsync(new DeleteWalletRequestDto()
@@ -47,7 +47,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.USER)]
+        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<GetWalletsResponseMessage>> GetWalletsAsync([FromQuery] Guid clientId)  // TODO: Remove ClientId after auth implementation
         {
             GetWalletsResponseDto response = await _walletService.GetWalletsAsync(new GetWalletsRequestDto()
