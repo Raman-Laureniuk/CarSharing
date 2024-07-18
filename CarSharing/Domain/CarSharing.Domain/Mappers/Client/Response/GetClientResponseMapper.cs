@@ -23,8 +23,7 @@
                 LicenseNumber = client.LicenseNumber,
                 PhoneNumber = client.PhoneNumber,
                 Email = client.Email,
-                IsActive = client.IsActive,
-                IsBlocked = client.IsBlocked
+                IsActive = client.IsActive
             };
         }
 

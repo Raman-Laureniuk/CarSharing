@@ -19,8 +19,7 @@
                 LicenseNumber = dto.LicenseNumber,
                 PhoneNumber = dto.PhoneNumber,
                 Email = dto.Email,
-                IsActive = false,
-                IsBlocked = false
+                IsActive = false
             };
         }
     }

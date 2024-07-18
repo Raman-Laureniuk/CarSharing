@@ -12,7 +12,5 @@
         Task<GetClientsResponseDto> GetClientsAsync(GetClientsRequestDto request);
         Task<ActivateClientResponseDto> ActivateClientAsync(ActivateClientRequestDto request);
         Task<DeactivateClientResponseDto> DeactivateClientAsync(DeactivateClientRequestDto request);
-        Task<BlockClientResponseDto> BlockClientAsync(BlockClientRequestDto request);
-        Task<UnblockClientResponseDto> UnblockClientAsync(UnblockClientRequestDto request);
     }
 }

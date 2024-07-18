@@ -13,7 +13,6 @@
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
-        public bool IsBlocked { get; set; }
 
         public virtual ICollection<Wallet> Wallets { get; set; }
         public virtual ICollection<Ride> Rides { get; set; }
