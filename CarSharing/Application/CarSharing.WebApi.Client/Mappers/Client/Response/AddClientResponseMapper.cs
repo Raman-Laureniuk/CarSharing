@@ -14,7 +14,7 @@
 
             return new AddClientResponseMessage()
             {
-                ClientId = dto.ClientId
+                Success = dto.Success
             };
         }
     }

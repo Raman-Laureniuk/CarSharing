@@ -6,7 +6,6 @@
     using CarSharing.Domain.Services.Client;
     using CarSharing.WebApi.Client.Mappers.Client.Request;
     using CarSharing.WebApi.Client.Mappers.Client.Response;
-    using CarSharing.WebApi.Client.Messages.Client.Request;
     using CarSharing.WebApi.Client.Messages.Client.Response;
     using CarSharing.WebApi.Common.Roles;
     using Microsoft.AspNetCore.Authorization;
@@ -24,18 +23,19 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync([FromBody] AddClientRequestMessage request)
+        [Authorize(Roles = RoleNames.USER)]
+        public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync()
         {
-            AddClientResponseDto response = await _clientService.AddClientAsync(request.ToAddClientRequestDto());
+            AddClientResponseDto response = await _clientService.AddClientAsync(User.ToAddClientRequestDto());
 
             return Ok(response.ToAddClientResponseMessage());
         }
 
         [HttpPut]
         [Authorize(Roles = RoleNames.USER)]
-        public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync([FromBody] UpdateClientRequestMessage request)
+        public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync()
         {
-            UpdateClientResponseDto response = await _clientService.UpdateClientAsync(request.ToUpdateClientRequestDto());
+            UpdateClientResponseDto response = await _clientService.UpdateClientAsync(User.ToUpdateClientRequestDto());
 
             return Ok(response.ToUpdateClientResponseMessage());
         }

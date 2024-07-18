@@ -34,7 +34,7 @@
 
             return new AddClientResponseDto()
             {
-                ClientId = client.ClientId
+                Success = true
             };
         }
     }

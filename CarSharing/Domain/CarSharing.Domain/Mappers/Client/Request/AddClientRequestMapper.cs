@@ -14,6 +14,7 @@
 
             return new Client()
             {
+                ClientId = dto.ClientId,
                 Name = dto.Name,
                 Surname = dto.Surname,
                 LicenseNumber = dto.LicenseNumber,
