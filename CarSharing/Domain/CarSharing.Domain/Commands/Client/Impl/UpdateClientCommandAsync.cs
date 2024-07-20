@@ -10,13 +10,10 @@
 
     internal class UpdateClientCommandAsync : IUpdateClientCommandAsync
     {
-        private readonly IDeactivateClientCommandAsync _deactivateClientCommand;
         private readonly IClientRepositoryFactory _repoFactory;
 
-        public UpdateClientCommandAsync(IDeactivateClientCommandAsync deactivateClientCommand,
-            IClientRepositoryFactory repoFactory)
+        public UpdateClientCommandAsync(IClientRepositoryFactory repoFactory)
         {
-            _deactivateClientCommand = deactivateClientCommand ?? throw new ArgumentNullException(nameof(deactivateClientCommand));
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
@@ -44,13 +41,6 @@
 
                 await repo.UpdateAsync(client, true);
             }
-
-            DeactivateClientRequestDto deactivateRequest = new DeactivateClientRequestDto()
-            {
-                ClientId = request.ClientId
-            };
-
-            await _deactivateClientCommand.ExecuteAsync(deactivateRequest);  // New client data must be confirmend by administrator.  TODO: move to decoorator
 
             return new UpdateClientResponseDto()
             {
