@@ -9,6 +9,7 @@
     using CarSharing.WebApi.Client.Mappers.Wallet.Response;
     using CarSharing.WebApi.Client.Messages.Wallet.Request;
     using CarSharing.WebApi.Client.Messages.Wallet.Response;
+    using CarSharing.WebApi.Common.Claims;
     using CarSharing.WebApi.Common.Roles;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -28,15 +29,19 @@
         [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<AddWalletResponseMessage>> AddWalletAsync([FromBody] AddWalletRequestMessage request)
         {
-            AddWalletResponseDto response = await _walletService.AddWalletAsync(request.ToAddWalletRequestDto());
+            Guid clientId = ClaimsHelper.GetClientId(User);
+            
+            AddWalletResponseDto response = await _walletService.AddWalletAsync(request.ToAddWalletRequestDto(clientId));
 
             return Ok(response.ToAddWalletResponseMessage());
         }
 
         [HttpDelete]
         [Authorize(Roles = RoleNames.User)]
-        public async Task<ActionResult<DeleteWalletResponseMessage>> DeleteWalletAsync([FromQuery] int walletId, [FromQuery] Guid clientId)  // TODO: Remove ClientId after auth implementation
+        public async Task<ActionResult<DeleteWalletResponseMessage>> DeleteWalletAsync([FromQuery] int walletId)
         {
+            Guid clientId = ClaimsHelper.GetClientId(User);
+            
             DeleteWalletResponseDto response = await _walletService.DeleteWalletAsync(new DeleteWalletRequestDto()
             {
                 WalletId = walletId,
@@ -48,8 +53,10 @@
 
         [HttpGet]
         [Authorize(Roles = RoleNames.User)]
-        public async Task<ActionResult<GetWalletsResponseMessage>> GetWalletsAsync([FromQuery] Guid clientId)  // TODO: Remove ClientId after auth implementation
+        public async Task<ActionResult<GetWalletsResponseMessage>> GetWalletsAsync()
         {
+            Guid clientId = ClaimsHelper.GetClientId(User);
+            
             GetWalletsResponseDto response = await _walletService.GetWalletsAsync(new GetWalletsRequestDto()
             {
                 ClientId = clientId

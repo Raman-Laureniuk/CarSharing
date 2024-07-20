@@ -9,6 +9,7 @@
     using CarSharing.WebApi.Client.Mappers.Ride.Response;
     using CarSharing.WebApi.Client.Messages.Ride.Request;
     using CarSharing.WebApi.Client.Messages.Ride.Response;
+    using CarSharing.WebApi.Common.Claims;
     using CarSharing.WebApi.Common.Roles;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,9 @@
         [Route("start")]
         public async Task<ActionResult<StartRideResponseMessage>> StartRideAsync([FromBody] StartRideRequestMessage request)
         {
-            StartRideResponseDto response = await _rideService.StartRideAsync(request.ToStartRideRequestDto());
+            Guid clientId = ClaimsHelper.GetClientId(User);
+            
+            StartRideResponseDto response = await _rideService.StartRideAsync(request.ToStartRideRequestDto(clientId));
 
             return Ok(response.ToStartRideResponseMessage());
         }
@@ -39,15 +42,19 @@
         [Route("end")]
         public async Task<ActionResult<EndRideResponseMessage>> EndRideAsync([FromBody] EndRideRequestMessage request)
         {
-            EndRideResponseDto response = await _rideService.EndRideAsync(request.ToEndRideRequestDto());
+            Guid clientId = ClaimsHelper.GetClientId(User);
+
+            EndRideResponseDto response = await _rideService.EndRideAsync(request.ToEndRideRequestDto(clientId));
 
             return Ok(response.ToEndRideResponseMessage());
         }
 
         [HttpGet]
         [Authorize(Roles = RoleNames.User)]
-        public async Task<ActionResult<GetRideHistoryResponseMessage>> GetRideHistoryAsync([FromQuery] Guid clientId)  // TODO: Remove clientId after auth implementation
+        public async Task<ActionResult<GetRideHistoryResponseMessage>> GetRideHistoryAsync()
         {
+            Guid clientId = ClaimsHelper.GetClientId(User);
+
             GetRideHistoryResponseDto response = await _rideService.GetRideHistoryAsync(new GetRideHistoryRequestDto()
             {
                 ClientId = clientId
