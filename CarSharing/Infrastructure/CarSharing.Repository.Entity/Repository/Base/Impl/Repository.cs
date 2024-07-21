@@ -69,11 +69,23 @@
             return _context.Set<T>();
         }
 
+        public async Task<T> GetByIdAsync(object id)
+        {
+            T item = await GetByIdAsyncImpl(id);
+
+            if (item == null)
+            {
+                return item;
+            }
+
+            _context.Entry(item).State = EntityState.Detached;
+
+            return item;
+        }
+        
         public async Task<T> GetByIdAsync(object id, params string[] include)
         {
-            T item = await _context
-                .Set<T>()
-                .FindAsync(id);
+            T item = await GetByIdAsyncImpl(id);
 
             if (item == null)
             {
@@ -88,6 +100,13 @@
             _context.Entry(item).State = EntityState.Detached;
 
             return item;
+        }
+
+        protected ValueTask<T> GetByIdAsyncImpl(object id)
+        {
+            return _context
+                .Set<T>()
+                .FindAsync(id);
         }
 
         public Task UpdateAsync(T item, bool commit = false)
