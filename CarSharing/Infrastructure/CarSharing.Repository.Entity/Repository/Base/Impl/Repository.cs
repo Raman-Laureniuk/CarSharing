@@ -68,7 +68,9 @@
 
         public Task<List<T>> GetAsync<TSortKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending, int offset, int limit)
         {
-            IQueryable<T> items = GetAllImpl(sortKeySelector, sortAscending, offset, limit);
+            IQueryable<T> items = GetAllImpl();
+
+            items = OffsetLimitImpl(items, sortKeySelector, sortAscending, offset, limit);
 
             return items
                 .AsNoTracking()
@@ -77,8 +79,9 @@
 
         public Task<List<T>> GetAsync<TSortKey, TIncludeKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending, int offset, int limit, params Expression<Func<T, TIncludeKey>>[] includeKeys)
         {
-            IQueryable<T> items = GetAllImpl(sortKeySelector, sortAscending, offset, limit);
-
+            IQueryable<T> items = GetAllImpl();
+            
+            items = OffsetLimitImpl(items, sortKeySelector, sortAscending, offset, limit);
             items = IncludeImpl(items, includeKeys);
 
             return items
@@ -96,22 +99,22 @@
             return items;
         }
 
-        protected IQueryable<T> GetAllImpl<TSortKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending, int offset, int limit)
+        protected IQueryable<T> OffsetLimitImpl<TSortKey>(IQueryable<T> items, Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending, int offset, int limit)
         {
-            IQueryable<T> items = GetAllImpl(sortKeySelector, sortAscending);
-
-            items = items.Skip(offset).Take(limit);
+            items = SortImpl(items, sortKeySelector, sortAscending);
+            
+            items = items
+                .Skip(offset)
+                .Take(limit);
 
             return items;
         }
         
-        protected IQueryable<T> GetAllImpl<TSortKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending)
+        protected IQueryable<T> SortImpl<TSortKey>(IQueryable<T> items, Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending)
         {
-            IQueryable<T> items = GetAllImpl();
-
-            items = sortAscending ? items.OrderBy(sortKeySelector) : items.OrderByDescending(sortKeySelector);
-
-            return items;
+            return sortAscending
+                ? items.OrderBy(sortKeySelector)
+                : items.OrderByDescending(sortKeySelector);
         }
 
         protected IQueryable<T> GetAllImpl()
