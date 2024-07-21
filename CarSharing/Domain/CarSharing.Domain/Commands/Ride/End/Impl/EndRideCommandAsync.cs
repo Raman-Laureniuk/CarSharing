@@ -71,7 +71,7 @@
         {
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                return await repo.GetByIdAsync(rideId, "Car.Tariff", "Wallet");
+                return await repo.GetByIdAsync(rideId, x => x.Car.Tariff, x => x.Wallet);
             }
         }
 

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     public interface IRepository<T> : IDisposable
@@ -12,7 +13,7 @@
         Task DeleteAsync(object id, bool commit = false);
         Task<List<T>> GetAllAsync();
         Task<T> GetByIdAsync(object id);
-        Task<T> GetByIdAsync(object id, params string[] include);
+        Task<T> GetByIdAsync(object id, params Expression<Func<T, object>>[] include);
 
         Task CommitAsync();
     }

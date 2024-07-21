@@ -1,7 +1,9 @@
 ﻿namespace CarSharing.Repository.Entity.Repository.Base.Impl
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
     using CarSharing.Domain.Providers.Config;
     using CarSharing.Domain.Repository.Base;
@@ -83,7 +85,7 @@
             return item;
         }
         
-        public async Task<T> GetByIdAsync(object id, params string[] include)
+        public async Task<T> GetByIdAsync(object id, params Expression<Func<T, object>>[] include)
         {
             T item = await GetByIdAsyncImpl(id);
 
@@ -92,9 +94,9 @@
                 return item;
             }
 
-            foreach (string s in include.OrEmptyIfNull())
+            foreach (Expression<Func<T, object>> i in include.OrEmptyIfNull())
             {
-                await _context.Entry(item).Reference(s).LoadAsync();
+                await _context.Entry(item).Reference(i).LoadAsync();
             }
 
             _context.Entry(item).State = EntityState.Detached;
