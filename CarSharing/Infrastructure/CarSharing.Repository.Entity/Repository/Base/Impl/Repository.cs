@@ -66,6 +66,33 @@
                 .ToListAsync();
         }
 
+        public Task<List<T>> GetAsync<TSortKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending, int offset, int limit)
+        {
+            IQueryable<T> items = GetAllImpl(sortKeySelector, sortAscending, offset, limit);
+
+            return items
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        protected IQueryable<T> GetAllImpl<TSortKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending, int offset, int limit)
+        {
+            IQueryable<T> items = GetAllImpl();
+
+            items = items.Skip(offset).Take(limit);
+
+            return items;
+        }
+        
+        protected IQueryable<T> GetAllImpl<TSortKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending)
+        {
+            IQueryable<T> items = GetAllImpl();
+
+            items = sortAscending ? items.OrderBy(sortKeySelector) : items.OrderByDescending(sortKeySelector);
+
+            return items;
+        }
+
         protected IQueryable<T> GetAllImpl()
         {
             return _context.Set<T>();
