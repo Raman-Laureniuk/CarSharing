@@ -38,9 +38,13 @@
 
         [HttpGet]
         [Authorize(Roles = RoleNames.Admin)]
-        public async Task<ActionResult<GetClientsResponseMessage>> GetClientsAsync()  // TODO: offset/limit
+        public async Task<ActionResult<GetClientsResponseMessage>> GetClientsAsync([FromQuery] int offset, [FromQuery] int limit)
         {
-            GetClientsResponseDto response = await _clientService.GetClientsAsync(new GetClientsRequestDto());
+            GetClientsResponseDto response = await _clientService.GetClientsAsync(new GetClientsRequestDto()
+            {
+                Offset = offset,
+                Limit = limit
+            });
 
             return Ok(response.ToGetClientsResponseMessage());
         }

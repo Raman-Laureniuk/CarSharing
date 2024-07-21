@@ -21,9 +21,14 @@
 
         public async Task<GetClientsResponseDto> ExecuteAsync(GetClientsRequestDto request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+            
             using (IClientRepository repo = _repoFactory.CreateRepository())
             {
-                List<Client> clients = await repo.GetAllAsync();  // TODO: optimize with Offset/Limit
+                List<Client> clients = await repo.GetAsync(x => x.Surname, true, request.Offset, request.Limit);
 
                 return clients.ToGetClientsResponseDto();
             }
