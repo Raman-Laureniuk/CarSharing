@@ -98,7 +98,7 @@
 
         protected IQueryable<T> GetAllImpl<TSortKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending, int offset, int limit)
         {
-            IQueryable<T> items = GetAllImpl();
+            IQueryable<T> items = GetAllImpl(sortKeySelector, sortAscending);
 
             items = items.Skip(offset).Take(limit);
 
