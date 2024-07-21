@@ -75,6 +75,27 @@
                 .ToListAsync();
         }
 
+        public Task<List<T>> GetAsync<TSortKey, TIncludeKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending, int offset, int limit, params Expression<Func<T, TIncludeKey>>[] includeKeys)
+        {
+            IQueryable<T> items = GetAllImpl(sortKeySelector, sortAscending, offset, limit);
+
+            items = IncludeImpl(items, includeKeys);
+
+            return items
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        protected IQueryable<T> IncludeImpl<TIncludeKey>(IQueryable<T> items, params Expression<Func<T, TIncludeKey>>[] includeKeys)
+        {
+            foreach (Expression<Func<T, TIncludeKey>> key in includeKeys.OrEmptyIfNull())
+            {
+                items = items?.Include(key);
+            }
+
+            return items;
+        }
+
         protected IQueryable<T> GetAllImpl<TSortKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending, int offset, int limit)
         {
             IQueryable<T> items = GetAllImpl();
