@@ -6,6 +6,7 @@
     using CarSharing.Domain.Dto.Client.Request;
     using CarSharing.Domain.Dto.Client.Response;
     using CarSharing.Domain.Entities;
+    using CarSharing.Domain.Mappers.Client.Request;
     using CarSharing.Domain.Mappers.Client.Response;
     using CarSharing.Domain.Repository.Client;
     using CarSharing.Domain.RepositoryFactory.Client;
@@ -28,7 +29,7 @@
             
             using (IClientRepository repo = _repoFactory.CreateRepository())
             {
-                List<Client> clients = await repo.GetAsync(x => x.Surname, true, request.Offset, request.Limit);
+                List<Client> clients = await repo.GetAsync(request.OrderBy.ToSortKeySelector(), request.SortAscending, request.Offset, request.Limit);
 
                 return clients.ToGetClientsResponseDto();
             }

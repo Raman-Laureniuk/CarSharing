@@ -38,10 +38,12 @@
 
         [HttpGet]
         [Authorize(Roles = RoleNames.Admin)]
-        public async Task<ActionResult<GetClientsResponseMessage>> GetClientsAsync([FromQuery] int offset, [FromQuery] int limit)
+        public async Task<ActionResult<GetClientsResponseMessage>> GetClientsAsync([FromQuery] string orderBy, [FromQuery] bool sortAscending, [FromQuery] int offset, [FromQuery] int limit)
         {
             GetClientsResponseDto response = await _clientService.GetClientsAsync(new GetClientsRequestDto()
             {
+                OrderBy = orderBy,
+                SortAscending = sortAscending,
                 Offset = offset,
                 Limit = limit
             });
