@@ -56,11 +56,15 @@
 
         [HttpGet]
         [Authorize(Roles = RoleNames.Admin)]
-        public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync()
+        public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync([FromQuery] string orderBy, [FromQuery] bool sortAscending, [FromQuery] int offset, [FromQuery] int limit)
         {
             GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()
             {
-                isAvailable = null
+                IsAvailable = null,
+                OrderBy = orderBy,
+                SortAscending = sortAscending,
+                Offset = offset,
+                Limit = limit
             });
 
             return Ok(response.ToGetCarsResponseMessage());

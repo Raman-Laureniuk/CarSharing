@@ -1,7 +1,9 @@
 ﻿namespace CarSharing.Repository.Entity.Repository.Car.Impl
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Enums.Ride;
@@ -17,7 +19,12 @@
         {
         }
 
-        public Task<List<Car>> GetAsync(bool? isAvailable)
+        public Task<List<Car>> GetAsync<TSortKey>(bool? isAvailable,
+            Expression<Func<Car, TSortKey>> sortKeySelector,
+            bool sortAscending,
+            int offset,
+            int limit,
+            params Expression<Func<Car, object>>[] includeKeys)
         {
             IQueryable<Car> cars = GetAllImpl();
 
@@ -30,6 +37,9 @@
             {
                 cars = cars.Where(x => x.Rides != null || x.Rides.Any(r => r.Status == RideStatus.Active));
             }
+
+            cars = OffsetLimitImpl(cars, sortKeySelector, sortAscending, offset, limit);
+            cars = IncludeImpl(cars, includeKeys);
 
             return cars
                 .AsNoTracking()

@@ -6,6 +6,7 @@
     using CarSharing.Domain.Dto.Car.Request;
     using CarSharing.Domain.Dto.Car.Response;
     using CarSharing.Domain.Entities;
+    using CarSharing.Domain.Mappers.Car.Request;
     using CarSharing.Domain.Mappers.Car.Response;
     using CarSharing.Domain.Repository.Car;
     using CarSharing.Domain.RepositoryFactory.Car;
@@ -28,7 +29,13 @@
             
             using (ICarRepository repo = _repoFactory.CreateRepository())
             {
-                List<Car> cars = await repo.GetAsync(request.isAvailable);  // TODO: optimize with Include and Offset/Limit
+                List<Car> cars = await repo.GetAsync(isAvailable:       request.IsAvailable,
+                                                     sortKeySelector:   request.OrderBy.ToSortKeySelector(),
+                                                     sortAscending:     request.SortAscending,
+                                                     offset:            request.Offset,
+                                                     limit:             request.Limit,
+                                                                        x => x.Tariff,
+                                                                        x => x.Coordinates);
 
                 return cars.ToGetCarsResponseDto();
             }

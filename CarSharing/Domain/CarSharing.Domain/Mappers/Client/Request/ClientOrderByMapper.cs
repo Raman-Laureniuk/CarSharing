@@ -16,6 +16,7 @@
                 nameof(Client.LicenseNumber) =>     x => x.LicenseNumber,
                 nameof(Client.PhoneNumber) =>       x => x.PhoneNumber,
                 nameof(Client.Email) =>             x => x.Email,
+
                 _ =>                                throw new ArgumentOutOfRangeException(nameof(key))
             };
         }
