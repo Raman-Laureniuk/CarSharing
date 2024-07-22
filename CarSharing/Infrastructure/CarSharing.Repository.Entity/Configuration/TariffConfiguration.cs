@@ -8,7 +8,7 @@
     {
         public void Configure(EntityTypeBuilder<Tariff> builder)
         {
-            builder.HasKey(x => x.TariffId);
+            builder.HasKey(x => x.TariffId).IsClustered(true);
 
             builder.Property(x => x.TariffId).HasColumnName("TariffId").IsRequired(true).ValueGeneratedOnAdd();
             builder.Property(x => x.PricePerHour).HasColumnName("PricePerHour").IsRequired(true).HasPrecision(9, 2);

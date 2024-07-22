@@ -8,7 +8,7 @@
     {
         public void Configure(EntityTypeBuilder<Wallet> builder)
         {
-            builder.HasKey(x => x.WalletId);
+            builder.HasKey(x => x.WalletId).IsClustered(true);
 
             builder.Property(x => x.WalletId).HasColumnName("WalletId").IsRequired(true).ValueGeneratedOnAdd();
             builder.Property(x => x.ClientId).HasColumnName("ClientId").IsRequired(true);
@@ -16,6 +16,8 @@
 
             builder.HasOne(x => x.Client).WithMany(x => x.Wallets).HasForeignKey(x => x.ClientId).IsRequired(true).HasPrincipalKey(x => x.ClientId).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(x => x.Rides).WithOne(x => x.Wallet).HasForeignKey(x => x.WalletId).IsRequired(true).HasPrincipalKey(x => x.WalletId).OnDelete(DeleteBehavior.ClientNoAction);  // TODO: Client will not be able to delete wallet if wallet is in history.
+
+            builder.HasIndex(x => x.ClientId).IsClustered(false);
 
             builder.ToTable("dbo.Wallets");
         }
