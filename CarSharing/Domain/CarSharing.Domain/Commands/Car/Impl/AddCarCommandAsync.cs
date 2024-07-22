@@ -25,7 +25,7 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            Car car = request.ToCarEntity();
+            Car car = request.ToCarEntity();  // TODO: Generate CarId
 
             using (ICarRepository repo = _repoFactory.CreateRepository())
             {
