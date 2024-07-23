@@ -1,6 +1,6 @@
 ﻿namespace CarSharing.Domain.DI
 {
-    public interface IResolver
+    public interface IDependencyResolver
     {
         T Resolve<T>();
     }

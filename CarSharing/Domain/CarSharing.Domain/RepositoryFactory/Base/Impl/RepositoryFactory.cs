@@ -6,9 +6,9 @@
 
     public abstract class RepositoryFactory<TRepository> : IRepositoryFactory<TRepository>
     {
-        private readonly IResolver _resolver;
+        private readonly IDependencyResolver _resolver;
 
-        public RepositoryFactory(IResolver resolver)
+        public RepositoryFactory(IDependencyResolver resolver)
         {
             _resolver = resolver ?? throw new ArgumentNullException(nameof(resolver));
         }

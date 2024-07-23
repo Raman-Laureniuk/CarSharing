@@ -7,7 +7,7 @@
 
     public class CarRepositoryFactory : RepositoryFactory<ICarRepository>, ICarRepositoryFactory
     {
-        public CarRepositoryFactory(IResolver resolver)
+        public CarRepositoryFactory(IDependencyResolver resolver)
             : base(resolver)
         {
         }

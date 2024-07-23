@@ -9,5 +9,11 @@
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Domain\CarSharing.Domain\CarSharing.Domain.csproj" />
+	  <ProjectReference Include="..\..\Infrastructure\CarSharing.Infrastructure\CarSharing.Infrastructure.csproj" />
+	  <ProjectReference Include="..\..\Infrastructure\CarSharing.Repository.Entity\CarSharing.Repository.Entity.csproj" />
+	</ItemGroup>
 
 </Project>
