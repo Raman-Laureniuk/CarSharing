@@ -4,7 +4,7 @@
     using CarSharing.Domain.Entities;
     using Microsoft.EntityFrameworkCore;
 
-    internal class CarSharingContext : DbContext
+    public class CarSharingContext : DbContext
     {
         public CarSharingContext(DbContextOptions dbContextOptions)
             : base(dbContextOptions)
