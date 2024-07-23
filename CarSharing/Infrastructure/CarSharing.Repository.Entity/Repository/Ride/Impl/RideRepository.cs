@@ -12,8 +12,8 @@
 
     internal class RideRepository : Repository<Ride>, IRideRepository
     {
-        public RideRepository(DbContextOptions dbContextOptions)
-            : base(dbContextOptions)
+        public RideRepository(IDbContextFactory<CarSharingContext> dbContextFactory)
+            : base(dbContextFactory)
         {
         }
 

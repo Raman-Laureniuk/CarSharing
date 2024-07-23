@@ -9,6 +9,7 @@
     using CarSharing.Domain.Repository.Tariff;
     using CarSharing.Domain.Repository.Wallet;
     using CarSharing.Repository.Entity.Repository.Car.Impl;
+    using CarSharing.Repository.Entity.Repository.CarCoordinates.Impl;
     using CarSharing.Repository.Entity.Repository.Client.Impl;
     using CarSharing.Repository.Entity.Repository.Ride.Impl;
     using CarSharing.Repository.Entity.Repository.Tariff.Impl;
@@ -28,8 +29,9 @@
 
         private static void RegisterRepositories(IDependencyRegister register)
         {
+            // TODO: RegisterTranient
             register.RegisterScoped<ICarRepository, CarRepository>();
-            register.RegisterScoped<ICarCoordinatesRepository, ICarCoordinatesRepository>();
+            register.RegisterScoped<ICarCoordinatesRepository, CarCoordinatesRespository>();
             register.RegisterScoped<IClientRepository, ClientRepository>();
             register.RegisterScoped<IRideRepository, RideRepository>();
             register.RegisterScoped<ITariffRepository, TariffRepository>();

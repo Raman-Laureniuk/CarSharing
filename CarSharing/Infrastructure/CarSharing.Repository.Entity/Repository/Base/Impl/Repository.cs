@@ -14,9 +14,9 @@
     {
         protected readonly CarSharingContext _context;
 
-        public Repository(DbContextOptions dbContextOptions)
+        public Repository(IDbContextFactory<CarSharingContext> dbContextFactory)
         {
-            _context = new CarSharingContext(dbContextOptions);
+            _context = dbContextFactory.CreateDbContext();
         }
         
         public Task CommitAsync()

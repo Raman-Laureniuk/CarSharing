@@ -11,8 +11,8 @@
 
     internal class WalletRepository : Repository<Wallet>, IWalletRepository
     {
-        public WalletRepository(DbContextOptions dbContextOptions)
-            : base(dbContextOptions)
+        public WalletRepository(IDbContextFactory<CarSharingContext> dbContextFactory)
+            : base(dbContextFactory)
         {
         }
 

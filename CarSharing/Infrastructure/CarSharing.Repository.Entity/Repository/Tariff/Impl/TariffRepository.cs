@@ -7,8 +7,8 @@
 
     internal class TariffRepository : Repository<Tariff>, ITariffRepository
     {
-        public TariffRepository(DbContextOptions dbContextOptions)
-            : base(dbContextOptions)
+        public TariffRepository(IDbContextFactory<CarSharingContext> dbContextFactory)
+            : base(dbContextFactory)
         {
         }
     }

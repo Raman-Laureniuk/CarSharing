@@ -13,8 +13,8 @@
 
     internal class CarRepository : Repository<Car>, ICarRepository
     {
-        public CarRepository(DbContextOptions dbContextOptions)
-            : base(dbContextOptions)
+        public CarRepository(IDbContextFactory<CarSharingContext> dbContextFactory)
+            : base(dbContextFactory)
         {
         }
 

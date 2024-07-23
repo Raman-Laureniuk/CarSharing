@@ -7,8 +7,8 @@
 
     internal class ClientRepository : Repository<Client>, IClientRepository
     {
-        public ClientRepository(DbContextOptions dbContextOptions)
-            : base(dbContextOptions)
+        public ClientRepository(IDbContextFactory<CarSharingContext> dbContextFactory)
+            : base(dbContextFactory)
         {
         }
     }

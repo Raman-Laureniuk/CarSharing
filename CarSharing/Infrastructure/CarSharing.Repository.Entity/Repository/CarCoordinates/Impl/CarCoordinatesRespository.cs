@@ -7,8 +7,8 @@
 
     internal class CarCoordinatesRespository : Repository<CarCoordinates>, ICarCoordinatesRepository
     {
-        public CarCoordinatesRespository(DbContextOptions dbContextOptions)
-            : base(dbContextOptions)
+        public CarCoordinatesRespository(IDbContextFactory<CarSharingContext> dbContextFactory)
+            : base(dbContextFactory)
         {
         }
     }
