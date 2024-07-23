@@ -1,26 +1,18 @@
 ﻿namespace CarSharing.Repository.Entity.Repository.Base.Impl
 {
-    using System;
     using System.Diagnostics;
     using CarSharing.Domain.Entities;
-    using CarSharing.Domain.Providers.Config;
     using Microsoft.EntityFrameworkCore;
 
     internal class CarSharingContext : DbContext
     {
-        private readonly IConfigProvider _configProvider;
-        
-        public CarSharingContext(IConfigProvider configProvider)
-            : base()
+        public CarSharingContext(DbContextOptions dbContextOptions)
+            : base(dbContextOptions)
         {
-            _configProvider = configProvider ?? throw new ArgumentNullException(nameof(configProvider));
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = _configProvider.GetSetting("CarSharing.Repository.Entity.ConnectionString");
-            optionsBuilder.UseSqlServer(connectionString);
-
             optionsBuilder.LogTo(x => Debug.Write(x));
         }
 

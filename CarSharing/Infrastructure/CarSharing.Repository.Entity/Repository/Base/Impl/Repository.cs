@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
-    using CarSharing.Domain.Providers.Config;
     using CarSharing.Domain.Repository.Base;
     using CarSharing.Domain.Tools.Extensions;
     using Microsoft.EntityFrameworkCore;
@@ -15,9 +14,9 @@
     {
         protected readonly CarSharingContext _context;
 
-        public Repository(IConfigProvider configProvider)
+        public Repository(DbContextOptions dbContextOptions)
         {
-            _context = new CarSharingContext(configProvider);
+            _context = new CarSharingContext(dbContextOptions);
         }
         
         public Task CommitAsync()
