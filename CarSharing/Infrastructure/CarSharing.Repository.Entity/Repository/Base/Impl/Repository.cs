@@ -161,17 +161,5 @@
 
             return Task.CompletedTask;
         }
-
-        public Task UpsertAsync(T item, bool commit = false)
-        {
-            _context.Set<T>().Update(item);
-
-            if (commit)
-            {
-                return _context.SaveChangesAsync();
-            }
-
-            return Task.CompletedTask;
-        }
     }
 }

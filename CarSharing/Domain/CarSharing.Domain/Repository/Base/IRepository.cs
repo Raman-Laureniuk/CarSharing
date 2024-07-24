@@ -9,7 +9,6 @@
     {
         Task CreateAsync(T item, bool commit = false);
         Task UpdateAsync(T item, bool commit = false);
-        Task UpsertAsync(T item, bool commit = false);
         Task DeleteAsync(object id, bool commit = false);
         Task<List<T>> GetAllAsync();
         Task<List<T>> GetAsync<TSortKey>(Expression<Func<T, TSortKey>> sortKeySelector, bool sortAscending, int offset, int limit);
