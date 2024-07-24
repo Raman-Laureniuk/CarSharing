@@ -4,6 +4,7 @@
     using CarSharing.Domain.DI;
     using CarSharing.Repository.Entity.Repository.Base.Impl;
     using CarSharing.WebApi.Common.Adapters;
+    using CarSharing.WebApi.Common.DI.Impl;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +26,8 @@
                 throw new ArgumentNullException(nameof(configuration));
             }
 
+            services.AddScoped<IDependencyResolver, DependencyResolverServiceProviderAdapter>();
+            
             services.AddDbContextFactory<CarSharingContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("CarSharing.Repository.Entity.ConnectionString")));
             
