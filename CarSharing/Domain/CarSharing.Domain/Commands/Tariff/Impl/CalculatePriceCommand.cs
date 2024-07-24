@@ -1,6 +1,7 @@
 ﻿namespace CarSharing.Domain.Commands.Tariff.Impl
 {
     using System;
+    using CarSharing.Domain.Constants;
     using CarSharing.Domain.Dto.Tariff.Request;
     using CarSharing.Domain.Dto.Tariff.Response;
 
@@ -11,12 +12,13 @@
             Check(request);
             
             decimal pricePerHour = request.Tariff.PricePerHour;
-            int totalHours = (int)Math.Ceiling(request.RidePeriod.TotalHours);
+            decimal totalHours = Math.Ceiling((decimal)request.RidePeriod.TotalHours);
             decimal price = pricePerHour * totalHours;
+            decimal roundedPrice = Math.Round(price, CurrencyValues.CurrencyPrecisionDecimals, MidpointRounding.ToEven);
 
             return new CalculatePriceResponseDto()
             {
-                Price = price
+                Price = roundedPrice
             };
         }
 
