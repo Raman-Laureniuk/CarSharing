@@ -31,5 +31,10 @@
         {
             _serviceCollection.AddScoped(serviceProvider => implementationFactory(new DependencyResolverServiceProviderAdapter(serviceProvider)));
         }
+
+        void IDependencyRegister.RegisterTransient<TService, TImplementation>()
+        {
+            _serviceCollection.AddTransient<TService, TImplementation>();
+        }
     }
 }

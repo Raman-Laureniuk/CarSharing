@@ -13,5 +13,9 @@
 
         void RegisterScoped<TService>(Func<IDependencyResolver, TService> implementationFactory)
             where TService : class;
+
+        void RegisterTransient<TService, TImplementation>()
+            where TService : class
+            where TImplementation : class, TService;
     }
 }

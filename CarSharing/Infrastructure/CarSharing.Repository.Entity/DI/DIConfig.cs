@@ -29,13 +29,12 @@
 
         private static void RegisterRepositories(IDependencyRegister register)
         {
-            // TODO: RegisterTranient
-            register.RegisterScoped<ICarRepository, CarRepository>();
-            register.RegisterScoped<ICarCoordinatesRepository, CarCoordinatesRespository>();
-            register.RegisterScoped<IClientRepository, ClientRepository>();
-            register.RegisterScoped<IRideRepository, RideRepository>();
-            register.RegisterScoped<ITariffRepository, TariffRepository>();
-            register.RegisterScoped<IWalletRepository, WalletRepository>();
+            register.RegisterTransient<ICarRepository, CarRepository>();
+            register.RegisterTransient<ICarCoordinatesRepository, CarCoordinatesRespository>();
+            register.RegisterTransient<IClientRepository, ClientRepository>();
+            register.RegisterTransient<IRideRepository, RideRepository>();
+            register.RegisterTransient<ITariffRepository, TariffRepository>();
+            register.RegisterTransient<IWalletRepository, WalletRepository>();
         }
     }
 }
