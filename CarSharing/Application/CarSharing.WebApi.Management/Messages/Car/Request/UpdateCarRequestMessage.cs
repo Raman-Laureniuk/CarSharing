@@ -3,7 +3,7 @@
     using System;
     using Newtonsoft.Json;
 
-    [JsonObject]
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Include)]
     public class UpdateCarRequestMessage
     {
         [JsonProperty("carId", Required = Required.Always)]
@@ -13,7 +13,7 @@
         public string Model { get; set; }
 
         [JsonProperty("year", Required = Required.AllowNull)]
-        public int Year { get; set; }  // TODO: Make nullable
+        public int? Year { get; set; }
 
         [JsonProperty("color", Required = Required.AllowNull)]
         public string Color { get; set; }
@@ -22,6 +22,6 @@
         public string PlateNumber { get; set; }
 
         [JsonProperty("tariffId", Required = Required.AllowNull)]
-        public int TariffId { get; set; }  // TODO: Make nullable
+        public int? TariffId { get; set; }
     }
 }

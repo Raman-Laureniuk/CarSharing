@@ -33,11 +33,11 @@
                     throw new ArgumentOutOfRangeException($"Car {request.CarId} not found.");
                 }
 
-                car.Model = request.Model;
-                car.Year = request.Year;
-                car.Color = request.Color;
-                car.PlateNumber = request.PlateNumber;
-                car.TariffId = request.TariffId;
+                car.Model = request.Model ?? car.Model;
+                car.Year = request.Year ?? car.Year;
+                car.Color = request.Color ?? car.Color;
+                car.PlateNumber = request.PlateNumber ?? car.PlateNumber;
+                car.TariffId = request.TariffId ?? car.TariffId;
 
                 await repo.UpdateAsync(car, true);
             }
