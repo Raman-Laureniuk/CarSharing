@@ -6,7 +6,7 @@
 
     public class WalletRepositoryFactory : RepositoryFactory<IWalletRepository>, IWalletRepositoryFactory
     {
-        public WalletRepositoryFactory(IResolver resolver)
+        public WalletRepositoryFactory(IDependencyResolver resolver)
             : base(resolver)
         {
         }

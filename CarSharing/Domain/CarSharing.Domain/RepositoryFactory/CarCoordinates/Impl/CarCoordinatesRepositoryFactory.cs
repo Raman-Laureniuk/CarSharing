@@ -6,7 +6,7 @@
 
     public class CarCoordinatesRepositoryFactory : RepositoryFactory<ICarCoordinatesRepository>, ICarCoordinatesRepositoryFactory
     {
-        public CarCoordinatesRepositoryFactory(IResolver resolver)
+        public CarCoordinatesRepositoryFactory(IDependencyResolver resolver)
             : base(resolver)
         {
         }

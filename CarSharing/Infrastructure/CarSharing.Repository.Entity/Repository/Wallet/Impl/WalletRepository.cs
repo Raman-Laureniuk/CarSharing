@@ -5,15 +5,14 @@
     using System.Linq;
     using System.Threading.Tasks;
     using CarSharing.Domain.Entities;
-    using CarSharing.Domain.Providers.Config;
     using CarSharing.Domain.Repository.Wallet;
     using CarSharing.Repository.Entity.Repository.Base.Impl;
     using Microsoft.EntityFrameworkCore;
 
     internal class WalletRepository : Repository<Wallet>, IWalletRepository
     {
-        public WalletRepository(IConfigProvider configProvider)
-            : base(configProvider)
+        public WalletRepository(IDbContextFactory<CarSharingContext> dbContextFactory)
+            : base(dbContextFactory)
         {
         }
 

@@ -6,7 +6,7 @@
 
     public class RideRepositoryFactory : RepositoryFactory<IRideRepository>, IRideRepositoryFactory
     {
-        public RideRepositoryFactory(IResolver resolver)
+        public RideRepositoryFactory(IDependencyResolver resolver)
             : base(resolver)
         {
         }

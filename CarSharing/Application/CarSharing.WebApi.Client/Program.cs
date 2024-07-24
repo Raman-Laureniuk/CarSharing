@@ -1,6 +1,7 @@
 namespace CarSharing.WebApi.Client
 {
     using System.Security.Cryptography.X509Certificates;
+    using CarSharing.WebApi.Common.DI;
     using CarSharing.WebApi.Common.Handlers;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
@@ -16,6 +17,7 @@ namespace CarSharing.WebApi.Client
 
             // Add services to the container.
 
+            builder.Services.RegisterTypes(builder.Configuration);
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

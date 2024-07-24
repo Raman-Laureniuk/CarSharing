@@ -6,7 +6,7 @@
 
     public class ClientRepositoryFactory : RepositoryFactory<IClientRepository>, IClientRepositoryFactory
     {
-        public ClientRepositoryFactory(IResolver resolver)
+        public ClientRepositoryFactory(IDependencyResolver resolver)
             : base(resolver)
         {
         }

@@ -7,15 +7,14 @@
     using System.Threading.Tasks;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Enums.Ride;
-    using CarSharing.Domain.Providers.Config;
     using CarSharing.Domain.Repository.Car;
     using CarSharing.Repository.Entity.Repository.Base.Impl;
     using Microsoft.EntityFrameworkCore;
 
     internal class CarRepository : Repository<Car>, ICarRepository
     {
-        public CarRepository(IConfigProvider configProvider)
-            : base(configProvider)
+        public CarRepository(IDbContextFactory<CarSharingContext> dbContextFactory)
+            : base(dbContextFactory)
         {
         }
 

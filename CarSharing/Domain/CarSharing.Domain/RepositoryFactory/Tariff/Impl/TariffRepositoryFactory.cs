@@ -6,7 +6,7 @@
 
     public class TariffRepositoryFactory : RepositoryFactory<ITariffRepository>, ITariffRepositoryFactory
     {
-        public TariffRepositoryFactory(IResolver resolver)
+        public TariffRepositoryFactory(IDependencyResolver resolver)
             : base(resolver)
         {
         }
