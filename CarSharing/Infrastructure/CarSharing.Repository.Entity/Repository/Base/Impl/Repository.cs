@@ -123,7 +123,7 @@
             return item;
         }
         
-        public async Task<T> GetByIdAsync(object id, params Expression<Func<T, object>>[] include)
+        public virtual async Task<T> GetByIdAsync(object id, params Expression<Func<T, object>>[] include)
         {
             T item = await GetByIdAsyncImpl(id);
 

@@ -12,6 +12,7 @@
     using CarSharing.Domain.Dto.Tariff.Request;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Enums.Ride;
+    using CarSharing.Domain.Exceptions;
     using CarSharing.Domain.Mappers.Tariff;
     using CarSharing.Domain.Providers.Payment;
     using CarSharing.Domain.Repository.Ride;
@@ -40,6 +41,11 @@
             }
 
             Ride ride = await GetRideAsync(request.RideId);
+
+            if (ride == null)
+            {
+                throw new NotFoundException($"Ride {request.RideId} not found");
+            }
 
             DateTime endDateUtc = DateTime.UtcNow;
             decimal price = GetPrice(ride.Car.Tariff.ToTariffDto(), endDateUtc - ride.StartDateUtc);

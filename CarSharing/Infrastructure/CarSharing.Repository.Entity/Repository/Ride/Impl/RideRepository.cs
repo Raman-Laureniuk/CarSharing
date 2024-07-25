@@ -3,10 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Enums.Ride;
     using CarSharing.Domain.Repository.Ride;
+    using CarSharing.Domain.Tools.Extensions;
     using CarSharing.Repository.Entity.Repository.Base.Impl;
     using Microsoft.EntityFrameworkCore;
 
@@ -33,6 +35,22 @@
                 .Where(x => x.ClientId == clientId)
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        public override Task<Ride> GetByIdAsync(object id, params Expression<Func<Ride, object>>[] include)
+        {
+            IQueryable<Ride> rides = _context
+                .Set<Ride>()
+                .Where(x => x.RideId == (int)id);
+
+            foreach (Expression<Func<Ride, object>> i in include.OrEmptyIfNull())
+            {
+                rides = rides.Include(i);
+            }
+
+            return rides
+                .AsNoTracking()
+                .SingleOrDefaultAsync();
         }
     }
 }
