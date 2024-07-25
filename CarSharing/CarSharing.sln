@@ -21,7 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarSharing.WebApi.Managemen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarSharing.WebApi.Geo", "Application\CarSharing.WebApi.Geo\CarSharing.WebApi.Geo.csproj", "{025BDA8F-BD3F-422F-9529-865D73E31BD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.WebApi.Common", "Application\CarSharing.WebApi.Common\CarSharing.WebApi.Common.csproj", "{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarSharing.WebApi.Common", "Application\CarSharing.WebApi.Common\CarSharing.WebApi.Common.csproj", "{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{582133B2-0912-4FF8-976A-08A25347B7B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B4FFA24C-84AC-4DFF-B34F-F190970F0711}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.Domain.UnitTests", "Tests\UnitTests\CarSharing.Domain.UnitTests\CarSharing.Domain.UnitTests.csproj", "{855793DC-CAE1-4C4E-A684-B4933CD9ACB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +63,10 @@ Global
 		{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{855793DC-CAE1-4C4E-A684-B4933CD9ACB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{855793DC-CAE1-4C4E-A684-B4933CD9ACB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{855793DC-CAE1-4C4E-A684-B4933CD9ACB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{855793DC-CAE1-4C4E-A684-B4933CD9ACB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +79,8 @@ Global
 		{7AEE3996-0FED-4351-8062-21F5FFC04AFE} = {A6265DBB-4B00-4042-A4A2-A9FF1A7876FF}
 		{025BDA8F-BD3F-422F-9529-865D73E31BD2} = {A6265DBB-4B00-4042-A4A2-A9FF1A7876FF}
 		{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA} = {A6265DBB-4B00-4042-A4A2-A9FF1A7876FF}
+		{B4FFA24C-84AC-4DFF-B34F-F190970F0711} = {582133B2-0912-4FF8-976A-08A25347B7B4}
+		{855793DC-CAE1-4C4E-A684-B4933CD9ACB0} = {B4FFA24C-84AC-4DFF-B34F-F190970F0711}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D49C77C1-94A0-4B75-845D-16BB1313C271}
