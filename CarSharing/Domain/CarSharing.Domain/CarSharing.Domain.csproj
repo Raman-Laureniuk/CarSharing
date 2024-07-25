@@ -8,6 +8,7 @@
 
     <ItemGroup>
 	    <InternalsVisibleTo Include="CarSharing.Domain.UnitTests" />
+	    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" /> <!-- Types from Domain must be visible to FakeItEasy in order to create mock objects -->
     </ItemGroup>
 
 </Project>
