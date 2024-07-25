@@ -20,10 +20,9 @@
             // Arrange
             IClientRepositoryFactory repoFactory = A.Fake<IClientRepositoryFactory>();
             ActivateClientCommandAsync command = new ActivateClientCommandAsync(repoFactory);
-            ActivateClientRequestDto request = null;
 
             // Act & Assert
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => command.ExecuteAsync(request));
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => command.ExecuteAsync(null));
         }
 
         [TestMethod]
@@ -51,13 +50,16 @@
         public async Task ExecuteAsync_ClientActivated()
         {
             // Arrange
+            Guid clientId = Guid.NewGuid();
+            
             Client client = new Client()
             {
+                ClientId = clientId,
                 IsActive = false
             };
             
             IClientRepository repo = A.Fake<IClientRepository>();
-            A.CallTo(() => repo.GetByIdAsync(A<object>._)).Returns(client);
+            A.CallTo(() => repo.GetByIdAsync(clientId)).Returns(client);
 
             IClientRepositoryFactory repoFactory = A.Fake<IClientRepositoryFactory>();
             A.CallTo(() => repoFactory.CreateRepository()).Returns(repo);
@@ -66,7 +68,7 @@
 
             ActivateClientRequestDto request = new ActivateClientRequestDto()
             {
-                ClientId = Guid.Empty
+                ClientId = clientId
             };
 
             // Act
