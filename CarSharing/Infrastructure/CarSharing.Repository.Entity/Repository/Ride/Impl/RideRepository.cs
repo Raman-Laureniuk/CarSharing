@@ -37,6 +37,7 @@
             rides = IncludeImpl(rides, include);
             
             return rides
+                .AsNoTracking()
                 .ToListAsync();
         }
 
