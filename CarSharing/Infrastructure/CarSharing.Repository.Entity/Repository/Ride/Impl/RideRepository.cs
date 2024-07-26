@@ -28,12 +28,15 @@
                 .ToListAsync();
         }
 
-        public Task<List<Ride>> GetRidesForClientAsync(Guid clientId)
+        public Task<List<Ride>> GetRidesForClientAsync(Guid clientId, params Expression<Func<Ride, object>>[] include)
         {
-            return _context
+            IQueryable<Ride> rides = _context
                 .Set<Ride>()
-                .Where(x => x.ClientId == clientId)
-                .AsNoTracking()
+                .Where(x => x.ClientId == clientId);
+
+            rides = IncludeImpl(rides, include);
+            
+            return rides
                 .ToListAsync();
         }
 

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Enums.Ride;
@@ -10,6 +11,6 @@
     public interface IRideRepository : IRepository<Ride>
     {
         Task<List<Ride>> GetRidesForCarAsync(Guid carId, RideStatus status);
-        Task<List<Ride>> GetRidesForClientAsync(Guid clientId);
+        Task<List<Ride>> GetRidesForClientAsync(Guid clientId, params Expression<Func<Ride, object>>[] include);
     }
 }
