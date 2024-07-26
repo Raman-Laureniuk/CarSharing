@@ -4,6 +4,7 @@ using CarSharing.Repository.Entity.Repository.Base.Impl;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarSharing.Repository.Entity.Migrations
 {
     [DbContext(typeof(CarSharingContext))]
-    partial class CarSharingContextModelSnapshot : ModelSnapshot
+    [Migration("20240726105538_Update_RemoveDtoFromTableNames_26-jul-24")]
+    partial class Update_RemoveDtoFromTableNames_26jul24
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

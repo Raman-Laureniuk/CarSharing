@@ -15,7 +15,7 @@
 
             builder.HasMany(x => x.Cars).WithOne(x => x.Tariff).HasForeignKey(x => x.TariffId).IsRequired().HasPrincipalKey(x => x.TariffId).OnDelete(DeleteBehavior.ClientNoAction);
 
-            builder.ToTable("dbo.Tariffs");
+            builder.ToTable("Tariffs");
         }
     }
 }

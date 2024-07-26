@@ -18,7 +18,7 @@
 
             builder.HasIndex(x => new { x.Latitude, x.Longitude }).IsClustered(false);
 
-            builder.ToTable("dbo.CarCoordinates");
+            builder.ToTable("CarCoordinates");
         }
     }
 }

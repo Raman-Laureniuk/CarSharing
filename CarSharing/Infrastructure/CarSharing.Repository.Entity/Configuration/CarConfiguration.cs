@@ -23,7 +23,7 @@
 
             builder.HasIndex(x => x.TariffId).IsClustered(false);
 
-            builder.ToTable("dbo.Cars");
+            builder.ToTable("Cars");
         }
     }
 }

@@ -28,7 +28,7 @@
             builder.HasIndex(x => x.WalletId).IsClustered(false);
             builder.HasIndex(x => x.CarId).IsClustered(false);
 
-            builder.ToTable("dbo.Rides");
+            builder.ToTable("Rides");
         }
     }
 }

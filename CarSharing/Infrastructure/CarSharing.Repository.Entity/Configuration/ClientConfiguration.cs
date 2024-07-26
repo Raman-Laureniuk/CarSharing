@@ -27,7 +27,7 @@
             builder.HasIndex(x => x.Email).IsClustered(false);
             builder.HasIndex(x => x.IsActive).IsClustered(false);
 
-            builder.ToTable("dbo.Clients");
+            builder.ToTable("Clients");
         }
     }
 }

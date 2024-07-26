@@ -19,7 +19,7 @@
 
             builder.HasIndex(x => x.ClientId).IsClustered(false);
 
-            builder.ToTable("dbo.Wallets");
+            builder.ToTable("Wallets");
         }
     }
 }
