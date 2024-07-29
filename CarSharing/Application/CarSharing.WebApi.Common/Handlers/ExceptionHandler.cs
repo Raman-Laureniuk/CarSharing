@@ -10,8 +10,13 @@
     {
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
-            await httpContext.Response.WriteAsync(exception.Message);
+            var error = new
+            {
+                Exception = exception.Message
+            };
 
+            await httpContext.Response.WriteAsJsonAsync(error, cancellationToken);
+            
             return true;
         }
     }
