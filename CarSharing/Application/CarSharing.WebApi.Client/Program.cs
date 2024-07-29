@@ -54,6 +54,8 @@ namespace CarSharing.WebApi.Client
 
             app.MapControllers();
 
+            app.UseExceptionHandler(x => { });
+
             app.Run();
         }
     }
