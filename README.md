@@ -4,7 +4,7 @@ Example of car sharing service that allows to rent a car and manage cars and use
 # Project Structure
 
 ## Overview
-CarSharing solution is implemented as a layered DDD-micorservice. It's structure is following:
+CarSharing solution is implemented as a layered DDD-microservice. It's structure is following:
 - Application
   - CarSharing.WebApi.Client
   - CarSharing.WebApi.Management
@@ -47,7 +47,7 @@ Infrastructure layer implements data persistence and communication with external
 Implements communication with external services and resources.
 
 ### CarSharing.Repository.Entity
-Implements data persistense via Entity Framework Core.
+Implements data persistence via Entity Framework Core.
 
 ## Tests
 Contains tests for solution.
