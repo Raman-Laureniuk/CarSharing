@@ -19,7 +19,7 @@
 
         public async Task<UpdateClientResponseDto> ExecuteAsync(UpdateClientRequestDto request)
         {
-            UpdateClientResponseDto response = await _decoratee.ExecuteAsync(request);
+            UpdateClientResponseDto response = await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
 
             if (response.Success && request != null)
             {
@@ -28,7 +28,7 @@
                     ClientId = request.ClientId
                 };
 
-                await _deactivateClientCommand.ExecuteAsync(deactivateRequest);
+                await _deactivateClientCommand.ExecuteAsync(deactivateRequest).ConfigureAwait(false);
             }
 
             return response;

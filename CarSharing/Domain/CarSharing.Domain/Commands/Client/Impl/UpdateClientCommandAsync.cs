@@ -26,7 +26,7 @@
 
             using (IClientRepository repo = _repoFactory.CreateRepository())
             {
-                Client client = await repo.GetByIdAsync(request.ClientId);
+                Client client = await repo.GetByIdAsync(request.ClientId).ConfigureAwait(false);
 
                 if (client == null)
                 {
@@ -39,7 +39,7 @@
                 client.PhoneNumber = request.PhoneNumber ?? client.PhoneNumber;
                 client.Email = request.Email ?? client.Email;
 
-                await repo.UpdateAsync(client, true);
+                await repo.UpdateAsync(client, true).ConfigureAwait(false);
             }
 
             return new UpdateClientResponseDto()

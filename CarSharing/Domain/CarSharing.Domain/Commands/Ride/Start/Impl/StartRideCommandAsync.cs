@@ -30,7 +30,7 @@
 
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.CreateAsync(ride, true);
+                await repo.CreateAsync(ride, true).ConfigureAwait(false);
             }
 
             return new StartRideResponseDto()

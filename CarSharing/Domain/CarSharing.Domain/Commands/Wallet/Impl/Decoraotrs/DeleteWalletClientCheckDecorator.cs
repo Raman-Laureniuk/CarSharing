@@ -22,15 +22,15 @@
         {
             if (request != null)
             {
-                await ThrowIfWalletIsNotClients(request.ClientId, request.WalletId);
+                await ThrowIfWalletIsNotClients(request.ClientId, request.WalletId).ConfigureAwait(false);
             }
 
-            return await _decoratee.ExecuteAsync(request);
+            return await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
         }
 
         private async Task ThrowIfWalletIsNotClients(Guid clientId, int walletId)
         {
-            bool isClientsWallet = await IsClientsWallet(clientId, walletId);
+            bool isClientsWallet = await IsClientsWallet(clientId, walletId).ConfigureAwait(false);
 
             if (!isClientsWallet)
             {
@@ -46,7 +46,7 @@
                 WalletId = walletId
             };
 
-            CheckWalletForClientResponseDto response = await _checkWalletForClientCommand.ExecuteAsync(request);
+            CheckWalletForClientResponseDto response = await _checkWalletForClientCommand.ExecuteAsync(request).ConfigureAwait(false);
 
             return response?.DoesWalletBelongToClient ?? false;
         }

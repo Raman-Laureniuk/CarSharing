@@ -23,7 +23,7 @@
         {
             using (ITariffRepository repo = _repoFactory.CreateRepository())
             {
-                List<Tariff> tariffs = await repo.GetAllAsync();
+                List<Tariff> tariffs = await repo.GetAllAsync().ConfigureAwait(false);
 
                 return tariffs.ToGetTariffsResponseDto();
             }

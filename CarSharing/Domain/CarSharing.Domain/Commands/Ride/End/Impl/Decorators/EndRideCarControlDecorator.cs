@@ -30,18 +30,18 @@
         {
             try
             {
-                return await _decoratee.ExecuteAsync(request);
+                return await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
             }
             finally
             {
                 if (request != null)
                 {
-                    Guid carId = await GetCarIdAsync(request.RideId);
+                    Guid carId = await GetCarIdAsync(request.RideId).ConfigureAwait(false);
 
                     await _carControlProvider.LockCarAsync(new LockRequestDto()
                     {
                         CarId = carId
-                    });
+                    }).ConfigureAwait(false);
                 }
             }
         }
@@ -50,7 +50,7 @@
         {
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                Ride ride = await repo.GetByIdAsync(rideId);
+                Ride ride = await repo.GetByIdAsync(rideId).ConfigureAwait(false);
 
                 return ride.CarId;
             }

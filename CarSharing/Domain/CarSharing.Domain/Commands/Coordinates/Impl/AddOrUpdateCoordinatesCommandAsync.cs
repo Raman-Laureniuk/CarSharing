@@ -29,7 +29,7 @@
 
             using (ICarCoordinatesRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.UpsertAsync(carCoordinates, true);
+                await repo.UpsertAsync(carCoordinates, true).ConfigureAwait(false);
             }
 
             return new AddUpdateCoordinatesResponseDto()
