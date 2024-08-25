@@ -25,7 +25,7 @@
 
             using (ICarRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.DeleteAsync(request.CarId, true);
+                await repo.DeleteAsync(request.CarId, true).ConfigureAwait(false);
             }
 
             return new DeleteCarResponseDto()

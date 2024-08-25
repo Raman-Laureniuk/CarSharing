@@ -29,7 +29,7 @@
 
             using (ICarRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.CreateAsync(car, true);
+                await repo.CreateAsync(car, true).ConfigureAwait(false);
             }
 
             return new AddCarResponseDto()

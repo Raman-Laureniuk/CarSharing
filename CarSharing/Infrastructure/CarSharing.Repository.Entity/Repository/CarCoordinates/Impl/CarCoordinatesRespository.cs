@@ -21,7 +21,7 @@
                 throw new ArgumentNullException(nameof(item));
             }
 
-            CarCoordinates existingItem = await _context.Set<CarCoordinates>().FindAsync(item.CarId);
+            CarCoordinates existingItem = await _context.Set<CarCoordinates>().FindAsync(item.CarId).ConfigureAwait(false);
 
             if (existingItem == null)
             {
@@ -35,7 +35,7 @@
 
             if (commit)
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
     }

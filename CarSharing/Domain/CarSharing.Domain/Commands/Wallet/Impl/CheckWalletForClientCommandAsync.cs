@@ -24,7 +24,7 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            Wallet wallet = await GetWalletAsync(request.WalletId);
+            Wallet wallet = await GetWalletAsync(request.WalletId).ConfigureAwait(false);
 
             bool doesWalletBelongToClient = wallet?.ClientId == request.ClientId;
 
@@ -40,7 +40,7 @@
         {
             using (IWalletRepository repo = _repoFactory.CreateRepository())
             {
-                return await repo.GetByIdAsync(walletId);
+                return await repo.GetByIdAsync(walletId).ConfigureAwait(false);
             }
         }
     }

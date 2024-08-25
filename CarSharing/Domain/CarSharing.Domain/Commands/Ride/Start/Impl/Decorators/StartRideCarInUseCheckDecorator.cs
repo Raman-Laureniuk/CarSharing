@@ -29,15 +29,15 @@
         {
             if (request != null)
             {
-                await ThrowIfCarInUse(request.CarId);
+                await ThrowIfCarInUse(request.CarId).ConfigureAwait(false);
             }
 
-            return await _decoratee.ExecuteAsync(request);
+            return await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
         }
 
         private async Task ThrowIfCarInUse(Guid carId)
         {
-            bool isCarInUse = await IsCarInUse(carId);
+            bool isCarInUse = await IsCarInUse(carId).ConfigureAwait(false);
 
             if (isCarInUse)
             {
@@ -49,7 +49,7 @@
         {
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                List<Ride> activeRides = await repo.GetRidesForCarAsync(carId, RideStatus.Active);
+                List<Ride> activeRides = await repo.GetRidesForCarAsync(carId, RideStatus.Active).ConfigureAwait(false);
 
                 return activeRides.Any();
             }

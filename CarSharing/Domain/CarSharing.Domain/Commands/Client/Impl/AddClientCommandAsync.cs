@@ -29,7 +29,7 @@
 
             using (IClientRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.CreateAsync(client, true);
+                await repo.CreateAsync(client, true).ConfigureAwait(false);
             }
 
             return new AddClientResponseDto()

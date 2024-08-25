@@ -29,7 +29,9 @@
             
             using (IClientRepository repo = _repoFactory.CreateRepository())
             {
-                List<Client> clients = await repo.GetAsync(request.OrderBy.ToSortKeySelector(), request.SortAscending, request.Offset, request.Limit);
+                List<Client> clients = await repo
+                    .GetAsync(request.OrderBy.ToSortKeySelector(), request.SortAscending, request.Offset, request.Limit)
+                    .ConfigureAwait(false);
 
                 return clients.ToGetClientsResponseDto();
             }

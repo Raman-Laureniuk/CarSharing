@@ -40,7 +40,7 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            Ride ride = await GetRideAsync(request.RideId);
+            Ride ride = await GetRideAsync(request.RideId).ConfigureAwait(false);
 
             if (ride == null)
             {
@@ -50,20 +50,20 @@
             DateTime endDateUtc = DateTime.UtcNow;
             decimal price = GetPrice(ride.Car.Tariff.ToTariffDto(), endDateUtc - ride.StartDateUtc);
 
-            string transactionId = await AuthorizePaymentAsync(price, ride.Wallet.EncryptedWalletData);
+            string transactionId = await AuthorizePaymentAsync(price, ride.Wallet.EncryptedWalletData).ConfigureAwait(false);
 
             try
             {
-                await UpdateRideAsync(ride, endDateUtc, price);
+                await UpdateRideAsync(ride, endDateUtc, price).ConfigureAwait(false);
             }
             catch (Exception)
             {
-                await CancelPaymentAsync(transactionId);
+                await CancelPaymentAsync(transactionId).ConfigureAwait(false);
 
                 throw;
             }
 
-            await FinalizePaymentAsync(transactionId, price);
+            await FinalizePaymentAsync(transactionId, price).ConfigureAwait(false);
 
             return new EndRideResponseDto()
             {
@@ -77,7 +77,7 @@
         {
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                return await repo.GetByIdAsync(rideId, x => x.Car.Tariff, x => x.Wallet);
+                return await repo.GetByIdAsync(rideId, x => x.Car.Tariff, x => x.Wallet).ConfigureAwait(false);
             }
         }
 
@@ -89,7 +89,7 @@
 
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.UpdateAsync(ride, true);
+                await repo.UpdateAsync(ride, true).ConfigureAwait(false);
             }
         }
 
@@ -108,7 +108,7 @@
             {
                 AuthorizeAmount = authorizeAmount,
                 EncryptedWalletData = encryptedWalletData
-            });
+            }).ConfigureAwait(false);
 
             return response.TransactionId;
         }

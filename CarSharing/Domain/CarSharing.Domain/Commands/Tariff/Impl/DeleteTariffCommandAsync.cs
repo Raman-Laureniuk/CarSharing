@@ -25,7 +25,7 @@
             
             using (ITariffRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.DeleteAsync(request.TariffId, true);
+                await repo.DeleteAsync(request.TariffId, true).ConfigureAwait(false);
             }
 
             return new DeleteTariffResponseDto()

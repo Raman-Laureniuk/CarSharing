@@ -26,7 +26,7 @@
 
             using (IClientRepository repo = _repoFactory.CreateRepository())
             {
-                Client client = await repo.GetByIdAsync(request.ClientId);
+                Client client = await repo.GetByIdAsync(request.ClientId).ConfigureAwait(false);
 
                 if (client == null)
                 {
@@ -35,7 +35,7 @@
 
                 client.IsActive = true;
 
-                await repo.UpdateAsync(client, true);
+                await repo.UpdateAsync(client, true).ConfigureAwait(false);
             }
 
             return new ActivateClientResponseDto()
