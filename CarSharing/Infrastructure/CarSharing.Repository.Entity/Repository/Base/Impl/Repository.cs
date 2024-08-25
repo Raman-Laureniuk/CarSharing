@@ -38,7 +38,7 @@
 
         public async Task DeleteAsync(object id, bool commit = false)
         {
-            T item = await _context.Set<T>().FindAsync(id);
+            T item = await _context.Set<T>().FindAsync(id).ConfigureAwait(false);
 
             if (item == null)
             {
@@ -49,7 +49,7 @@
 
             if (commit)
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -111,7 +111,7 @@
 
         public async Task<T> GetByIdAsync(object id)
         {
-            T item = await GetByIdAsyncImpl(id);
+            T item = await GetByIdAsyncImpl(id).ConfigureAwait(false);
 
             if (item == null)
             {
@@ -125,7 +125,7 @@
         
         public virtual async Task<T> GetByIdAsync(object id, params Expression<Func<T, object>>[] include)
         {
-            T item = await GetByIdAsyncImpl(id);
+            T item = await GetByIdAsyncImpl(id).ConfigureAwait(false);
 
             if (item == null)
             {
@@ -134,7 +134,7 @@
 
             foreach (Expression<Func<T, object>> i in include.OrEmptyIfNull())
             {
-                await _context.Entry(item).Reference(i).LoadAsync();
+                await _context.Entry(item).Reference(i).LoadAsync().ConfigureAwait(false);
             }
 
             _context.Entry(item).State = EntityState.Detached;

@@ -28,7 +28,7 @@
 
             using (IWalletRepository repo = _repoFactory.CreateRepository())
             {
-                List<Wallet> wallets = await repo.GetWalletsForClient(request.ClientId);
+                List<Wallet> wallets = await repo.GetWalletsForClient(request.ClientId).ConfigureAwait(false);
 
                 return wallets.ToGetWalletsResponseDto();
             }

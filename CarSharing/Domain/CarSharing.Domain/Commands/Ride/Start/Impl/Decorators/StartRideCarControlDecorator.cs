@@ -22,14 +22,14 @@
 
         public async Task<StartRideResponseDto> ExecuteAsync(StartRideRequestDto request)
         {
-            StartRideResponseDto response = await _decoratee.ExecuteAsync(request);
+            StartRideResponseDto response = await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
 
             if (request != null && response?.Success == true)
             {
                 await _carControlProvider.UnlockCarAsync(new UnlockRequestDto()
                 {
                     CarId = request.CarId
-                });
+                }).ConfigureAwait(false);
             }
 
             return response;

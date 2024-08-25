@@ -25,7 +25,7 @@
 
             using (IWalletRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.DeleteAsync(request.WalletId, true);
+                await repo.DeleteAsync(request.WalletId, true).ConfigureAwait(false);
             }
 
             return new DeleteWalletResponseDto()

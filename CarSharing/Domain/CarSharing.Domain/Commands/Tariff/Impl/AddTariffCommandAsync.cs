@@ -29,7 +29,7 @@
 
             using (ITariffRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.CreateAsync(tariff, true);
+                await repo.CreateAsync(tariff, true).ConfigureAwait(false);
             }
 
             return new AddTariffResponseDto()

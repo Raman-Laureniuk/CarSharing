@@ -26,7 +26,7 @@
 
             using (ICarRepository repo = _repoFactory.CreateRepository())
             {
-                Car car = await repo.GetByIdAsync(request.CarId);
+                Car car = await repo.GetByIdAsync(request.CarId).ConfigureAwait(false);
 
                 if (car == null)
                 {
@@ -39,7 +39,7 @@
                 car.PlateNumber = request.PlateNumber ?? car.PlateNumber;
                 car.TariffId = request.TariffId ?? car.TariffId;
 
-                await repo.UpdateAsync(car, true);
+                await repo.UpdateAsync(car, true).ConfigureAwait(false);
             }
 
             return new UpdateCarResponseDto()

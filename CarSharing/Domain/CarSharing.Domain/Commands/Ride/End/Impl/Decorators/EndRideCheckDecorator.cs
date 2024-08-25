@@ -27,15 +27,15 @@
         {
             if (request != null)
             {
-                await CheckRideAsync(request.RideId, request.ClientId);
+                await CheckRideAsync(request.RideId, request.ClientId).ConfigureAwait(false);
             }
 
-            return await _decoratee.ExecuteAsync(request);
+            return await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
         }
 
         private async Task CheckRideAsync(int rideId, Guid clientId)
         {
-            Ride ride = await GetRideAsync(rideId);
+            Ride ride = await GetRideAsync(rideId).ConfigureAwait(false);
 
             if (ride.ClientId != clientId)
             {
@@ -52,7 +52,7 @@
         {
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                return await repo.GetByIdAsync(rideId);
+                return await repo.GetByIdAsync(rideId).ConfigureAwait(false);
             }
         }
     }

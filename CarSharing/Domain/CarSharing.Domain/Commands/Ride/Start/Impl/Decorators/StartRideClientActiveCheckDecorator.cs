@@ -26,15 +26,15 @@
         {
             if (request != null)
             {
-                await ThrowIfClientNotActive(request.ClientId);
+                await ThrowIfClientNotActive(request.ClientId).ConfigureAwait(false);
             }
 
-            return await _decoratee.ExecuteAsync(request);
+            return await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
         }
 
         private async Task ThrowIfClientNotActive(Guid clientId)
         {
-            bool isClientActive = await IsClientActive(clientId);
+            bool isClientActive = await IsClientActive(clientId).ConfigureAwait(false);
 
             if (!isClientActive)
             {
@@ -46,7 +46,7 @@
         {
             using (IClientRepository repo = _repoFactory.CreateRepository())
             {
-                Client client = await repo.GetByIdAsync(clientId);
+                Client client = await repo.GetByIdAsync(clientId).ConfigureAwait(false);
 
                 if (client == null)
                 {

@@ -35,7 +35,8 @@
                                                      offset:            request.Offset,
                                                      limit:             request.Limit,
                                                                         x => x.Tariff,
-                                                                        x => x.Coordinates);
+                                                                        x => x.Coordinates)
+                                           .ConfigureAwait(false);
 
                 return cars.ToGetCarsResponseDto();
             }

@@ -25,7 +25,7 @@
 
             using (IClientRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.DeleteAsync(request.ClientId, true);
+                await repo.DeleteAsync(request.ClientId, true).ConfigureAwait(false);
             }
 
             return new DeleteClientResponseDto()

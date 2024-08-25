@@ -29,7 +29,7 @@
 
             using (IRideRepository repo = _repoFactory.CreateRepository())
             {
-                List<Ride> rides = await repo.GetRidesForClientAsync(request.ClientId, x => x.Car);
+                List<Ride> rides = await repo.GetRidesForClientAsync(request.ClientId, x => x.Car).ConfigureAwait(false);
 
                 return rides.ToGetRideHistoryResponseDto();
             }

@@ -26,7 +26,7 @@
 
             using (ITariffRepository repo = _repoFactory.CreateRepository())
             {
-                Tariff tariff = await repo.GetByIdAsync(request.TariffId);
+                Tariff tariff = await repo.GetByIdAsync(request.TariffId).ConfigureAwait(false);
 
                 if (tariff == null)
                 {
@@ -35,7 +35,7 @@
 
                 tariff.PricePerHour = request.PricePerHour;
 
-                await repo.UpdateAsync(tariff, true);
+                await repo.UpdateAsync(tariff, true).ConfigureAwait(false);
             }
 
             return new UpdateTariffResponseDto()

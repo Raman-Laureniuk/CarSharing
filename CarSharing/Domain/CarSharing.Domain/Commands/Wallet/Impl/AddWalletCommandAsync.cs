@@ -29,7 +29,7 @@
 
             using (IWalletRepository repo = _repoFactory.CreateRepository())
             {
-                await repo.CreateAsync(wallet, true);
+                await repo.CreateAsync(wallet, true).ConfigureAwait(false);
             }
 
             return new AddWalletResponseDto()
