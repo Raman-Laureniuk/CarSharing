@@ -34,7 +34,7 @@ namespace CarSharing.WebApi.Geo
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = builder.Configuration["CarSharing.WebApi.Client.Auth.Jwt.ValidIssuer"],
                         ValidAudience = builder.Configuration["CarSharing.WebApi.Client.Auth.Jwt.ValidAudience"],
-                        IssuerSigningKey = new X509SecurityKey(new X509Certificate2(builder.Configuration["CarSharing.WebApi.Client.Auth.Jwt.X509Certificate2.Filename"]))
+                        IssuerSigningKey = new X509SecurityKey(X509CertificateLoader.LoadCertificateFromFile(builder.Configuration["CarSharing.WebApi.Client.Auth.Jwt.X509Certificate2.Filename"]))
                     };
                 });
 
