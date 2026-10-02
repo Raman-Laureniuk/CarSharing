@@ -22,7 +22,7 @@
             ActivateClientCommandAsync command = new ActivateClientCommandAsync(repoFactory);
 
             // Act & Assert
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => command.ExecuteAsync(null));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => command.ExecuteAsync(null));
         }
 
         [TestMethod]
@@ -43,7 +43,7 @@
             };
 
             // Act & Assert
-            await Assert.ThrowsExceptionAsync<ArgumentOutOfRangeException>(() => command.ExecuteAsync(request));
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => command.ExecuteAsync(request));
         }
 
         [TestMethod]
