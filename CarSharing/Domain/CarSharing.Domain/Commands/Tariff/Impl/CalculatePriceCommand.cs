@@ -14,7 +14,7 @@
             decimal pricePerHour = request.Tariff.PricePerHour;
             decimal totalHours = Math.Ceiling((decimal)request.RidePeriod.TotalHours);
             decimal price = pricePerHour * totalHours;
-            decimal roundedPrice = Math.Round(price, CurrencyValues.CurrencyPrecisionDecimals, MidpointRounding.ToEven);
+            decimal roundedPrice = Math.Round(price, CurrencyValues.CURRENCY_PRECISION_DECIMALS, MidpointRounding.ToEven);
 
             return new CalculatePriceResponseDto()
             {

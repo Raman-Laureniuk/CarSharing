@@ -2,8 +2,8 @@
 {
     public static class CurrencyValues
     {
-        public static int CurrencyPrecisionDecimals = 2;
-        public static int CurrencyMagnitude = 7;
-        public static int CurrencyPrecision = CurrencyMagnitude + CurrencyPrecisionDecimals;
+        public const int CURRENCY_PRECISION_DECIMALS = 2;
+        public const int CURRENCY_MAGNITUDE = 7;
+        public const int CURRENCY_PRECISION = CURRENCY_MAGNITUDE + CURRENCY_PRECISION_DECIMALS;
     }
 }

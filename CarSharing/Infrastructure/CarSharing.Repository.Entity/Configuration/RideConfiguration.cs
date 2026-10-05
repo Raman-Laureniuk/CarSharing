@@ -17,7 +17,7 @@
             builder.Property(x => x.CarId).HasColumnName("CarId").IsRequired(true);
             builder.Property(x => x.StartDateUtc).HasColumnName("StartDateUtc").IsRequired(true).HasPrecision(7);
             builder.Property(x => x.EndDateUtc).HasColumnName("EndDateUtc").IsRequired(false).HasPrecision(7);
-            builder.Property(x => x.TotalAmount).HasColumnName("TotalAmount").IsRequired(false).HasPrecision(CurrencyValues.CurrencyPrecision, CurrencyValues.CurrencyPrecisionDecimals);
+            builder.Property(x => x.TotalAmount).HasColumnName("TotalAmount").IsRequired(false).HasPrecision(CurrencyValues.CURRENCY_PRECISION, CurrencyValues.CURRENCY_PRECISION_DECIMALS);
             builder.Property(x => x.Status).HasColumnName("Status").IsRequired(true);
 
             builder.HasOne(x => x.Client).WithMany(x => x.Rides).HasForeignKey(x => x.ClientId).IsRequired(true).HasPrincipalKey(x => x.ClientId).OnDelete(DeleteBehavior.ClientNoAction);
