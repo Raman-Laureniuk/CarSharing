@@ -56,6 +56,7 @@ namespace CarSharing.WebApi.Geo
 
             app.UseCors("DenyAll");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

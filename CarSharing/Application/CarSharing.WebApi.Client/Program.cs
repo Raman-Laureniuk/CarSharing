@@ -64,6 +64,7 @@ namespace CarSharing.WebApi.Client
 
             app.UseCors("AllowFrontend");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
