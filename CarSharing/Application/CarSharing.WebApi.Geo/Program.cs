@@ -24,6 +24,11 @@ namespace CarSharing.WebApi.Geo
             builder.Services.AddSwaggerGen();
             builder.Services.AddExceptionHandler<ExceptionHandler>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("DenyAll", policy => { /* No domain is authorized */ });
+            });
+
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -48,6 +53,8 @@ namespace CarSharing.WebApi.Geo
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("DenyAll");
 
             app.UseAuthorization();
 
