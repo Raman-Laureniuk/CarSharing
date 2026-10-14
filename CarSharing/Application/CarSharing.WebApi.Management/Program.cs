@@ -2,7 +2,7 @@ namespace CarSharing.WebApi.Management
 {
     using System.Security.Cryptography.X509Certificates;
     using CarSharing.WebApi.Common.DI;
-    using CarSharing.WebApi.Common.Handlers;
+    using CarSharing.WebApi.Common.Handlers.Exception;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Configuration;
@@ -23,7 +23,9 @@ namespace CarSharing.WebApi.Management
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddExceptionHandler<ExceptionHandler>();
+            builder.Services.AddProblemDetails();
+            builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();
+            builder.Services.AddExceptionHandler<TextExceptionHandler>();
 
             var allowedOrigins = builder.Configuration.GetSection("CORS:AllowedOrigins").Get<string[]>();
 
@@ -53,6 +55,8 @@ namespace CarSharing.WebApi.Management
 
             var app = builder.Build();
 
+            app.UseExceptionHandler();
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -69,8 +73,6 @@ namespace CarSharing.WebApi.Management
 
 
             app.MapControllers();
-
-            app.UseExceptionHandler(x => { });
 
             app.Run();
         }

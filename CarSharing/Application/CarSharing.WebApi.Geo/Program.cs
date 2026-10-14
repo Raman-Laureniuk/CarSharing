@@ -2,7 +2,7 @@ namespace CarSharing.WebApi.Geo
 {
     using System.Security.Cryptography.X509Certificates;
     using CarSharing.WebApi.Common.DI;
-    using CarSharing.WebApi.Common.Handlers;
+    using CarSharing.WebApi.Common.Handlers.Exception;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +22,9 @@ namespace CarSharing.WebApi.Geo
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddExceptionHandler<ExceptionHandler>();
+            builder.Services.AddProblemDetails();
+            builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();
+            builder.Services.AddExceptionHandler<TextExceptionHandler>();
 
             builder.Services.AddCors(options =>
             {
@@ -45,6 +47,8 @@ namespace CarSharing.WebApi.Geo
 
             var app = builder.Build();
 
+            app.UseExceptionHandler();
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -61,8 +65,6 @@ namespace CarSharing.WebApi.Geo
 
 
             app.MapControllers();
-
-            app.UseExceptionHandler(x => { });
 
             app.Run();
         }
