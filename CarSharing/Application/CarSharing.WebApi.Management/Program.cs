@@ -56,11 +56,10 @@ namespace CarSharing.WebApi.Management
             
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy(PolicyNames.CAR_MANAGEMENT,    policy => policy.RequireRole(RoleNames.CAR_MANAGER,    RoleNames.SUPERVISOR));
-                options.AddPolicy(PolicyNames.CLIENT_MANAGEMENT, policy => policy.RequireRole(RoleNames.CLIENT_MANAGER, RoleNames.SUPERVISOR));
-                options.AddPolicy(PolicyNames.TARIFF_MANAGEMENT, policy => policy.RequireRole(RoleNames.TARIFF_MANAGER, RoleNames.SUPERVISOR));
-
-                options.AddPolicy(PolicyNames.STAFF,             policy => policy.RequireRole(RoleNames.CAR_MANAGER, RoleNames.CLIENT_MANAGER, RoleNames.TARIFF_MANAGER, RoleNames.SUPERVISOR));
+                options.AddPolicy(PolicyNames.CAR_MANAGEMENT,    policy => policy.RequireRole(RoleNames.SUPERVISOR, RoleNames.CAR_MANAGER));
+                options.AddPolicy(PolicyNames.CLIENT_MANAGEMENT, policy => policy.RequireRole(RoleNames.SUPERVISOR, RoleNames.CLIENT_MANAGER));
+                options.AddPolicy(PolicyNames.TARIFF_MANAGEMENT, policy => policy.RequireRole(RoleNames.SUPERVISOR, RoleNames.TARIFF_MANAGER));
+                options.AddPolicy(PolicyNames.STAFF,             policy => policy.RequireRole(RoleNames.SUPERVISOR, RoleNames.CAR_MANAGER, RoleNames.CLIENT_MANAGER, RoleNames.TARIFF_MANAGER));
             });
 
             var app = builder.Build();
