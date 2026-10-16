@@ -1,6 +1,5 @@
 namespace CarSharing.WebApi.Client
 {
-    using System.Security.Cryptography.X509Certificates;
     using CarSharing.WebApi.Common.DI;
     using CarSharing.WebApi.Common.Handlers.Exception;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -42,16 +41,19 @@ namespace CarSharing.WebApi.Client
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
+                    options.Authority = builder.Configuration["Jwt:Authority"];
+                    options.Audience  = builder.Configuration["Jwt:Audience"];
+                    
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = builder.Configuration["CarSharing.WebApi.Client.Auth.Jwt.ValidIssuer"],
-                        ValidAudience = builder.Configuration["CarSharing.WebApi.Client.Auth.Jwt.ValidAudience"],
-                        IssuerSigningKey = new X509SecurityKey(X509CertificateLoader.LoadCertificateFromFile(builder.Configuration["CarSharing.WebApi.Client.Auth.Jwt.X509Certificate2.Filename"]))
+                        ValidateIssuer           = true,
+                        ValidateAudience         = true,
+                        ValidateLifetime         = true,
+                        ValidateIssuerSigningKey = true                        
                     };
                 });
+            
+            builder.Services.AddAuthorization();
 
             var app = builder.Build();
 
