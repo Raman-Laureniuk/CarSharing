@@ -10,12 +10,12 @@
     using CarSharing.WebApi.Client.Messages.Ride.Request;
     using CarSharing.WebApi.Client.Messages.Ride.Response;
     using CarSharing.WebApi.Common.Claims;
-    using CarSharing.WebApi.Common.Roles;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+    [Route("api/[controller]")]
     public class RideController : ControllerBase
     {
         private readonly IRideService _rideService;
@@ -26,7 +26,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.User)]
         [Route("start")]
         public async Task<ActionResult<StartRideResponseMessage>> StartRideAsync([FromBody] StartRideRequestMessage request)
         {
@@ -38,7 +37,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.User)]
         [Route("end")]
         public async Task<ActionResult<EndRideResponseMessage>> EndRideAsync([FromBody] EndRideRequestMessage request)
         {
@@ -50,7 +48,6 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<GetRideHistoryResponseMessage>> GetRideHistoryAsync()
         {
             Guid clientId = ClaimsHelper.GetClientId(User);

@@ -2,6 +2,7 @@ namespace CarSharing.WebApi.Management
 {
     using CarSharing.WebApi.Common.DI;
     using CarSharing.WebApi.Common.Handlers.Exception;
+    using CarSharing.WebApi.Management.Constants;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Configuration;
@@ -53,7 +54,14 @@ namespace CarSharing.WebApi.Management
                     };
                 });
             
-            builder.Services.AddAuthorization();
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy(PolicyNames.CAR_MANAGEMENT,    policy => policy.RequireRole(RoleNames.CAR_MANAGER,    RoleNames.SUPERVISOR));
+                options.AddPolicy(PolicyNames.CLIENT_MANAGEMENT, policy => policy.RequireRole(RoleNames.CLIENT_MANAGER, RoleNames.SUPERVISOR));
+                options.AddPolicy(PolicyNames.TARIFF_MANAGEMENT, policy => policy.RequireRole(RoleNames.TARIFF_MANAGER, RoleNames.SUPERVISOR));
+
+                options.AddPolicy(PolicyNames.STAFF,             policy => policy.RequireRole(RoleNames.CAR_MANAGER, RoleNames.CLIENT_MANAGER, RoleNames.TARIFF_MANAGER, RoleNames.SUPERVISOR));
+            });
 
             var app = builder.Build();
 
