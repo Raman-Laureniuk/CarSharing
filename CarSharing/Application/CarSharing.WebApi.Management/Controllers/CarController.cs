@@ -5,7 +5,7 @@
     using CarSharing.Domain.Dto.Car.Request;
     using CarSharing.Domain.Dto.Car.Response;
     using CarSharing.Domain.Services.Car;
-    using CarSharing.WebApi.Common.Roles;
+    using CarSharing.WebApi.Management.Constants;
     using CarSharing.WebApi.Management.Mappers.Car.Request;
     using CarSharing.WebApi.Management.Mappers.Car.Response;
     using CarSharing.WebApi.Management.Messages.Car.Request;
@@ -13,8 +13,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CarController : ControllerBase
     {
         private readonly ICarService _carService;
@@ -25,7 +25,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.Admin)]
+        [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
         public async Task<ActionResult<AddCarResponseMessage>> AddCarAsync([FromBody] AddCarRequestMessage request)
         {
             AddCarResponseDto response = await _carService.AddCarAsync(request.ToAddCarRequestDto());
@@ -34,7 +34,7 @@
         }
 
         [HttpPut]
-        [Authorize(Roles = RoleNames.Admin)]
+        [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
         public async Task<ActionResult<UpdateCarResponseMessage>> UpdateCarAsync([FromBody] UpdateCarRequestMessage request)
         {
             UpdateCarResponseDto response = await _carService.UpdateCarAsync(request.ToUpdateCarRequestDto());
@@ -43,7 +43,7 @@
         }
 
         [HttpDelete]
-        [Authorize(Roles = RoleNames.Admin)]
+        [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
         public async Task<ActionResult<DeleteCarResponseMessage>> DeleteCarAsync([FromQuery] Guid carId)
         {
             DeleteCarResponseDto response = await _carService.DeleteCarAsync(new DeleteCarRequestDto()
@@ -55,7 +55,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.Admin)]
+        [Authorize(Policy = PolicyNames.STAFF)]
         public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync([FromQuery] string orderBy, [FromQuery] bool sortAscending, [FromQuery] int offset, [FromQuery] int limit)
         {
             GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()
