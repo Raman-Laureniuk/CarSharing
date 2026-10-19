@@ -16,13 +16,13 @@ namespace CarSharing.WebApi.Management
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.RegisterTypes(builder.Configuration);
+
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
             builder.Services.AddProblemDetails();
             builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();
             builder.Services.AddExceptionHandler<TextExceptionHandler>();
@@ -63,26 +63,26 @@ namespace CarSharing.WebApi.Management
             });
 
             var app = builder.Build();
-
+            
             app.UseExceptionHandler();
+            
+            app.UseHttpsRedirection();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
+            app.UseRouting();
+            
             app.UseCors("AllowFrontend");
-
+            
             app.UseAuthentication();
             app.UseAuthorization();
-
-
+            
             app.MapControllers();
-
+            
             app.Run();
         }
     }
