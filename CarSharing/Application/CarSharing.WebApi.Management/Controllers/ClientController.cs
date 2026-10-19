@@ -5,7 +5,7 @@
     using CarSharing.Domain.Dto.Client.Request;
     using CarSharing.Domain.Dto.Client.Response;
     using CarSharing.Domain.Services.Client;
-    using CarSharing.WebApi.Common.Roles;
+    using CarSharing.WebApi.Management.Constants;
     using CarSharing.WebApi.Management.Mappers.Client.Request;
     using CarSharing.WebApi.Management.Mappers.Client.Response;
     using CarSharing.WebApi.Management.Messages.Client.Request;
@@ -13,8 +13,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/[controller]")]
     [ApiController]
+    [Authorize(PolicyNames.CLIENT_MANAGEMENT)]
+    [Route("api/[controller]")]
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
@@ -25,7 +26,6 @@
         }
 
         [HttpDelete]
-        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<DeleteClientResponseMessage>> DeleteClientAsync([FromQuery] Guid clientId)
         {
             DeleteClientResponseDto response = await _clientService.DeleteClientAsync(new DeleteClientRequestDto()
@@ -37,7 +37,6 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<GetClientsResponseMessage>> GetClientsAsync([FromQuery] string orderBy, [FromQuery] bool sortAscending, [FromQuery] int offset, [FromQuery] int limit)
         {
             GetClientsResponseDto response = await _clientService.GetClientsAsync(new GetClientsRequestDto()
@@ -52,7 +51,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.Admin)]
         [Route("activate")]
         public async Task<ActionResult<ActivateClientResponseMessage>> ActivateClientAsync([FromBody] ActivateClientRequestMessage request)
         {
@@ -62,7 +60,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.Admin)]
         [Route("deactivate")]
         public async Task<ActionResult<DeactivateClientResponseMessage>> DeactivateClientAsync([FromBody] DeactivateClientRequestMessage request)
         {

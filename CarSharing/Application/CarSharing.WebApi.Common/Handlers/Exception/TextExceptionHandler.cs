@@ -1,4 +1,4 @@
-﻿namespace CarSharing.WebApi.Common.Handlers
+﻿namespace CarSharing.WebApi.Common.Handlers.Exception
 {
     using System;
     using System.Threading;
@@ -6,16 +6,13 @@
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Http;
 
-    public class ExceptionHandler : IExceptionHandler
+    public class TextExceptionHandler : IExceptionHandler
     {
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
-            var error = new
-            {
-                Exception = exception.Message
-            };
+            httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-            await httpContext.Response.WriteAsJsonAsync(error, cancellationToken);
+            await httpContext.Response.WriteAsync(exception.Message, cancellationToken);
             
             return true;
         }

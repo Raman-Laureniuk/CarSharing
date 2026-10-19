@@ -10,12 +10,12 @@
     using CarSharing.WebApi.Client.Messages.Wallet.Request;
     using CarSharing.WebApi.Client.Messages.Wallet.Response;
     using CarSharing.WebApi.Common.Claims;
-    using CarSharing.WebApi.Common.Roles;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+    [Route("api/[controller]")]
     public class WalletController : ControllerBase
     {
         private readonly IWalletService _walletService;
@@ -26,7 +26,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<AddWalletResponseMessage>> AddWalletAsync([FromBody] AddWalletRequestMessage request)
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
@@ -37,7 +36,6 @@
         }
 
         [HttpDelete]
-        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<DeleteWalletResponseMessage>> DeleteWalletAsync([FromQuery] int walletId)
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
@@ -52,7 +50,6 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.User)]
         public async Task<ActionResult<GetWalletsResponseMessage>> GetWalletsAsync()
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
