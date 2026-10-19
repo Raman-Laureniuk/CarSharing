@@ -49,7 +49,7 @@ namespace CarSharing.WebApi.Client
                         ValidateIssuer           = true,
                         ValidateAudience         = true,
                         ValidateLifetime         = true,
-                        ValidateIssuerSigningKey = true                        
+                        ValidateIssuerSigningKey = true
                     };
                 });
             

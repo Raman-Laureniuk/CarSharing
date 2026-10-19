@@ -41,7 +41,7 @@ namespace CarSharing.WebApi.Geo
                         ValidateIssuer           = true,
                         ValidateAudience         = true,
                         ValidateLifetime         = true,
-                        ValidateIssuerSigningKey = true                        
+                        ValidateIssuerSigningKey = true
                     };
                 });
             
