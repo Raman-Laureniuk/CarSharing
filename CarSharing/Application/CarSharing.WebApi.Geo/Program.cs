@@ -51,6 +51,8 @@ namespace CarSharing.WebApi.Geo
 
             app.UseExceptionHandler();
 
+            app.UseStatusCodePages();
+
             app.UseHttpsRedirection();
             
             if (app.Environment.IsDevelopment())

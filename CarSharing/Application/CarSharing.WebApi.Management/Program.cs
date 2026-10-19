@@ -65,6 +65,8 @@ namespace CarSharing.WebApi.Management
             var app = builder.Build();
             
             app.UseExceptionHandler();
+
+            app.UseStatusCodePages();
             
             app.UseHttpsRedirection();
 

@@ -59,6 +59,8 @@ namespace CarSharing.WebApi.Client
 
             app.UseExceptionHandler();
 
+            app.UseStatusCodePages();
+
             app.UseHttpsRedirection();
 
             if (app.Environment.IsDevelopment())
