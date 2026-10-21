@@ -2,13 +2,16 @@
 {
     using System;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
+    using CarSharing.Domain.Entities;
     using CarSharing.Domain.Dto.Car.Request;
     using CarSharing.Domain.Dto.Car.Response;
     using CarSharing.Domain.Services.Car;
     using CarSharing.WebApi.Client.Mappers.Car.Response;
     using CarSharing.WebApi.Client.Messages.Car.Response;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Authorize]
@@ -23,15 +26,18 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync([FromQuery] string orderBy, [FromQuery] bool sortAscending, [FromQuery] int offset, [FromQuery] int limit)
+        public async Task<ActionResult<GetCarsResponseMessage>> GetAvailableCarsAsync([FromQuery] string orderBy       = nameof(Car.Tariff.PricePerHour),
+                                                                                      [FromQuery] bool   sortAscending = true,
+                                                                                      [FromQuery] int    offset        = 0,
+                                                                                      [FromQuery] int    limit         = 20)
         {
             GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()
             {
-                IsAvailable = true,
-                OrderBy = orderBy,
+                IsAvailable   = true,
+                OrderBy       = orderBy,
                 SortAscending = sortAscending,
-                Offset = offset,
-                Limit = limit
+                Offset        = offset,
+                Limit         = limit
             });
 
             return Ok(response.ToGetCarsResponseMessage());
