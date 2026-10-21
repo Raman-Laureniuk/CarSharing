@@ -12,6 +12,7 @@
     using CarSharing.Domain.Services.Car;
     using CarSharing.WebApi.Client.Mappers.Car.Response;
     using CarSharing.WebApi.Client.Messages.Car.Response;
+    using CarSharing.WebApi.Common.Constants;
 
     [ApiController]
     [Authorize]
@@ -27,9 +28,9 @@
 
         [HttpGet]
         public async Task<ActionResult<GetCarsResponseMessage>> GetAvailableCarsAsync([FromQuery] string orderBy       = nameof(Car.Tariff.PricePerHour),
-                                                                                      [FromQuery] bool   sortAscending = true,
-                                                                                      [FromQuery] int    offset        = 0,
-                                                                                      [FromQuery] int    limit         = 20)
+                                                                                      [FromQuery] bool   sortAscending = ApiParametersConstants.DEFAULT_ASCEND_SORTING,
+                                                                                      [FromQuery] int    offset        = ApiParametersConstants.DEFAULT_OFFSET,
+                                                                                      [FromQuery] int    limit         = ApiParametersConstants.DEFAULT_LIMIT)
         {
             GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()
             {
