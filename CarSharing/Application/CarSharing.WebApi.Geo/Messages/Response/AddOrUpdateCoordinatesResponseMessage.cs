@@ -1,11 +1,10 @@
 ﻿namespace CarSharing.WebApi.Geo.Messages.Response
 {
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class AddOrUpdateCoordinatesResponseMessage
     {
-        [JsonProperty("success", Required = Required.Always)]
+        [JsonPropertyName("success")]
         public bool Success { get; set; }
     }
 }

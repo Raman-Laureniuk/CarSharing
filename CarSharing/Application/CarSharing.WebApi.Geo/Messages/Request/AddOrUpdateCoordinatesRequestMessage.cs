@@ -1,18 +1,20 @@
 ﻿namespace CarSharing.WebApi.Geo.Messages.Request
 {
     using System;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class AddOrUpdateCoordinatesRequestMessage
     {
-        [JsonProperty("carId", Required = Required.Always)]
+        [JsonPropertyName("carId")]
+        [JsonRequired]
         public Guid CarId { get; set; }
 
-        [JsonProperty("latitude", Required = Required.Always)]
+        [JsonPropertyName("latitude")]
+        [JsonRequired]
         public decimal Latitude { get; set; }
 
-        [JsonProperty("longitude", Required = Required.Always)]
+        [JsonPropertyName("longitude")]
+        [JsonRequired]
         public decimal Longitude { get; set; }
     }
 }
