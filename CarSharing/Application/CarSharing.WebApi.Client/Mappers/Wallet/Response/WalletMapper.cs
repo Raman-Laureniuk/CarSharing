@@ -8,25 +8,25 @@
 
     internal static class WalletMapper
     {
-        public static WalletMessage ToWalletMessage(this WalletDto dto)
+        public static WalletResponseMessage ToWalletResponseMessage(this WalletDto dto)
         {
             if (dto == null)
             {
                 return null;
             }
 
-            return new WalletMessage()
+            return new WalletResponseMessage()
             {
                 WalletId = dto.WalletId,
                 ClientId = dto.ClientId
             };
         }
 
-        public static List<WalletMessage> ToWalletMessage(this IEnumerable<WalletDto> dto)
+        public static List<WalletResponseMessage> ToWalletResponseMessage(this IEnumerable<WalletDto> dto)
         {
             return dto
                 .OrEmptyIfNull()
-                .Select(ToWalletMessage)
+                .Select(ToWalletResponseMessage)
                 .ToList();
         }
     }

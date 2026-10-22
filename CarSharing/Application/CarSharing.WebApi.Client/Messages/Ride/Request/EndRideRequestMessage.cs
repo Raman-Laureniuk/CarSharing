@@ -1,11 +1,11 @@
 ﻿namespace CarSharing.WebApi.Client.Messages.Ride.Request
 {
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class EndRideRequestMessage
     {
-        [JsonProperty("rideId", Required = Required.Always)]
+        [JsonPropertyName("rideId")]
+        [JsonRequired]
         public int RideId { get; set; }
     }
 }

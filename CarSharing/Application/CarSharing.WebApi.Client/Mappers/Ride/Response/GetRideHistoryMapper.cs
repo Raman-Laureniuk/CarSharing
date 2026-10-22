@@ -14,7 +14,7 @@
 
             return new GetRideHistoryResponseMessage()
             {
-                Rides = dto.Rides.ToRideMessage()
+                Rides = dto.Rides.ToRideResponseMessage()
             };
         }
     }

@@ -14,7 +14,7 @@
 
             return new GetWalletsResponseMessage()
             {
-                Wallets = dto.Wallets.ToWalletMessage()
+                Wallets = dto.Wallets.ToWalletResponseMessage()
             };
         }
     }

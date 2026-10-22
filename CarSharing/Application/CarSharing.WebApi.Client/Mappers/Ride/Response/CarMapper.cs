@@ -5,14 +5,14 @@
 
     internal static class CarMapper
     {
-        public static RideCarMessage ToCarMessage(this CarDto dto)
+        public static RideCarResponseMessage ToRideCarResponseMessage(this CarDto dto)
         {
             if (dto == null)
             {
                 return null;
             }
 
-            return new RideCarMessage()
+            return new RideCarResponseMessage()
             {
                 CarId = dto.CarId,
                 Model = dto.Model,

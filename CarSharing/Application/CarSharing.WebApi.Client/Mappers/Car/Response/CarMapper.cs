@@ -8,14 +8,14 @@
 
     internal static class CarMapper
     {
-        public static CarMessage ToCarMessage(this CarDto dto)
+        public static CarResponseMessage ToCarResponseMessage(this CarDto dto)
         {
             if (dto == null)
             {
                 return null;
             }
 
-            return new CarMessage()
+            return new CarResponseMessage()
             {
                 CarId = dto.CarId,
                 Model = dto.Model,
@@ -28,11 +28,11 @@
             };
         }
 
-        public static List<CarMessage> ToCarMessage(this IEnumerable<CarDto> dto)
+        public static List<CarResponseMessage> ToCarResponseMessage(this IEnumerable<CarDto> dto)
         {
             return dto
                 .OrEmptyIfNull()
-                .Select(ToCarMessage)
+                .Select(ToCarResponseMessage)
                 .ToList();
         }
     }

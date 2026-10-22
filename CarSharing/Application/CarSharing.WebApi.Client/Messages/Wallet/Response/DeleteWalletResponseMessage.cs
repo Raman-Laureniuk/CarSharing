@@ -1,11 +1,10 @@
 ﻿namespace CarSharing.WebApi.Client.Messages.Wallet.Response
 {
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class DeleteWalletResponseMessage
     {
-        [JsonProperty("success", Required = Required.Always)]
+        [JsonPropertyName("success")]
         public bool Success { get; set; }
     }
 }

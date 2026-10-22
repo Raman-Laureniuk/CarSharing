@@ -1,11 +1,11 @@
 ﻿namespace CarSharing.WebApi.Client.Messages.Wallet.Request
 {
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class AddWalletRequestMessage
     {
-        [JsonProperty("encryptedWalletData", Required = Required.Always)]
+        [JsonPropertyName("encryptedWalletData")]
+        [JsonRequired]
         public string EncryptedWalletData { get; set; }
     }
 }
