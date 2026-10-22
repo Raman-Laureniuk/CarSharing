@@ -1,4 +1,4 @@
-﻿namespace CarSharing.WebApi.Geo.Messages.Request
+﻿namespace CarSharing.WebApi.Geo.Messages.Coordinates.Request
 {
     using System;
     using System.Text.Json.Serialization;

@@ -6,8 +6,8 @@
     using CarSharing.Domain.Services.Coordinates;
     using CarSharing.WebApi.Geo.Mappers.Request;
     using CarSharing.WebApi.Geo.Mappers.Response;
-    using CarSharing.WebApi.Geo.Messages.Request;
-    using CarSharing.WebApi.Geo.Messages.Response;
+    using CarSharing.WebApi.Geo.Messages.Coordinates.Request;
+    using CarSharing.WebApi.Geo.Messages.Coordinates.Response;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
