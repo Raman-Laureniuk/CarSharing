@@ -1,23 +1,27 @@
 ﻿namespace CarSharing.WebApi.Management.Messages.Car.Request
 {
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class AddCarRequestMessage
     {
-        [JsonProperty("model", Required = Required.Always)]
+        [JsonPropertyName("model")]
+        [JsonRequired]
         public string Model { get; set; }
 
-        [JsonProperty("year", Required = Required.Always)]
+        [JsonPropertyName("year")]
+        [JsonRequired]
         public int Year { get; set; }
 
-        [JsonProperty("color", Required = Required.Always)]
+        [JsonPropertyName("color")]
+        [JsonRequired]
         public string Color { get; set; }
 
-        [JsonProperty("plateNumber", Required = Required.Always)]
+        [JsonPropertyName("plateNumber")]
+        [JsonRequired]
         public string PlateNumber { get; set; }
 
-        [JsonProperty("tariffId", Required = Required.Always)]
+        [JsonPropertyName("tariffId")]
+        [JsonRequired]
         public int TariffId { get; set; }
     }
 }

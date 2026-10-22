@@ -1,33 +1,32 @@
 ﻿namespace CarSharing.WebApi.Management.Messages.Client.Response
 {
     using System;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class ClientResponseMessage
     {
-        [JsonProperty("clientId", Required = Required.Always)]
+        [JsonPropertyName("clientId")]
         public Guid ClientId { get; set; }
 
-        [JsonProperty("name", Required = Required.Always)]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonProperty("surname", Required = Required.Always)]
+        [JsonPropertyName("surname")]
         public string Surname { get; set; }
 
-        [JsonProperty("licenseNumber", Required = Required.Always)]
+        [JsonPropertyName("licenseNumber")]
         public string LicenseNumber { get; set; }
 
-        [JsonProperty("phoneNumber", Required = Required.Always)]
+        [JsonPropertyName("phoneNumber")]
         public string PhoneNumber { get; set; }
 
-        [JsonProperty("email", Required = Required.Always)]
+        [JsonPropertyName("email")]
         public string Email { get; set; }
 
-        [JsonProperty("isActive", Required = Required.Always)]
+        [JsonPropertyName("isActive")]
         public bool IsActive { get; set; }
 
-        [JsonProperty("isBlocked", Required = Required.Always)]
+        [JsonPropertyName("isBlocked")]
         public bool IsBlocked { get; set; }
     }
 }

@@ -1,12 +1,11 @@
 ﻿namespace CarSharing.WebApi.Management.Messages.Car.Response
 {
     using System;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class AddCarResponseMessage
     {
-        [JsonProperty("carId", Required = Required.Always)]
+        [JsonPropertyName("carId")]
         public Guid CarId { get; set; }
     }
 }

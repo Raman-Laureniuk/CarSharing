@@ -1,33 +1,32 @@
 ﻿namespace CarSharing.WebApi.Management.Messages.Car.Response
 {
     using System;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class CarResponseMessage
     {
-        [JsonProperty("carId", Required = Required.Always)]
+        [JsonPropertyName("carId")]
         public Guid CarId { get; set; }
 
-        [JsonProperty("model", Required = Required.Always)]
+        [JsonPropertyName("model")]
         public string Model { get; set; }
 
-        [JsonProperty("year", Required = Required.Always)]
+        [JsonPropertyName("year")]
         public int Year { get; set; }
 
-        [JsonProperty("color", Required = Required.Always)]
+        [JsonPropertyName("color")]
         public string Color { get; set; }
 
-        [JsonProperty("plateNumber", Required = Required.Always)]
+        [JsonPropertyName("plateNumber")]
         public string PlateNumber { get; set; }
 
-        [JsonProperty("pricePerHour", Required = Required.Always)]
+        [JsonPropertyName("pricePerHour")]
         public decimal PricePerHour { get; set; }
 
-        [JsonProperty("latitude", Required = Required.Always)]
+        [JsonPropertyName("latitude")]
         public decimal Latitude { get; set; }
 
-        [JsonProperty("longitude", Required = Required.Always)]
+        [JsonPropertyName("longitude")]
         public decimal Longitude { get; set; }
     }
 }

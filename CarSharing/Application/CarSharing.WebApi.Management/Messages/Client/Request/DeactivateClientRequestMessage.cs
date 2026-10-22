@@ -1,12 +1,12 @@
 ﻿namespace CarSharing.WebApi.Management.Messages.Client.Request
 {
     using System;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class DeactivateClientRequestMessage
     {
-        [JsonProperty("clientId", Required = Required.Always)]
+        [JsonPropertyName("clientId")]
+        [JsonRequired]
         public Guid ClientId { get; set; }
     }
 }

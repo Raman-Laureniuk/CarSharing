@@ -1,14 +1,13 @@
 ﻿namespace CarSharing.WebApi.Management.Messages.Tariff.Response
 {
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class TariffResponseMessage
     {
-        [JsonProperty("tariffId", Required = Required.Always)]
+        [JsonPropertyName("tariffId")]
         public int TariffId { get; set; }
 
-        [JsonProperty("pricePerHour", Required = Required.Always)]
+        [JsonPropertyName("pricePerHour")]
         public decimal PricePerHour { get; set; }
     }
 }
