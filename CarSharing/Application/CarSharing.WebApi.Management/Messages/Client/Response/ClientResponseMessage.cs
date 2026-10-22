@@ -4,7 +4,7 @@
     using Newtonsoft.Json;
 
     [JsonObject]
-    public class ClientMessage
+    public class ClientResponseMessage
     {
         [JsonProperty("clientId", Required = Required.Always)]
         public Guid ClientId { get; set; }

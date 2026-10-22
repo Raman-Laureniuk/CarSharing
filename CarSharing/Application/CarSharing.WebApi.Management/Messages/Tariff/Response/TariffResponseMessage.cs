@@ -3,7 +3,7 @@
     using Newtonsoft.Json;
 
     [JsonObject]
-    public class TariffMessage
+    public class TariffResponseMessage
     {
         [JsonProperty("tariffId", Required = Required.Always)]
         public int TariffId { get; set; }

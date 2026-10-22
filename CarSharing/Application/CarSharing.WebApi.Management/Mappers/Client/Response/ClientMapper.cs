@@ -8,14 +8,14 @@
 
     internal static class ClientMapper
     {
-        public static ClientMessage ToClientMessage(this ClientDto dto)
+        public static ClientResponseMessage ToClientResponseMessage(this ClientDto dto)
         {
             if (dto == null)
             {
                 return null;
             }
 
-            return new ClientMessage()
+            return new ClientResponseMessage()
             {
                 ClientId = dto.ClientId,
                 Name = dto.Name,
@@ -28,11 +28,11 @@
             };
         }
 
-        public static List<ClientMessage> ToClientMessage(this IEnumerable<ClientDto> dto)
+        public static List<ClientResponseMessage> ToClientResponseMessage(this IEnumerable<ClientDto> dto)
         {
             return dto
                 .OrEmptyIfNull()
-                .Select(ToClientMessage)
+                .Select(ToClientResponseMessage)
                 .ToList();
         }
     }

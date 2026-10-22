@@ -7,6 +7,6 @@
     public class GetCarsResponseMessage
     {
         [JsonProperty("cars", Required = Required.AllowNull)]
-        public List<CarMessage> Cars { get; set; }
+        public List<CarResponseMessage> Cars { get; set; }
     }
 }

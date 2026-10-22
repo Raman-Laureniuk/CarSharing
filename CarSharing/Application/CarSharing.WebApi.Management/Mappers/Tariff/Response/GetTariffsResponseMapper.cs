@@ -14,7 +14,7 @@
 
             return new GetTariffsResponseMessage()
             {
-                Tariffs = dto.Tariffs.ToTariffMessage()
+                Tariffs = dto.Tariffs.ToTariffResponseMessage()
             };
         }
     }

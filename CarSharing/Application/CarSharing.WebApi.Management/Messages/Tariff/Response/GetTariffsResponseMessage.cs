@@ -7,6 +7,6 @@
     public class GetTariffsResponseMessage
     {
         [JsonProperty("tariffs", Required = Required.AllowNull)]
-        public List<TariffMessage> Tariffs { get; set; }
+        public List<TariffResponseMessage> Tariffs { get; set; }
     }
 }
