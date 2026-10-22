@@ -6,7 +6,7 @@
     using CarSharing.Domain.Tools.Extensions;
     using CarSharing.WebApi.Management.Messages.Tariff.Response;
 
-    internal static class TariffMapper
+    internal static class TariffResponseMapper
     {
         public static TariffResponseMessage ToTariffResponseMessage(this TariffDto dto)
         {

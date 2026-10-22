@@ -6,7 +6,7 @@
     using CarSharing.Domain.Tools.Extensions;
     using CarSharing.WebApi.Management.Messages.Car.Response;
 
-    internal static class CarMapper
+    internal static class CarResponseMapper
     {
         public static CarResponseMessage ToCarResponseMessage(this CarDto dto)
         {
