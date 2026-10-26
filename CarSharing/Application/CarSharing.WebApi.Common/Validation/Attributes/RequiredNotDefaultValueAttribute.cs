@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// Ensures that the property has non-default value.
+    /// Ensures that the value is not default.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public sealed class RequiredNotDefaultValueAttribute : ValidationAttribute
