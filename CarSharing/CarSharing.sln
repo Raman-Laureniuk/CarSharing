@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.10.34928.147
+# Visual Studio Version 18
+VisualStudioVersion = 18.10.12201.205 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{737BE423-9A00-4063-99CC-CDF867883093}"
 EndProject
@@ -28,6 +28,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B4FFA24C-84AC-4DFF-B34F-F190970F0711}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.Domain.UnitTests", "Tests\UnitTests\CarSharing.Domain.UnitTests\CarSharing.Domain.UnitTests.csproj", "{855793DC-CAE1-4C4E-A684-B4933CD9ACB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.WebApi.Common.UnitTests", "Tests\UnitTests\CarSharing.WebApi.Common.UnitTests\CarSharing.WebApi.Common.UnitTests.csproj", "{2562EC63-C38D-4B7B-9558-53E03E7BBA90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{855793DC-CAE1-4C4E-A684-B4933CD9ACB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{855793DC-CAE1-4C4E-A684-B4933CD9ACB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{855793DC-CAE1-4C4E-A684-B4933CD9ACB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2562EC63-C38D-4B7B-9558-53E03E7BBA90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2562EC63-C38D-4B7B-9558-53E03E7BBA90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2562EC63-C38D-4B7B-9558-53E03E7BBA90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2562EC63-C38D-4B7B-9558-53E03E7BBA90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{1A8A4643-5B48-495F-B4B0-E3B1CC390DDA} = {A6265DBB-4B00-4042-A4A2-A9FF1A7876FF}
 		{B4FFA24C-84AC-4DFF-B34F-F190970F0711} = {582133B2-0912-4FF8-976A-08A25347B7B4}
 		{855793DC-CAE1-4C4E-A684-B4933CD9ACB0} = {B4FFA24C-84AC-4DFF-B34F-F190970F0711}
+		{2562EC63-C38D-4B7B-9558-53E03E7BBA90} = {B4FFA24C-84AC-4DFF-B34F-F190970F0711}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D49C77C1-94A0-4B75-845D-16BB1313C271}
