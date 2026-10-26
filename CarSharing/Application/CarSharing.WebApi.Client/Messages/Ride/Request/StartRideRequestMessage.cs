@@ -1,15 +1,19 @@
 ﻿namespace CarSharing.WebApi.Client.Messages.Ride.Request
 {
     using System;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
+    using CarSharing.WebApi.Common.Validation.Attributes;
 
-    [JsonObject]
     public class StartRideRequestMessage
     {
-        [JsonProperty("walletId", Required = Required.Always)]
+        [JsonPropertyName("walletId")]
+        [JsonRequired]
+        [ForbidDefaultValue]
         public int WalletId { get; set; }
 
-        [JsonProperty("carId", Required = Required.Always)]
+        [JsonPropertyName("carId")]
+        [JsonRequired]
+        [ForbidDefaultValue]
         public Guid CarId { get; set; }
     }
 }

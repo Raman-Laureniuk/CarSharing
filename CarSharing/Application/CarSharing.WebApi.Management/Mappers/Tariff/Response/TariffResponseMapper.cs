@@ -6,27 +6,27 @@
     using CarSharing.Domain.Tools.Extensions;
     using CarSharing.WebApi.Management.Messages.Tariff.Response;
 
-    internal static class TariffMapper
+    internal static class TariffResponseMapper
     {
-        public static TariffMessage ToTariffMessage(this TariffDto dto)
+        public static TariffResponseMessage ToTariffResponseMessage(this TariffDto dto)
         {
             if (dto == null)
             {
                 return null;
             }
 
-            return new TariffMessage()
+            return new TariffResponseMessage()
             {
                 TariffId = dto.TariffId,
                 PricePerHour = dto.PricePerHour
             };
         }
 
-        public static List<TariffMessage> ToTariffMessage(this IEnumerable<TariffDto> dto)
+        public static List<TariffResponseMessage> ToTariffResponseMessage(this IEnumerable<TariffDto> dto)
         {
             return dto
                 .OrEmptyIfNull()
-                .Select(ToTariffMessage)
+                .Select(ToTariffResponseMessage)
                 .ToList();
         }
     }

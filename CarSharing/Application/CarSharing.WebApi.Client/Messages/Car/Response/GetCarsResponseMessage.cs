@@ -1,12 +1,11 @@
 ﻿namespace CarSharing.WebApi.Client.Messages.Car.Response
 {
     using System.Collections.Generic;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Include)]
     public class GetCarsResponseMessage
     {
-        [JsonProperty("cars", Required = Required.AllowNull)]
-        public List<CarMessage> Cars { get; set; }
+        [JsonPropertyName("cars")]
+        public List<CarResponseMessage> Cars { get; set; }
     }
 }

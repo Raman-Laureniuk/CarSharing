@@ -1,12 +1,11 @@
 ﻿namespace CarSharing.WebApi.Management.Messages.Tariff.Response
 {
     using System.Collections.Generic;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Include)]
     public class GetTariffsResponseMessage
     {
-        [JsonProperty("tariffs", Required = Required.AllowNull)]
-        public List<TariffMessage> Tariffs { get; set; }
+        [JsonPropertyName("tariffs")]
+        public List<TariffResponseMessage> Tariffs { get; set; }
     }
 }

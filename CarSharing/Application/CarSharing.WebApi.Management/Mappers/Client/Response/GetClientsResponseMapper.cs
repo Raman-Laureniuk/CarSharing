@@ -14,7 +14,7 @@
 
             return new GetClientsResponseMessage()
             {
-                Clients = dto.Clients.ToClientMessage()
+                Clients = dto.Clients.ToClientResponseMessage()
             };
         }
     }

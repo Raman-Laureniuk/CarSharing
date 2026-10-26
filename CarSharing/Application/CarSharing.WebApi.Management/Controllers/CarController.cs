@@ -1,10 +1,14 @@
 ﻿namespace CarSharing.WebApi.Management.Controllers
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Car.Request;
     using CarSharing.Domain.Dto.Car.Response;
+    using CarSharing.Domain.Entities;
     using CarSharing.Domain.Services.Car;
+    using CarSharing.WebApi.Common.Constants;
+    using CarSharing.WebApi.Common.Validation.Attributes;
     using CarSharing.WebApi.Management.Constants;
     using CarSharing.WebApi.Management.Mappers.Car.Request;
     using CarSharing.WebApi.Management.Mappers.Car.Response;
@@ -26,7 +30,7 @@
 
         [HttpPost]
         [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
-        public async Task<ActionResult<AddCarResponseMessage>> AddCarAsync([FromBody] AddCarRequestMessage request)
+        public async Task<ActionResult<AddCarResponseMessage>> AddCarAsync([FromBody][Required] AddCarRequestMessage request)
         {
             AddCarResponseDto response = await _carService.AddCarAsync(request.ToAddCarRequestDto());
 
@@ -35,7 +39,7 @@
 
         [HttpPut]
         [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
-        public async Task<ActionResult<UpdateCarResponseMessage>> UpdateCarAsync([FromBody] UpdateCarRequestMessage request)
+        public async Task<ActionResult<UpdateCarResponseMessage>> UpdateCarAsync([FromBody][Required] UpdateCarRequestMessage request)
         {
             UpdateCarResponseDto response = await _carService.UpdateCarAsync(request.ToUpdateCarRequestDto());
 
@@ -44,7 +48,7 @@
 
         [HttpDelete]
         [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
-        public async Task<ActionResult<DeleteCarResponseMessage>> DeleteCarAsync([FromQuery] Guid carId)
+        public async Task<ActionResult<DeleteCarResponseMessage>> DeleteCarAsync([FromQuery][Required][ForbidDefaultValue] Guid carId)
         {
             DeleteCarResponseDto response = await _carService.DeleteCarAsync(new DeleteCarRequestDto()
             {
@@ -56,7 +60,10 @@
 
         [HttpGet]
         [Authorize(Policy = PolicyNames.STAFF)]
-        public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync([FromQuery] string orderBy, [FromQuery] bool sortAscending, [FromQuery] int offset, [FromQuery] int limit)
+        public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync([FromQuery]                 string orderBy        = nameof(Car.Model),
+                                                                             [FromQuery]                 bool   sortAscending  = ApiParametersConstants.DEFAULT_ASCEND_SORTING,
+                                                                             [FromQuery]                 int    offset         = ApiParametersConstants.DEFAULT_OFFSET,
+                                                                             [FromQuery][Range(1, 1000)] int    limit          = ApiParametersConstants.DEFAULT_LIMIT)
         {
             GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()
             {

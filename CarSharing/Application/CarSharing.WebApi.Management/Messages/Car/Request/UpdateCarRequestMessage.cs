@@ -1,27 +1,34 @@
 ﻿namespace CarSharing.WebApi.Management.Messages.Car.Request
 {
     using System;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
+    using CarSharing.WebApi.Common.Validation.Attributes;
 
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Include)]
     public class UpdateCarRequestMessage
     {
-        [JsonProperty("carId", Required = Required.Always)]
+        [JsonPropertyName("carId")]
+        [JsonRequired]
+        [ForbidDefaultValue]
         public Guid CarId { get; set; }
 
-        [JsonProperty("model", Required = Required.AllowNull)]
+        [JsonPropertyName("model")]
+        [JsonRequired]
         public string Model { get; set; }
 
-        [JsonProperty("year", Required = Required.AllowNull)]
+        [JsonPropertyName("year")]
+        [JsonRequired]
         public int? Year { get; set; }
 
-        [JsonProperty("color", Required = Required.AllowNull)]
+        [JsonPropertyName("color")]
+        [JsonRequired]
         public string Color { get; set; }
 
-        [JsonProperty("plateNumber", Required = Required.AllowNull)]
+        [JsonPropertyName("plateNumber")]
+        [JsonRequired]
         public string PlateNumber { get; set; }
 
-        [JsonProperty("tariffId", Required = Required.AllowNull)]
+        [JsonPropertyName("tariffId")]
+        [JsonRequired]
         public int? TariffId { get; set; }
     }
 }
