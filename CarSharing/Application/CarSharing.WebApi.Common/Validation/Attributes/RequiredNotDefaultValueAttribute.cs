@@ -4,6 +4,9 @@
     using System.Collections.Concurrent;
     using System.ComponentModel.DataAnnotations;
 
+    /// <summary>
+    /// Ensures that the property has non-default value.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public sealed class RequiredNotDefaultValueAttribute : ValidationAttribute
     {
