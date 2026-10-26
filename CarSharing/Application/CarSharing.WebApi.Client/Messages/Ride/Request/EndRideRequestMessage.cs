@@ -7,7 +7,7 @@
     {
         [JsonPropertyName("rideId")]
         [JsonRequired]
-        [RequiredNotDefaultValue]
+        [ForbidDefaultValue]
         public int RideId { get; set; }
     }
 }

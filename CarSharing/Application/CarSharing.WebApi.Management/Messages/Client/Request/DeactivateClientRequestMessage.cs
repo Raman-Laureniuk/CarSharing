@@ -8,7 +8,7 @@
     {
         [JsonPropertyName("clientId")]
         [JsonRequired]
-        [RequiredNotDefaultValue]
+        [ForbidDefaultValue]
         public Guid ClientId { get; set; }
     }
 }

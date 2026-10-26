@@ -8,7 +8,7 @@
     /// Ensures that the value is not default.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-    public sealed class RequiredNotDefaultValueAttribute : ValidationAttribute
+    public sealed class ForbidDefaultValueAttribute : ValidationAttribute
     {
         private static readonly ConcurrentDictionary<Type, object> _defaultValueCache = new ConcurrentDictionary<Type, object>();
         

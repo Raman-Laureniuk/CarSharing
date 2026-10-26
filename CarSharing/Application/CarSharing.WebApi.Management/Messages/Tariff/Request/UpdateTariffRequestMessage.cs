@@ -7,12 +7,12 @@
     {
         [JsonPropertyName("tariffId")]
         [JsonRequired]
-        [RequiredNotDefaultValue]
+        [ForbidDefaultValue]
         public int TariffId { get; set; }
 
         [JsonPropertyName("pricePerHour")]
         [JsonRequired]
-        [RequiredNotDefaultValue]
+        [ForbidDefaultValue]
         public decimal PricePerHour { get; set; }
     }
 }

@@ -8,7 +8,7 @@
     {
         [JsonPropertyName("carId")]
         [JsonRequired]
-        [RequiredNotDefaultValue]
+        [ForbidDefaultValue]
         public Guid CarId { get; set; }
 
         [JsonPropertyName("latitude")]

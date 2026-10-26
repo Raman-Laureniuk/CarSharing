@@ -8,12 +8,12 @@
     {
         [JsonPropertyName("walletId")]
         [JsonRequired]
-        [RequiredNotDefaultValue]
+        [ForbidDefaultValue]
         public int WalletId { get; set; }
 
         [JsonPropertyName("carId")]
         [JsonRequired]
-        [RequiredNotDefaultValue]
+        [ForbidDefaultValue]
         public Guid CarId { get; set; }
     }
 }

@@ -13,7 +13,7 @@
 
         [JsonPropertyName("year")]
         [JsonRequired]
-        [RequiredNotDefaultValue]
+        [ForbidDefaultValue]
         public int Year { get; set; }
 
         [JsonPropertyName("color")]
@@ -28,7 +28,7 @@
 
         [JsonPropertyName("tariffId")]
         [JsonRequired]
-        [RequiredNotDefaultValue]
+        [ForbidDefaultValue]
         public int TariffId { get; set; }
     }
 }

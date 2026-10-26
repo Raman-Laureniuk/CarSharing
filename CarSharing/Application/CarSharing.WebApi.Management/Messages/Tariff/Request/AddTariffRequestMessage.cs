@@ -7,7 +7,7 @@
     {
         [JsonPropertyName("pricePerHour")]
         [JsonRequired]
-        [RequiredNotDefaultValue]
+        [ForbidDefaultValue]
         public decimal PricePerHour { get; set; }
     }
 }
