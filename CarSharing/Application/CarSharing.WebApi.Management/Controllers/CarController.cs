@@ -60,10 +60,10 @@
 
         [HttpGet]
         [Authorize(Policy = PolicyNames.STAFF)]
-        public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync([FromQuery] string orderBy        = nameof(Car.Model),
-                                                                             [FromQuery] bool   sortAscending  = ApiParametersConstants.DEFAULT_ASCEND_SORTING,
-                                                                             [FromQuery] int    offset         = ApiParametersConstants.DEFAULT_OFFSET,
-                                                                             [FromQuery] int    limit          = ApiParametersConstants.DEFAULT_LIMIT)
+        public async Task<ActionResult<GetCarsResponseMessage>> GetCarsAsync([FromQuery]                 string orderBy        = nameof(Car.Model),
+                                                                             [FromQuery]                 bool   sortAscending  = ApiParametersConstants.DEFAULT_ASCEND_SORTING,
+                                                                             [FromQuery]                 int    offset         = ApiParametersConstants.DEFAULT_OFFSET,
+                                                                             [FromQuery][Range(1, 1000)] int    limit          = ApiParametersConstants.DEFAULT_LIMIT)
         {
             GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()
             {

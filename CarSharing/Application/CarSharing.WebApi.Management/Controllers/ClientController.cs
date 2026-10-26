@@ -41,10 +41,10 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetClientsResponseMessage>> GetClientsAsync([FromQuery] string orderBy       = nameof(Client.Surname),
-                                                                                   [FromQuery] bool   sortAscending = ApiParametersConstants.DEFAULT_ASCEND_SORTING,
-                                                                                   [FromQuery] int    offset        = ApiParametersConstants.DEFAULT_OFFSET,
-                                                                                   [FromQuery] int    limit         = ApiParametersConstants.DEFAULT_LIMIT)
+        public async Task<ActionResult<GetClientsResponseMessage>> GetClientsAsync([FromQuery]                 string orderBy       = nameof(Client.Surname),
+                                                                                   [FromQuery]                 bool   sortAscending = ApiParametersConstants.DEFAULT_ASCEND_SORTING,
+                                                                                   [FromQuery]                 int    offset        = ApiParametersConstants.DEFAULT_OFFSET,
+                                                                                   [FromQuery][Range(1, 1000)] int    limit         = ApiParametersConstants.DEFAULT_LIMIT)
         {
             GetClientsResponseDto response = await _clientService.GetClientsAsync(new GetClientsRequestDto()
             {
