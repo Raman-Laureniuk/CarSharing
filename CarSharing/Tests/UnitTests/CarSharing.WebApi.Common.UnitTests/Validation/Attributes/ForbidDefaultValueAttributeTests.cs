@@ -68,7 +68,6 @@
             Assert.IsFalse(isValid);
         }
 
-        // TODO: Should it fail validation?
         [TestMethod]
         public void Default_NullableInt_IsNotValid()
         {
