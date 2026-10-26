@@ -1,10 +1,12 @@
 ﻿namespace CarSharing.WebApi.Management.Controllers
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Tariff.Request;
     using CarSharing.Domain.Dto.Tariff.Response;
     using CarSharing.Domain.Services.Tariff;
+    using CarSharing.WebApi.Common.Validation.Attributes;
     using CarSharing.WebApi.Management.Constants;
     using CarSharing.WebApi.Management.Mappers.Tariff.Request;
     using CarSharing.WebApi.Management.Mappers.Tariff.Response;
@@ -44,7 +46,7 @@
 
         [HttpDelete]
         [Authorize(PolicyNames.TARIFF_MANAGEMENT)]
-        public async Task<ActionResult<DeleteTariffResponseMessage>> DeleteTariffAsync([FromQuery] int tariffId)
+        public async Task<ActionResult<DeleteTariffResponseMessage>> DeleteTariffAsync([FromQuery][Required][ForbidDefaultValue] int tariffId)
         {
             DeleteTariffResponseDto response = await _tariffService.DeleteTariffAsync(new DeleteTariffRequestDto()
             {
