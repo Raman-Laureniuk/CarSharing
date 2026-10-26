@@ -1,11 +1,13 @@
 ﻿namespace CarSharing.WebApi.Management.Messages.Tariff.Request
 {
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
+    using CarSharing.WebApi.Common.Validation.Attributes;
 
-    [JsonObject]
     public class AddTariffRequestMessage
     {
-        [JsonProperty("pricePerHour", Required = Required.Always)]
+        [JsonPropertyName("pricePerHour")]
+        [JsonRequired]
+        [ForbidDefaultValue]
         public decimal PricePerHour { get; set; }
     }
 }

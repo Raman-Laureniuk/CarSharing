@@ -1,7 +1,7 @@
 ﻿namespace CarSharing.WebApi.Geo.Mappers.Response
 {
     using CarSharing.Domain.Dto.Coordinates.Response;
-    using CarSharing.WebApi.Geo.Messages.Response;
+    using CarSharing.WebApi.Geo.Messages.Coordinates.Response;
 
     internal static class AddOrUpdateCoordinatesResponseMapper
     {

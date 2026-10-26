@@ -1,13 +1,14 @@
 ﻿namespace CarSharing.WebApi.Geo.Controllers
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Coordinates.Response;
     using CarSharing.Domain.Services.Coordinates;
     using CarSharing.WebApi.Geo.Mappers.Request;
     using CarSharing.WebApi.Geo.Mappers.Response;
-    using CarSharing.WebApi.Geo.Messages.Request;
-    using CarSharing.WebApi.Geo.Messages.Response;
+    using CarSharing.WebApi.Geo.Messages.Coordinates.Request;
+    using CarSharing.WebApi.Geo.Messages.Coordinates.Response;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<AddOrUpdateCoordinatesResponseMessage>> AddOrUpdateCoordinatesAsync([FromBody] AddOrUpdateCoordinatesRequestMessage request)
+        public async Task<ActionResult<AddOrUpdateCoordinatesResponseMessage>> AddOrUpdateCoordinatesAsync([FromBody][Required] AddOrUpdateCoordinatesRequestMessage request)
         {
             AddUpdateCoordinatesResponseDto response = await _coordinatesService.AddOrUpdateCoordinatesAsync(request.ToAddOrUpdateCoordinatesRequestDto());
 

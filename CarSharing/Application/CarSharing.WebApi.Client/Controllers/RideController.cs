@@ -1,6 +1,7 @@
 ﻿namespace CarSharing.WebApi.Client.Controllers
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
@@ -27,7 +28,7 @@
 
         [HttpPost]
         [Route("start")]
-        public async Task<ActionResult<StartRideResponseMessage>> StartRideAsync([FromBody] StartRideRequestMessage request)
+        public async Task<ActionResult<StartRideResponseMessage>> StartRideAsync([FromBody][Required] StartRideRequestMessage request)
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
@@ -38,7 +39,7 @@
 
         [HttpPost]
         [Route("end")]
-        public async Task<ActionResult<EndRideResponseMessage>> EndRideAsync([FromBody] EndRideRequestMessage request)
+        public async Task<ActionResult<EndRideResponseMessage>> EndRideAsync([FromBody][Required] EndRideRequestMessage request)
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
 

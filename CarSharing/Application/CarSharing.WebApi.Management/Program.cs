@@ -1,5 +1,6 @@
 namespace CarSharing.WebApi.Management
 {
+    using System.Text.Json.Serialization;
     using CarSharing.WebApi.Common.DI;
     using CarSharing.WebApi.Common.Handlers.Exception;
     using CarSharing.WebApi.Management.Constants;
@@ -18,7 +19,12 @@ namespace CarSharing.WebApi.Management
 
             builder.Services.RegisterTypes(builder.Configuration);
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.DefaultIgnoreCondition   = JsonIgnoreCondition.Never;
+                    options.JsonSerializerOptions.AllowDuplicateProperties = false;
+                });
             
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

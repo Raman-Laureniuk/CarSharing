@@ -1,6 +1,7 @@
 ﻿namespace CarSharing.WebApi.Client.Controllers
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Wallet.Request;
     using CarSharing.Domain.Dto.Wallet.Response;
@@ -10,6 +11,7 @@
     using CarSharing.WebApi.Client.Messages.Wallet.Request;
     using CarSharing.WebApi.Client.Messages.Wallet.Response;
     using CarSharing.WebApi.Common.Claims;
+    using CarSharing.WebApi.Common.Validation.Attributes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +28,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<AddWalletResponseMessage>> AddWalletAsync([FromBody] AddWalletRequestMessage request)
+        public async Task<ActionResult<AddWalletResponseMessage>> AddWalletAsync([FromBody][Required] AddWalletRequestMessage request)
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
@@ -36,7 +38,7 @@
         }
 
         [HttpDelete]
-        public async Task<ActionResult<DeleteWalletResponseMessage>> DeleteWalletAsync([FromQuery] int walletId)
+        public async Task<ActionResult<DeleteWalletResponseMessage>> DeleteWalletAsync([FromQuery][Required][ForbidDefaultValue] int walletId)
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             

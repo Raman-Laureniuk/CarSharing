@@ -3,16 +3,16 @@
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.WebApi.Client.Messages.Ride.Response;
 
-    internal static class CarMapper
+    internal static class CarResponseMapper
     {
-        public static RideCarMessage ToCarMessage(this CarDto dto)
+        public static RideCarResponseMessage ToRideCarResponseMessage(this CarDto dto)
         {
             if (dto == null)
             {
                 return null;
             }
 
-            return new RideCarMessage()
+            return new RideCarResponseMessage()
             {
                 CarId = dto.CarId,
                 Model = dto.Model,

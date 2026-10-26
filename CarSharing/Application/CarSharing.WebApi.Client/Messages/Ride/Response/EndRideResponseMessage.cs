@@ -1,18 +1,17 @@
 ﻿namespace CarSharing.WebApi.Client.Messages.Ride.Response
 {
     using System;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
-    [JsonObject]
     public class EndRideResponseMessage
     {
-        [JsonProperty("success", Required = Required.Always)]
+        [JsonPropertyName("success")]
         public bool Success { get; set; }
 
-        [JsonProperty("endDateUtc", Required = Required.Always)]
+        [JsonPropertyName("endDateUtc")]
         public DateTime EndDateUtc { get; set; }
 
-        [JsonProperty("totalAmount", Required = Required.Always)]
+        [JsonPropertyName("totalAmount")]
         public decimal TotalAmount { get; set; }
     }
 }
