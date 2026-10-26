@@ -3,17 +3,15 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-
-    using CarSharing.Domain.Entities;
     using CarSharing.Domain.Dto.Car.Request;
     using CarSharing.Domain.Dto.Car.Response;
+    using CarSharing.Domain.Entities;
     using CarSharing.Domain.Services.Car;
     using CarSharing.WebApi.Client.Mappers.Car.Response;
     using CarSharing.WebApi.Client.Messages.Car.Response;
     using CarSharing.WebApi.Common.Constants;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Authorize]
