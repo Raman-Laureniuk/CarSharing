@@ -28,7 +28,7 @@
 
         [HttpPost]
         [Authorize(PolicyNames.TARIFF_MANAGEMENT)]
-        public async Task<ActionResult<AddTariffResponseMessage>> AddTariffAsync([FromBody] AddTariffRequestMessage request)
+        public async Task<ActionResult<AddTariffResponseMessage>> AddTariffAsync([FromBody][Required] AddTariffRequestMessage request)
         {
             AddTariffResponseDto response = await _tariffService.AddTariffAsync(request.ToAddTariffRequestDto());
 
@@ -37,7 +37,7 @@
 
         [HttpPut]
         [Authorize(PolicyNames.TARIFF_MANAGEMENT)]
-        public async Task<ActionResult<UpdateTariffResponseMessage>> UpdateTariffAsync([FromBody] UpdateTariffRequestMessage request)
+        public async Task<ActionResult<UpdateTariffResponseMessage>> UpdateTariffAsync([FromBody][Required] UpdateTariffRequestMessage request)
         {
             UpdateTariffResponseDto response = await _tariffService.UpdateTariffAsync(request.ToUpdateTariffRequestDto());
 

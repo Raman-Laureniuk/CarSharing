@@ -28,7 +28,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<AddWalletResponseMessage>> AddWalletAsync([FromBody] AddWalletRequestMessage request)
+        public async Task<ActionResult<AddWalletResponseMessage>> AddWalletAsync([FromBody][Required] AddWalletRequestMessage request)
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             

@@ -30,7 +30,7 @@
 
         [HttpPost]
         [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
-        public async Task<ActionResult<AddCarResponseMessage>> AddCarAsync([FromBody] AddCarRequestMessage request)
+        public async Task<ActionResult<AddCarResponseMessage>> AddCarAsync([FromBody][Required] AddCarRequestMessage request)
         {
             AddCarResponseDto response = await _carService.AddCarAsync(request.ToAddCarRequestDto());
 
@@ -39,7 +39,7 @@
 
         [HttpPut]
         [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
-        public async Task<ActionResult<UpdateCarResponseMessage>> UpdateCarAsync([FromBody] UpdateCarRequestMessage request)
+        public async Task<ActionResult<UpdateCarResponseMessage>> UpdateCarAsync([FromBody][Required] UpdateCarRequestMessage request)
         {
             UpdateCarResponseDto response = await _carService.UpdateCarAsync(request.ToUpdateCarRequestDto());
 

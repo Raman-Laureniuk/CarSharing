@@ -59,7 +59,7 @@
 
         [HttpPost]
         [Route("activate")]
-        public async Task<ActionResult<ActivateClientResponseMessage>> ActivateClientAsync([FromBody] ActivateClientRequestMessage request)
+        public async Task<ActionResult<ActivateClientResponseMessage>> ActivateClientAsync([FromBody][Required] ActivateClientRequestMessage request)
         {
             ActivateClientResponseDto response = await _clientService.ActivateClientAsync(request.ToActivateClientRequestDto());
 
@@ -68,7 +68,7 @@
 
         [HttpPost]
         [Route("deactivate")]
-        public async Task<ActionResult<DeactivateClientResponseMessage>> DeactivateClientAsync([FromBody] DeactivateClientRequestMessage request)
+        public async Task<ActionResult<DeactivateClientResponseMessage>> DeactivateClientAsync([FromBody][Required] DeactivateClientRequestMessage request)
         {
             DeactivateClientResponseDto response = await _clientService.DeactivateClientAsync(request.ToDeactivateClientRequestDto());
 
