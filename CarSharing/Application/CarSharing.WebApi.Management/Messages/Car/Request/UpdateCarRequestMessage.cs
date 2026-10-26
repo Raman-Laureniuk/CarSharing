@@ -2,31 +2,33 @@
 {
     using System;
     using System.Text.Json.Serialization;
+    using CarSharing.WebApi.Common.Validation.Attributes;
 
     public class UpdateCarRequestMessage
     {
         [JsonPropertyName("carId")]
         [JsonRequired]
+        [RequiredNotDefaultValue]
         public Guid CarId { get; set; }
 
         [JsonPropertyName("model")]
-        [JsonRequired]  // Allow null
+        [JsonRequired]
         public string Model { get; set; }
 
         [JsonPropertyName("year")]
-        [JsonRequired]  // Allow null
+        [JsonRequired]
         public int? Year { get; set; }
 
         [JsonPropertyName("color")]
-        [JsonRequired]  // Allow null
+        [JsonRequired]
         public string Color { get; set; }
 
         [JsonPropertyName("plateNumber")]
-        [JsonRequired]  // Allow null
+        [JsonRequired]
         public string PlateNumber { get; set; }
 
         [JsonPropertyName("tariffId")]
-        [JsonRequired]  // Allow null
+        [JsonRequired]
         public int? TariffId { get; set; }
     }
 }
