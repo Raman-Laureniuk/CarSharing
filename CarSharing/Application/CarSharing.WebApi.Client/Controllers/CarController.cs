@@ -7,6 +7,7 @@
     using CarSharing.Domain.Dto.Car.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Services.Car;
+    using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Client.Mappers.Car.Response;
     using CarSharing.WebApi.Client.Messages.Car.Response;
     using CarSharing.WebApi.Common.Constants;
@@ -31,7 +32,7 @@
                                                                                       [FromQuery]                 int    offset        = ApiParametersConstants.DEFAULT_OFFSET,
                                                                                       [FromQuery][Range(1, 1000)] int    limit         = ApiParametersConstants.DEFAULT_LIMIT)
         {
-            GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()
+            Result<GetCarsResponseDto> result = await _carService.GetCarsAsync(new GetCarsRequestDto()
             {
                 IsAvailable   = true,
                 OrderBy       = orderBy,
@@ -40,7 +41,8 @@
                 Limit         = limit
             });
 
-            return Ok(response.ToGetCarsResponseMessage());
+            return result.IsSuccess ? Ok        (result.Value.ToGetCarsResponseMessage())
+                                    : BadRequest(result.ErrorDetails.Message);
         }
     }
 }

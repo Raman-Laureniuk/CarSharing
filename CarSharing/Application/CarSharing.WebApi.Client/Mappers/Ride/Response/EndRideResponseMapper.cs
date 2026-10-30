@@ -14,7 +14,6 @@
 
             return new EndRideResponseMessage()
             {
-                Success = dto.Success,
                 EndDateUtc = dto.EndDateUtc,
                 TotalAmount = dto.TotalAmount
             };

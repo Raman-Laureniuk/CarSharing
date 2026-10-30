@@ -2,9 +2,8 @@
 {
     using CarSharing.Domain.Commands.Base;
     using CarSharing.Domain.Dto.Client.Request;
-    using CarSharing.Domain.Dto.Client.Response;
 
-    internal interface IDeactivateClientCommandAsync : ICommandAsync<DeactivateClientRequestDto, DeactivateClientResponseDto>
+    internal interface IDeactivateClientCommandAsync : ICommandAsync<DeactivateClientRequestDto>
     {
     }
 }

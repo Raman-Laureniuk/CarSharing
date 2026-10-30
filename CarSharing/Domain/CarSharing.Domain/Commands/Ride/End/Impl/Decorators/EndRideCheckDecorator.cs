@@ -10,6 +10,7 @@
     using CarSharing.Domain.Exceptions;
     using CarSharing.Domain.Repository.Ride;
     using CarSharing.Domain.RepositoryFactory.Ride;
+    using CarSharing.Domain.Tools.Result;
 
     internal class EndRideCheckDecorator : IEndRideCommandAsync
     {
@@ -23,7 +24,7 @@
             _decoratee = decoratee ?? throw new ArgumentNullException(nameof(decoratee));
         }
 
-        public async Task<EndRideResponseDto> ExecuteAsync(EndRideRequestDto request)
+        public async Task<Result<EndRideResponseDto>> ExecuteAsync(EndRideRequestDto request)
         {
             if (request != null)
             {

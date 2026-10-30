@@ -6,6 +6,7 @@
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Services.Ride;
+    using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Client.Mappers.Ride.Request;
     using CarSharing.WebApi.Client.Mappers.Ride.Response;
     using CarSharing.WebApi.Client.Messages.Ride.Request;
@@ -32,9 +33,10 @@
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
-            StartRideResponseDto response = await _rideService.StartRideAsync(request.ToStartRideRequestDto(clientId));
+            Result<StartRideResponseDto> result = await _rideService.StartRideAsync(request.ToStartRideRequestDto(clientId));
 
-            return Ok(response.ToStartRideResponseMessage());
+            return result.IsSuccess ? Ok        (result.Value.ToStartRideResponseMessage())
+                                    : BadRequest(result.ErrorDetails.Message);
         }
 
         [HttpPost]
@@ -43,9 +45,10 @@
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
 
-            EndRideResponseDto response = await _rideService.EndRideAsync(request.ToEndRideRequestDto(clientId));
+            Result<EndRideResponseDto> result = await _rideService.EndRideAsync(request.ToEndRideRequestDto(clientId));
 
-            return Ok(response.ToEndRideResponseMessage());
+            return result.IsSuccess ? Ok        (result.Value.ToEndRideResponseMessage())
+                                    : BadRequest(result.ErrorDetails.Message);
         }
 
         [HttpGet]
@@ -53,12 +56,13 @@
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
 
-            GetRideHistoryResponseDto response = await _rideService.GetRideHistoryAsync(new GetRideHistoryRequestDto()
+            Result<GetRideHistoryResponseDto> result = await _rideService.GetRideHistoryAsync(new GetRideHistoryRequestDto()
             {
                 ClientId = clientId
             });
 
-            return Ok(response.ToGetRideHistoryResponseMessage());
+            return result.IsSuccess ? Ok        (result.Value.ToGetRideHistoryResponseMessage())
+                                    : BadRequest(result.ErrorDetails.Message);
         }
     }
 }

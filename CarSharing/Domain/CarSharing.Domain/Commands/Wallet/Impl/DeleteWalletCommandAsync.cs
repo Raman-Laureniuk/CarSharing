@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Wallet.Request;
-    using CarSharing.Domain.Dto.Wallet.Response;
     using CarSharing.Domain.Repository.Wallet;
     using CarSharing.Domain.RepositoryFactory.Wallet;
+    using CarSharing.Domain.Tools.Result;
 
     internal class DeleteWalletCommandAsync : IDeleteWalletCommandAsync
     {
@@ -16,7 +16,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<DeleteWalletResponseDto> ExecuteAsync(DeleteWalletRequestDto request)
+        public async Task<Result> ExecuteAsync(DeleteWalletRequestDto request)
         {
             if (request == null)
             {
@@ -28,10 +28,7 @@
                 await repo.DeleteAsync(request.WalletId, true).ConfigureAwait(false);
             }
 
-            return new DeleteWalletResponseDto()
-            {
-                Success = true
-            };
+            return Result.Success();
         }
     }
 }

@@ -8,6 +8,7 @@
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Dto.Wallet.Request;
     using CarSharing.Domain.Dto.Wallet.Response;
+    using CarSharing.Domain.Tools.Result;
 
     internal class StartRideWalletCheckDecorator : IStartRideCommandAsync
     {
@@ -21,11 +22,11 @@
             _decoratee = decoratee ?? throw new ArgumentNullException(nameof(decoratee));
         }
 
-        public async Task<StartRideResponseDto> ExecuteAsync(StartRideRequestDto request)
+        public async Task<Result<StartRideResponseDto>> ExecuteAsync(StartRideRequestDto request)
         {
             if (request != null)
             {
-                await ThrowIfWalletIsNotClients(request.ClientId, request.WalletId).ConfigureAwait(false);
+                await ThrowIfWalletIsNotClients(request.ClientId, request.WalletId).ConfigureAwait(false);  // TODO: Return failed result.
             }
 
             return await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
@@ -49,9 +50,9 @@
                 WalletId = walletId
             };
 
-            CheckWalletForClientResponseDto response = await _checkWalletForClientCommand.ExecuteAsync(request).ConfigureAwait(false);
+            Result<CheckWalletForClientResponseDto> result = await _checkWalletForClientCommand.ExecuteAsync(request).ConfigureAwait(false);
 
-            return response?.DoesWalletBelongToClient ?? false;
+            return result.Value?.DoesWalletBelongToClient ?? false;  // TODO: Check if result is successful.
         }
     }
 }

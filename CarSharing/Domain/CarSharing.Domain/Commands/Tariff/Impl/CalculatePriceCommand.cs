@@ -4,12 +4,13 @@
     using CarSharing.Domain.Constants;
     using CarSharing.Domain.Dto.Tariff.Request;
     using CarSharing.Domain.Dto.Tariff.Response;
+    using CarSharing.Domain.Tools.Result;
 
     internal class CalculatePriceCommand : ICalculatePriceCommand
     {
-        public CalculatePriceResponseDto Execute(CalculatePriceRequestDto request)
+        public Result<CalculatePriceResponseDto> Execute(CalculatePriceRequestDto request)
         {
-            Check(request);
+            Check(request);  // TODO: Rewrite with ArgumentNullException.ThrowIfNull(..)
             
             decimal pricePerHour = request.Tariff.PricePerHour;
             decimal totalHours = Math.Ceiling((decimal)request.RidePeriod.TotalHours);

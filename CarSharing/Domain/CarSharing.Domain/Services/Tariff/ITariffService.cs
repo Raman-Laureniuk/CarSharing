@@ -3,13 +3,14 @@
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Tariff.Request;
     using CarSharing.Domain.Dto.Tariff.Response;
+    using CarSharing.Domain.Tools.Result;
 
     public interface ITariffService
     {
-        Task<AddTariffResponseDto> AddTariffAsync(AddTariffRequestDto request);
-        Task<UpdateTariffResponseDto> UpdateTariffAsync(UpdateTariffRequestDto request);
-        Task<DeleteTariffResponseDto> DeleteTariffAsync(DeleteTariffRequestDto request);
-        Task<GetTariffsResponseDto> GetTariffsAsync(GetTariffsRequestDto request);
-        CalculatePriceResponseDto CalculatePrice(CalculatePriceRequestDto request);
+        Task<Result<AddTariffResponseDto>> AddTariffAsync(AddTariffRequestDto request);
+        Task<Result> UpdateTariffAsync(UpdateTariffRequestDto request);
+        Task<Result> DeleteTariffAsync(DeleteTariffRequestDto request);
+        Task<Result<GetTariffsResponseDto>> GetTariffsAsync(GetTariffsRequestDto request);
+        Result<CalculatePriceResponseDto> CalculatePrice(CalculatePriceRequestDto request);
     }
 }

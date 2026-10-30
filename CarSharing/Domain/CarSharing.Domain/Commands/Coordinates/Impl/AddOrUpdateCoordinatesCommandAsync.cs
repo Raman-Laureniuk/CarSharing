@@ -3,11 +3,11 @@
     using System;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Coordinates.Request;
-    using CarSharing.Domain.Dto.Coordinates.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Mappers.Coordinates.Request;
     using CarSharing.Domain.Repository.CarCoordinates;
     using CarSharing.Domain.RepositoryFactory.CarCoordinates;
+    using CarSharing.Domain.Tools.Result;
 
     internal class AddOrUpdateCoordinatesCommandAsync : IAddOrUpdateCoordinatesCommandAsync
     {
@@ -18,7 +18,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<AddUpdateCoordinatesResponseDto> ExecuteAsync(AddOrUpdateCoordinatesRequestDto request)
+        public async Task<Result> ExecuteAsync(AddOrUpdateCoordinatesRequestDto request)
         {
             if (request == null)
             {
@@ -32,10 +32,7 @@
                 await repo.UpsertAsync(carCoordinates, true).ConfigureAwait(false);
             }
 
-            return new AddUpdateCoordinatesResponseDto()
-            {
-                Success = true
-            };
+            return Result.Success();
         }
     }
 }

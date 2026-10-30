@@ -7,6 +7,7 @@
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Repository.Wallet;
     using CarSharing.Domain.RepositoryFactory.Wallet;
+    using CarSharing.Domain.Tools.Result;
 
     internal class CheckWalletForClientCommandAsync : ICheckWalletForClientCommandAsync
     {
@@ -17,7 +18,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<CheckWalletForClientResponseDto> ExecuteAsync(CheckWalletForClientRequestDto request)
+        public async Task<Result<CheckWalletForClientResponseDto>> ExecuteAsync(CheckWalletForClientRequestDto request)
         {
             if (request == null)
             {

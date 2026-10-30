@@ -2,11 +2,9 @@
 {
     using System;
     using System.Threading.Tasks;
-    using CarSharing.Domain.Dto.Client.Response;
     using CarSharing.Domain.Services.Client;
+    using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Client.Mappers.Client.Request;
-    using CarSharing.WebApi.Client.Mappers.Client.Response;
-    using CarSharing.WebApi.Client.Messages.Client.Response;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -23,19 +21,21 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<AddClientResponseMessage>> AddClientAsync()
+        public async Task<ActionResult> AddClientAsync()
         {
-            AddClientResponseDto response = await _clientService.AddClientAsync(User.ToAddClientRequestDto());
+            Result result = await _clientService.AddClientAsync(User.ToAddClientRequestDto());
 
-            return Ok(response.ToAddClientResponseMessage());
+            return result.IsSuccess ? Ok()
+                                    : BadRequest(result.ErrorDetails.Message);
         }
 
         [HttpPut]
-        public async Task<ActionResult<UpdateClientResponseMessage>> UpdateClientAsync()
+        public async Task<ActionResult> UpdateClientAsync()
         {
-            UpdateClientResponseDto response = await _clientService.UpdateClientAsync(User.ToUpdateClientRequestDto());
+            Result result = await _clientService.UpdateClientAsync(User.ToUpdateClientRequestDto());
 
-            return Ok(response.ToUpdateClientResponseMessage());
+            return result.IsSuccess ? Ok()
+                                    : BadRequest(result.ErrorDetails.Message);
         }
     }
 }

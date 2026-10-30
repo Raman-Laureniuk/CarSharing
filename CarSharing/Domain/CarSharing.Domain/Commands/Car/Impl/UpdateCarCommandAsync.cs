@@ -3,10 +3,10 @@
     using System;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Car.Request;
-    using CarSharing.Domain.Dto.Car.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Repository.Car;
     using CarSharing.Domain.RepositoryFactory.Car;
+    using CarSharing.Domain.Tools.Result;
 
     internal class UpdateCarCommandAsync : IUpdateCarCommandAsync
     {
@@ -17,7 +17,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<UpdateCarResponseDto> ExecuteAsync(UpdateCarRequestDto request)
+        public async Task<Result> ExecuteAsync(UpdateCarRequestDto request)
         {
             if (request == null)
             {
@@ -42,10 +42,7 @@
                 await repo.UpdateAsync(car, true).ConfigureAwait(false);
             }
 
-            return new UpdateCarResponseDto()
-            {
-                Success = true
-            };
+            return Result.Success();
         }
     }
 }

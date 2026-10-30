@@ -8,6 +8,7 @@
     using CarSharing.Domain.Mappers.Wallet.Request;
     using CarSharing.Domain.Repository.Wallet;
     using CarSharing.Domain.RepositoryFactory.Wallet;
+    using CarSharing.Domain.Tools.Result;
 
     internal class AddWalletCommandAsync : IAddWalletCommandAsync
     {
@@ -18,7 +19,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<AddWalletResponseDto> ExecuteAsync(AddWalletRequestDto request)
+        public async Task<Result<AddWalletResponseDto>> ExecuteAsync(AddWalletRequestDto request)
         {
             if (request == null)
             {

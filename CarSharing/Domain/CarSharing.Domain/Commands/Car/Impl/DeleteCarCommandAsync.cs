@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Car.Request;
-    using CarSharing.Domain.Dto.Car.Response;
     using CarSharing.Domain.Repository.Car;
     using CarSharing.Domain.RepositoryFactory.Car;
+    using CarSharing.Domain.Tools.Result;
 
     internal class DeleteCarCommandAsync : IDeleteCarCommandAsync
     {
@@ -16,7 +16,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<DeleteCarResponseDto> ExecuteAsync(DeleteCarRequestDto request)
+        public async Task<Result> ExecuteAsync(DeleteCarRequestDto request)
         {
             if (request == null)
             {
@@ -28,10 +28,7 @@
                 await repo.DeleteAsync(request.CarId, true).ConfigureAwait(false);
             }
 
-            return new DeleteCarResponseDto()
-            {
-                Success = true
-            };
+            return Result.Success();
         }
     }
 }

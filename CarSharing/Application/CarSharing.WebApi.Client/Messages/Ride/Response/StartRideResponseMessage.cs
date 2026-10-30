@@ -5,9 +5,6 @@
 
     public class StartRideResponseMessage
     {
-        [JsonPropertyName("success")]
-        public bool Success { get; set; }
-
         [JsonPropertyName("rideId")]
         public int RideId { get; set; }
 

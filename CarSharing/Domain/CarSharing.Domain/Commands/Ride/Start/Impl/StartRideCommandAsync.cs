@@ -9,6 +9,7 @@
     using CarSharing.Domain.Mappers.Ride.Request;
     using CarSharing.Domain.Repository.Ride;
     using CarSharing.Domain.RepositoryFactory.Ride;
+    using CarSharing.Domain.Tools.Result;
 
     internal class StartRideCommandAsync : IStartRideCommandAsync
     {
@@ -19,7 +20,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<StartRideResponseDto> ExecuteAsync(StartRideRequestDto request)
+        public async Task<Result<StartRideResponseDto>> ExecuteAsync(StartRideRequestDto request)
         {
             if (request == null)
             {
@@ -35,7 +36,6 @@
 
             return new StartRideResponseDto()
             {
-                Success = true,
                 RideId = ride.RideId,
                 StartDateUtc = ride.StartDateUtc
             };

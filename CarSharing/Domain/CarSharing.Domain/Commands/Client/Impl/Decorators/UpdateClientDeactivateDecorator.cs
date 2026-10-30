@@ -3,7 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Client.Request;
-    using CarSharing.Domain.Dto.Client.Response;
+    using CarSharing.Domain.Tools.Result;
 
     internal class UpdateClientDeactivateDecorator : IUpdateClientCommandAsync
     {
@@ -17,21 +17,21 @@
             _decoratee = decoratee ?? throw new ArgumentNullException(nameof(decoratee));
         }
 
-        public async Task<UpdateClientResponseDto> ExecuteAsync(UpdateClientRequestDto request)
+        public async Task<Result> ExecuteAsync(UpdateClientRequestDto request)
         {
-            UpdateClientResponseDto response = await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
+            Result result = await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
 
-            if (response.Success && request != null)
+            if (result.IsSuccess && request != null)
             {
                 DeactivateClientRequestDto deactivateRequest = new DeactivateClientRequestDto()
                 {
                     ClientId = request.ClientId
                 };
 
-                await _deactivateClientCommand.ExecuteAsync(deactivateRequest).ConfigureAwait(false);
+                await _deactivateClientCommand.ExecuteAsync(deactivateRequest).ConfigureAwait(false);  // TODO: Check deactivation result.
             }
 
-            return response;
+            return result;
         }
     }
 }

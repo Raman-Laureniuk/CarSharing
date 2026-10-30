@@ -9,6 +9,7 @@
     using CarSharing.Domain.Mappers.Tariff.Response;
     using CarSharing.Domain.Repository.Tariff;
     using CarSharing.Domain.RepositoryFactory.Tariff;
+    using CarSharing.Domain.Tools.Result;
 
     internal class GetTariffsCommandAsync : IGetTariffsCommandAsync
     {
@@ -19,7 +20,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<GetTariffsResponseDto> ExecuteAsync(GetTariffsRequestDto request)
+        public async Task<Result<GetTariffsResponseDto>> ExecuteAsync(GetTariffsRequestDto request)
         {
             using (ITariffRepository repo = _repoFactory.CreateRepository())
             {

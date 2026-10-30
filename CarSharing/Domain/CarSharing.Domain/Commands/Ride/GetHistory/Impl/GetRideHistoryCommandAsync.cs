@@ -10,6 +10,7 @@
     using CarSharing.Domain.Mappers.Ride.Response;
     using CarSharing.Domain.Repository.Ride;
     using CarSharing.Domain.RepositoryFactory.Ride;
+    using CarSharing.Domain.Tools.Result;
 
     internal class GetRideHistoryCommandAsync : IGetRideHistoryCommandAsync
     {
@@ -20,7 +21,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<GetRideHistoryResponseDto> ExecuteAsync(GetRideHistoryRequestDto request)
+        public async Task<Result<GetRideHistoryResponseDto>> ExecuteAsync(GetRideHistoryRequestDto request)
         {
             if (request == null)
             {

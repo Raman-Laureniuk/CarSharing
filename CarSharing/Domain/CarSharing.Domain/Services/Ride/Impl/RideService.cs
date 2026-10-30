@@ -7,6 +7,7 @@
     using CarSharing.Domain.Commands.Ride.Start;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
+    using CarSharing.Domain.Tools.Result;
 
     internal class RideService : IRideService
     {
@@ -23,17 +24,17 @@
             _getRideHistoryCommand = getRideHistoryCommand ?? throw new ArgumentNullException(nameof(getRideHistoryCommand));
         }
 
-        public Task<StartRideResponseDto> StartRideAsync(StartRideRequestDto request)
+        public Task<Result<StartRideResponseDto>> StartRideAsync(StartRideRequestDto request)
         {
             return _startRideCommand.ExecuteAsync(request);
         }
 
-        public Task<EndRideResponseDto> EndRideAsync(EndRideRequestDto request)
+        public Task<Result<EndRideResponseDto>> EndRideAsync(EndRideRequestDto request)
         {
             return _endRideCommand.ExecuteAsync(request);
         }
 
-        public Task<GetRideHistoryResponseDto> GetRideHistoryAsync(GetRideHistoryRequestDto request)
+        public Task<Result<GetRideHistoryResponseDto>> GetRideHistoryAsync(GetRideHistoryRequestDto request)
         {
             return _getRideHistoryCommand.ExecuteAsync(request);
         }

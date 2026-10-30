@@ -6,6 +6,7 @@
     using CarSharing.Domain.Dto.Tariff.Request;
     using CarSharing.Domain.Dto.Tariff.Response;
     using CarSharing.Domain.Services.Tariff;
+    using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Common.Validation.Attributes;
     using CarSharing.WebApi.Management.Constants;
     using CarSharing.WebApi.Management.Mappers.Tariff.Request;
@@ -27,42 +28,46 @@
         }
 
         [HttpPost]
-        [Authorize(PolicyNames.TARIFF_MANAGEMENT)]
+        [Authorize(Policy = PolicyNames.TARIFF_MANAGEMENT)]
         public async Task<ActionResult<AddTariffResponseMessage>> AddTariffAsync([FromBody][Required] AddTariffRequestMessage request)
         {
-            AddTariffResponseDto response = await _tariffService.AddTariffAsync(request.ToAddTariffRequestDto());
+            Result<AddTariffResponseDto> result = await _tariffService.AddTariffAsync(request.ToAddTariffRequestDto());
 
-            return Ok(response.ToAddTariffResponseMessage());
+            return result.IsSuccess ? Ok        (result.Value.ToAddTariffResponseMessage())
+                                    : BadRequest(result.ErrorDetails.Message);
         }
 
         [HttpPut]
-        [Authorize(PolicyNames.TARIFF_MANAGEMENT)]
-        public async Task<ActionResult<UpdateTariffResponseMessage>> UpdateTariffAsync([FromBody][Required] UpdateTariffRequestMessage request)
+        [Authorize(Policy = PolicyNames.TARIFF_MANAGEMENT)]
+        public async Task<ActionResult> UpdateTariffAsync([FromBody][Required] UpdateTariffRequestMessage request)
         {
-            UpdateTariffResponseDto response = await _tariffService.UpdateTariffAsync(request.ToUpdateTariffRequestDto());
+            Result result = await _tariffService.UpdateTariffAsync(request.ToUpdateTariffRequestDto());
 
-            return Ok(response.ToUpdateTariffResponseMessage());
+            return result.IsSuccess ? Ok()
+                                    : BadRequest(result.ErrorDetails.Message);
         }
 
         [HttpDelete]
-        [Authorize(PolicyNames.TARIFF_MANAGEMENT)]
-        public async Task<ActionResult<DeleteTariffResponseMessage>> DeleteTariffAsync([FromQuery][Required][ForbidDefaultValue] int tariffId)
+        [Authorize(Policy = PolicyNames.TARIFF_MANAGEMENT)]
+        public async Task<ActionResult> DeleteTariffAsync([FromQuery][Required][ForbidDefaultValue] int tariffId)
         {
-            DeleteTariffResponseDto response = await _tariffService.DeleteTariffAsync(new DeleteTariffRequestDto()
+            Result result = await _tariffService.DeleteTariffAsync(new DeleteTariffRequestDto()
             {
                 TariffId = tariffId
             });
 
-            return Ok(response.ToDeleteTariffResponseMessage());
+            return result.IsSuccess ? Ok()
+                                    : BadRequest(result.ErrorDetails.Message);
         }
 
         [HttpGet]
         [Authorize(Policy = PolicyNames.STAFF)]
         public async Task<ActionResult<GetTariffsResponseMessage>> GetTariffsAsync()
         {
-            GetTariffsResponseDto response = await _tariffService.GetTariffsAsync(new GetTariffsRequestDto());
+            Result<GetTariffsResponseDto> result = await _tariffService.GetTariffsAsync(new GetTariffsRequestDto());
 
-            return Ok(response.ToGetTariffsResponseMessage());
+            return result.IsSuccess ? Ok        (result.Value.ToGetTariffsResponseMessage())
+                                    : BadRequest(result.ErrorDetails.Message);
         }
     }
 }

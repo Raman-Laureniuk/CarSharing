@@ -6,6 +6,7 @@
     using CarSharing.Domain.Dto.Wallet.Request;
     using CarSharing.Domain.Dto.Wallet.Response;
     using CarSharing.Domain.Services.Wallet;
+    using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Client.Mappers.Wallet.Request;
     using CarSharing.WebApi.Client.Mappers.Wallet.Response;
     using CarSharing.WebApi.Client.Messages.Wallet.Request;
@@ -32,23 +33,26 @@
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
-            AddWalletResponseDto response = await _walletService.AddWalletAsync(request.ToAddWalletRequestDto(clientId));
+            Result<AddWalletResponseDto> result = await _walletService.AddWalletAsync(request.ToAddWalletRequestDto(clientId));
 
-            return Ok(response.ToAddWalletResponseMessage());
+            return result.IsSuccess ? Ok        (result.Value.ToAddWalletResponseMessage())
+                                    : BadRequest(result.ErrorDetails.Message);
+
         }
 
         [HttpDelete]
-        public async Task<ActionResult<DeleteWalletResponseMessage>> DeleteWalletAsync([FromQuery][Required][ForbidDefaultValue] int walletId)
+        public async Task<ActionResult> DeleteWalletAsync([FromQuery][Required][ForbidDefaultValue] int walletId)
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
-            DeleteWalletResponseDto response = await _walletService.DeleteWalletAsync(new DeleteWalletRequestDto()
+            Result result = await _walletService.DeleteWalletAsync(new DeleteWalletRequestDto()
             {
                 WalletId = walletId,
                 ClientId = clientId
             });
 
-            return Ok(response.ToDeleteWalletResponseMessage());
+            return result.IsSuccess ? Ok()
+                                    : BadRequest(result.ErrorDetails.Message);
         }
 
         [HttpGet]
@@ -56,12 +60,13 @@
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
-            GetWalletsResponseDto response = await _walletService.GetWalletsAsync(new GetWalletsRequestDto()
+            Result<GetWalletsResponseDto> result = await _walletService.GetWalletsAsync(new GetWalletsRequestDto()
             {
                 ClientId = clientId
             });
 
-            return Ok(response.ToGetWalletsResponseMessage());
+            return result.IsSuccess ? Ok        (result.Value.ToGetWalletsResponseMessage())
+                                    : BadRequest(result.ErrorDetails.Message);
         }
     }
 }

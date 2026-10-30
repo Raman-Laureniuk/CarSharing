@@ -7,6 +7,7 @@
     using CarSharing.Domain.Dto.Car.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Services.Car;
+    using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Common.Constants;
     using CarSharing.WebApi.Common.Validation.Attributes;
     using CarSharing.WebApi.Management.Constants;
@@ -32,30 +33,33 @@
         [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
         public async Task<ActionResult<AddCarResponseMessage>> AddCarAsync([FromBody][Required] AddCarRequestMessage request)
         {
-            AddCarResponseDto response = await _carService.AddCarAsync(request.ToAddCarRequestDto());
+            Result<AddCarResponseDto> result = await _carService.AddCarAsync(request.ToAddCarRequestDto());
 
-            return Ok(response.ToAddCarResponseMessage());
+            return result.IsSuccess ? Ok        (result.Value.ToAddCarResponseMessage())
+                                    : BadRequest(result.ErrorDetails.Message);
         }
 
         [HttpPut]
         [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
-        public async Task<ActionResult<UpdateCarResponseMessage>> UpdateCarAsync([FromBody][Required] UpdateCarRequestMessage request)
+        public async Task<ActionResult> UpdateCarAsync([FromBody][Required] UpdateCarRequestMessage request)
         {
-            UpdateCarResponseDto response = await _carService.UpdateCarAsync(request.ToUpdateCarRequestDto());
+            Result result = await _carService.UpdateCarAsync(request.ToUpdateCarRequestDto());
 
-            return Ok(response.ToUpdateCarResponseMessage());
+            return result.IsSuccess ? Ok()
+                                    : BadRequest(result.ErrorDetails.Message);
         }
 
         [HttpDelete]
         [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
-        public async Task<ActionResult<DeleteCarResponseMessage>> DeleteCarAsync([FromQuery][Required][ForbidDefaultValue] Guid carId)
+        public async Task<ActionResult> DeleteCarAsync([FromQuery][Required][ForbidDefaultValue] Guid carId)
         {
-            DeleteCarResponseDto response = await _carService.DeleteCarAsync(new DeleteCarRequestDto()
+            Result result = await _carService.DeleteCarAsync(new DeleteCarRequestDto()
             {
                 CarId = carId
             });
 
-            return Ok(response.ToDeleteCarResponseMessage());
+            return result.IsSuccess ? Ok()
+                                    : BadRequest(result.ErrorDetails.Message);
         }
 
         [HttpGet]
@@ -65,7 +69,7 @@
                                                                              [FromQuery]                 int    offset         = ApiParametersConstants.DEFAULT_OFFSET,
                                                                              [FromQuery][Range(1, 1000)] int    limit          = ApiParametersConstants.DEFAULT_LIMIT)
         {
-            GetCarsResponseDto response = await _carService.GetCarsAsync(new GetCarsRequestDto()
+            Result<GetCarsResponseDto> result = await _carService.GetCarsAsync(new GetCarsRequestDto()
             {
                 IsAvailable = null,
                 OrderBy = orderBy,
@@ -74,7 +78,8 @@
                 Limit = limit
             });
 
-            return Ok(response.ToGetCarsResponseMessage());
+            return result.IsSuccess ? Ok        (result.Value.ToGetCarsResponseMessage())
+                                    : BadRequest(result.ErrorDetails.Message);
         }
     }
 }

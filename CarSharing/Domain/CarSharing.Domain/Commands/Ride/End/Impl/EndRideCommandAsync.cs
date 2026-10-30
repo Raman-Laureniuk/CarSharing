@@ -17,6 +17,7 @@
     using CarSharing.Domain.Providers.Payment;
     using CarSharing.Domain.Repository.Ride;
     using CarSharing.Domain.RepositoryFactory.Ride;
+    using CarSharing.Domain.Tools.Result;
 
     internal class EndRideCommandAsync : IEndRideCommandAsync
     {
@@ -33,7 +34,7 @@
             _paymentProvider = paymentProvider ?? throw new ArgumentNullException(nameof(paymentProvider));
         }
 
-        public async Task<EndRideResponseDto> ExecuteAsync(EndRideRequestDto request)
+        public async Task<Result<EndRideResponseDto>> ExecuteAsync(EndRideRequestDto request)
         {
             if (request == null)
             {
@@ -67,7 +68,6 @@
 
             return new EndRideResponseDto()
             {
-                Success = true,
                 EndDateUtc = endDateUtc,
                 TotalAmount = price
             };
@@ -99,7 +99,7 @@
             {
                 RidePeriod = period,
                 Tariff = tariff
-            }).Price;
+            }).Value.Price;  // TODO: Check result.
         }
 
         private async Task<string> AuthorizePaymentAsync(decimal authorizeAmount, string encryptedWalletData)

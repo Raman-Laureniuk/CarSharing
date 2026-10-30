@@ -8,6 +8,7 @@
     using CarSharing.Domain.Mappers.Car.Request;
     using CarSharing.Domain.Repository.Car;
     using CarSharing.Domain.RepositoryFactory.Car;
+    using CarSharing.Domain.Tools.Result;
 
     internal class AddCarCommandAsync : IAddCarCommandAsync
     {
@@ -18,7 +19,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<AddCarResponseDto> ExecuteAsync(AddCarRequestDto request)
+        public async Task<Result<AddCarResponseDto>> ExecuteAsync(AddCarRequestDto request)
         {
             if (request == null)
             {

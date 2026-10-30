@@ -5,6 +5,7 @@
     using CarSharing.Domain.Commands.Wallet;
     using CarSharing.Domain.Dto.Wallet.Request;
     using CarSharing.Domain.Dto.Wallet.Response;
+    using CarSharing.Domain.Tools.Result;
 
     internal class DeleteWalletClientCheckDecorator : IDeleteWalletCommandAsync
     {
@@ -18,11 +19,11 @@
             _decoratee = decoratee ?? throw new ArgumentNullException(nameof(decoratee));
         }
 
-        public async Task<DeleteWalletResponseDto> ExecuteAsync(DeleteWalletRequestDto request)
+        public async Task<Result> ExecuteAsync(DeleteWalletRequestDto request)
         {
             if (request != null)
             {
-                await ThrowIfWalletIsNotClients(request.ClientId, request.WalletId).ConfigureAwait(false);
+                await ThrowIfWalletIsNotClients(request.ClientId, request.WalletId).ConfigureAwait(false);  // TODO: Return failed result.
             }
 
             return await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
@@ -46,9 +47,9 @@
                 WalletId = walletId
             };
 
-            CheckWalletForClientResponseDto response = await _checkWalletForClientCommand.ExecuteAsync(request).ConfigureAwait(false);
+            Result<CheckWalletForClientResponseDto> result = await _checkWalletForClientCommand.ExecuteAsync(request).ConfigureAwait(false);
 
-            return response?.DoesWalletBelongToClient ?? false;
+            return result.Value?.DoesWalletBelongToClient ?? false;  // TODO: Check result status.
         }
     }
 }

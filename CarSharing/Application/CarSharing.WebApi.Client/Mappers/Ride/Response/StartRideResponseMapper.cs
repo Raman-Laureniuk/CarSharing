@@ -14,7 +14,6 @@
 
             return new StartRideResponseMessage()
             {
-                Success = dto.Success,
                 RideId = dto.RideId,
                 StartDateUtc = dto.StartDateUtc
             };

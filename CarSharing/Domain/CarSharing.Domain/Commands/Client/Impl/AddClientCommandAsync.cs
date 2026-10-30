@@ -3,11 +3,11 @@
     using System;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Client.Request;
-    using CarSharing.Domain.Dto.Client.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Mappers.Client.Request;
     using CarSharing.Domain.Repository.Client;
     using CarSharing.Domain.RepositoryFactory.Client;
+    using CarSharing.Domain.Tools.Result;
 
     internal class AddClientCommandAsync : IAddClientCommandAsync
     {
@@ -18,7 +18,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<AddClientResponseDto> ExecuteAsync(AddClientRequestDto request)
+        public async Task<Result> ExecuteAsync(AddClientRequestDto request)
         {
             if (request == null)
             {
@@ -32,10 +32,7 @@
                 await repo.CreateAsync(client, true).ConfigureAwait(false);
             }
 
-            return new AddClientResponseDto()
-            {
-                Success = true
-            };
+            return Result.Success();
         }
     }
 }
