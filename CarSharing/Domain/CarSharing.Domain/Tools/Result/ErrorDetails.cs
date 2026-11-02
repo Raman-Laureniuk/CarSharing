@@ -4,13 +4,15 @@
 
     public class ErrorDetails
     {
-        public string Message { get; }
+        public ErrorType ErrorType { get; }
+        public string    Message   { get; }
 
-        public ErrorDetails(string message)
+        public ErrorDetails(ErrorType errorType, string message)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(message);
 
-            Message = message;
+            ErrorType = errorType;
+            Message   = message;
         }
     }
 }

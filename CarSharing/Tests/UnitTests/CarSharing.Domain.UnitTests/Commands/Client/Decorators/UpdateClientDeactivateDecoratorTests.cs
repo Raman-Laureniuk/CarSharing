@@ -19,7 +19,7 @@
             UpdateClientRequestDto        request           = null;
             IDeactivateClientCommandAsync deactivateCommand = A.Fake<IDeactivateClientCommandAsync>();
             IUpdateClientCommandAsync     decoratee         = A.Fake<IUpdateClientCommandAsync>();
-            Result                        decorateeResult   = Result.Error(new ErrorDetails("test"));
+            Result                        decorateeResult   = Result.Error(new ErrorDetails(ErrorType.Unknown, "test"));
             
             A.CallTo (() => decoratee.ExecuteAsync(request))
              .Returns(decorateeResult);
@@ -46,7 +46,7 @@
                 Name = "new_name"
             };
             IDeactivateClientCommandAsync deactivateCommand = A.Fake<IDeactivateClientCommandAsync>();
-            Result                        decorateeResult   = Result.Error(new ErrorDetails("test"));
+            Result                        decorateeResult   = Result.Error(new ErrorDetails(ErrorType.Unknown, "test"));
             IUpdateClientCommandAsync     decoratee         = A.Fake<IUpdateClientCommandAsync>();
 
             A.CallTo(() => decoratee.ExecuteAsync(request))
