@@ -4,10 +4,10 @@
     using System.Threading.Tasks;
     using CarSharing.Domain.Commands.Client.Impl;
     using CarSharing.Domain.Dto.Client.Request;
-    using CarSharing.Domain.Dto.Client.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Repository.Client;
     using CarSharing.Domain.RepositoryFactory.Client;
+    using CarSharing.Domain.Tools.Result;
     using FakeItEasy;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -72,11 +72,11 @@
             };
 
             // Act
-            ActivateClientResponseDto response = await command.ExecuteAsync(request);
+            Result result = await command.ExecuteAsync(request);
 
             // Assert
-            Assert.IsNotNull(response);
-            Assert.IsTrue(response.Success);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
             A.CallTo(() => repo.UpdateAsync(A<Client>.That.Matches(x => x.IsActive), true)).MustHaveHappenedOnceExactly();
         }
     }
