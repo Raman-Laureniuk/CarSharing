@@ -2,10 +2,19 @@
 {
     using System;
     using CarSharing.Domain.Tools.Result;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     public static class ActionResultMapper
     {
+        public static IActionResult ToActionResult(this Result result)
+        {
+            ArgumentNullException.ThrowIfNull(result);
+
+            return result.IsSuccess ? new OkResult()
+                                    : CreateObjectResult(result.ErrorDetails);
+        }
+        
         public static ActionResult<TResponseMessage> ToActionResult<T, TResponseMessage>(this Result<T> result, Func<T, TResponseMessage> mapperFunc)
         {
             ArgumentNullException.ThrowIfNull(result);
@@ -13,16 +22,38 @@
 
             return result.IsSuccess
                 ? new OkObjectResult(mapperFunc(result.Value))
-                : result.ErrorDetails.ErrorType switch
-                {
-                    ErrorType.Unknown      => new BadRequestObjectResult         (result.ErrorDetails.Message),
-                    ErrorType.Validation   => new UnprocessableEntityObjectResult(result.ErrorDetails.Message),
-                    ErrorType.NotFound     => new NotFoundObjectResult           (result.ErrorDetails.Message),
-                    ErrorType.Unauthorized => new UnauthorizedObjectResult       (result.ErrorDetails.Message),
-                    ErrorType.Conflict     => new ConflictObjectResult           (result.ErrorDetails.Message),
+                : CreateObjectResult(result.ErrorDetails);
+        }
 
-                    _                      => throw new ArgumentOutOfRangeException(nameof(result.ErrorDetails.ErrorType))
-                };
+        private static ObjectResult CreateObjectResult(ErrorDetails errorDetails)
+        {
+            ProblemDetails problemDetails = CreateProblemDetails(errorDetails);
+
+            return new ObjectResult(problemDetails)
+            {
+                StatusCode = problemDetails.Status
+            };
+        }
+        
+        private static ProblemDetails CreateProblemDetails(ErrorDetails errorDetails)
+        {
+            ArgumentNullException.ThrowIfNull(errorDetails);
+            
+            int status = errorDetails.ErrorType switch
+            {
+                ErrorType.Unknown      => StatusCodes.Status400BadRequest,
+                ErrorType.Validation   => StatusCodes.Status422UnprocessableEntity,
+                ErrorType.NotFound     => StatusCodes.Status404NotFound,
+                ErrorType.Unauthorized => StatusCodes.Status401Unauthorized,
+                ErrorType.Conflict     => StatusCodes.Status409Conflict,
+                _                      => throw new ArgumentOutOfRangeException(nameof(errorDetails.ErrorType))
+            };
+
+            return new ProblemDetails()
+            {
+                Status = status,
+                Detail = errorDetails.Message
+            };
         }
 
     }
