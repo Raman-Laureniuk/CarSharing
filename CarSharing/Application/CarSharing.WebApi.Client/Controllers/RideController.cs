@@ -35,8 +35,7 @@
             
             Result<StartRideResponseDto> result = await _rideService.StartRideAsync(request.ToStartRideRequestDto(clientId));
 
-            return result.IsSuccess ? Ok        (result.Value.ToStartRideResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpPost]
@@ -47,8 +46,7 @@
 
             Result<EndRideResponseDto> result = await _rideService.EndRideAsync(request.ToEndRideRequestDto(clientId));
 
-            return result.IsSuccess ? Ok        (result.Value.ToEndRideResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpGet]
@@ -61,8 +59,7 @@
                 ClientId = clientId
             });
 
-            return result.IsSuccess ? Ok        (result.Value.ToGetRideHistoryResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
     }
 }

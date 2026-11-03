@@ -7,6 +7,7 @@
     using CarSharing.Domain.Dto.Tariff.Response;
     using CarSharing.Domain.Services.Tariff;
     using CarSharing.Domain.Tools.Result;
+    using CarSharing.WebApi.Common.Mappers;
     using CarSharing.WebApi.Common.Validation.Attributes;
     using CarSharing.WebApi.Management.Constants;
     using CarSharing.WebApi.Management.Mappers.Tariff.Request;
@@ -33,31 +34,28 @@
         {
             Result<AddTariffResponseDto> result = await _tariffService.AddTariffAsync(request.ToAddTariffRequestDto());
 
-            return result.IsSuccess ? Ok        (result.Value.ToAddTariffResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpPut]
         [Authorize(Policy = PolicyNames.TARIFF_MANAGEMENT)]
-        public async Task<ActionResult> UpdateTariffAsync([FromBody][Required] UpdateTariffRequestMessage request)
+        public async Task<IActionResult> UpdateTariffAsync([FromBody][Required] UpdateTariffRequestMessage request)
         {
             Result result = await _tariffService.UpdateTariffAsync(request.ToUpdateTariffRequestDto());
 
-            return result.IsSuccess ? Ok()
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpDelete]
         [Authorize(Policy = PolicyNames.TARIFF_MANAGEMENT)]
-        public async Task<ActionResult> DeleteTariffAsync([FromQuery][Required][ForbidDefaultValue] int tariffId)
+        public async Task<IActionResult> DeleteTariffAsync([FromQuery][Required][ForbidDefaultValue] int tariffId)
         {
             Result result = await _tariffService.DeleteTariffAsync(new DeleteTariffRequestDto()
             {
                 TariffId = tariffId
             });
 
-            return result.IsSuccess ? Ok()
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpGet]
@@ -66,8 +64,7 @@
         {
             Result<GetTariffsResponseDto> result = await _tariffService.GetTariffsAsync(new GetTariffsRequestDto());
 
-            return result.IsSuccess ? Ok        (result.Value.ToGetTariffsResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
     }
 }

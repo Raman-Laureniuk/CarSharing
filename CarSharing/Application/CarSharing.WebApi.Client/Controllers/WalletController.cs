@@ -12,6 +12,7 @@
     using CarSharing.WebApi.Client.Messages.Wallet.Request;
     using CarSharing.WebApi.Client.Messages.Wallet.Response;
     using CarSharing.WebApi.Common.Claims;
+    using CarSharing.WebApi.Common.Mappers;
     using CarSharing.WebApi.Common.Validation.Attributes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -35,13 +36,11 @@
             
             Result<AddWalletResponseDto> result = await _walletService.AddWalletAsync(request.ToAddWalletRequestDto(clientId));
 
-            return result.IsSuccess ? Ok        (result.Value.ToAddWalletResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
-
+            return result.ToActionResult();
         }
 
         [HttpDelete]
-        public async Task<ActionResult> DeleteWalletAsync([FromQuery][Required][ForbidDefaultValue] int walletId)
+        public async Task<IActionResult> DeleteWalletAsync([FromQuery][Required][ForbidDefaultValue] int walletId)
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
@@ -51,8 +50,7 @@
                 ClientId = clientId
             });
 
-            return result.IsSuccess ? Ok()
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpGet]
@@ -65,8 +63,7 @@
                 ClientId = clientId
             });
 
-            return result.IsSuccess ? Ok        (result.Value.ToGetWalletsResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
     }
 }

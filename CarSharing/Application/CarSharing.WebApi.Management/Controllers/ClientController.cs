@@ -9,6 +9,7 @@
     using CarSharing.Domain.Services.Client;
     using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Common.Constants;
+    using CarSharing.WebApi.Common.Mappers;
     using CarSharing.WebApi.Common.Validation.Attributes;
     using CarSharing.WebApi.Management.Constants;
     using CarSharing.WebApi.Management.Mappers.Client.Request;
@@ -31,15 +32,14 @@
         }
 
         [HttpDelete]
-        public async Task<ActionResult> DeleteClientAsync([FromQuery][Required][ForbidDefaultValue] Guid clientId)
+        public async Task<IActionResult> DeleteClientAsync([FromQuery][Required][ForbidDefaultValue] Guid clientId)
         {
             Result result = await _clientService.DeleteClientAsync(new DeleteClientRequestDto()
             {
                 ClientId = clientId
             });
 
-            return result.IsSuccess ? Ok()
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpGet]
@@ -56,28 +56,25 @@
                 Limit = limit
             });
 
-            return result.IsSuccess ? Ok        (result.Value.ToGetClientsResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpPost]
         [Route("activate")]
-        public async Task<ActionResult> ActivateClientAsync([FromBody][Required] ActivateClientRequestMessage request)
+        public async Task<IActionResult> ActivateClientAsync([FromBody][Required] ActivateClientRequestMessage request)
         {
             Result result = await _clientService.ActivateClientAsync(request.ToActivateClientRequestDto());
 
-            return result.IsSuccess ? Ok()
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpPost]
         [Route("deactivate")]
-        public async Task<ActionResult> DeactivateClientAsync([FromBody][Required] DeactivateClientRequestMessage request)
+        public async Task<IActionResult> DeactivateClientAsync([FromBody][Required] DeactivateClientRequestMessage request)
         {
             Result result = await _clientService.DeactivateClientAsync(request.ToDeactivateClientRequestDto());
 
-            return result.IsSuccess ? Ok()
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
     }
 }

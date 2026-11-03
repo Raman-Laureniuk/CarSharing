@@ -41,8 +41,7 @@
                 Limit         = limit
             });
 
-            return result.IsSuccess ? Ok        (result.Value.ToGetCarsResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
     }
 }

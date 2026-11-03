@@ -9,6 +9,7 @@
     using CarSharing.Domain.Services.Car;
     using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Common.Constants;
+    using CarSharing.WebApi.Common.Mappers;
     using CarSharing.WebApi.Common.Validation.Attributes;
     using CarSharing.WebApi.Management.Constants;
     using CarSharing.WebApi.Management.Mappers.Car.Request;
@@ -35,31 +36,28 @@
         {
             Result<AddCarResponseDto> result = await _carService.AddCarAsync(request.ToAddCarRequestDto());
 
-            return result.IsSuccess ? Ok        (result.Value.ToAddCarResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpPut]
         [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
-        public async Task<ActionResult> UpdateCarAsync([FromBody][Required] UpdateCarRequestMessage request)
+        public async Task<IActionResult> UpdateCarAsync([FromBody][Required] UpdateCarRequestMessage request)
         {
             Result result = await _carService.UpdateCarAsync(request.ToUpdateCarRequestDto());
 
-            return result.IsSuccess ? Ok()
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpDelete]
         [Authorize(Policy = PolicyNames.CAR_MANAGEMENT)]
-        public async Task<ActionResult> DeleteCarAsync([FromQuery][Required][ForbidDefaultValue] Guid carId)
+        public async Task<IActionResult> DeleteCarAsync([FromQuery][Required][ForbidDefaultValue] Guid carId)
         {
             Result result = await _carService.DeleteCarAsync(new DeleteCarRequestDto()
             {
                 CarId = carId
             });
 
-            return result.IsSuccess ? Ok()
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpGet]
@@ -78,8 +76,7 @@
                 Limit = limit
             });
 
-            return result.IsSuccess ? Ok        (result.Value.ToGetCarsResponseMessage())
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
     }
 }

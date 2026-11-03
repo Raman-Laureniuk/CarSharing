@@ -55,6 +55,5 @@
                 Detail = errorDetails.Message
             };
         }
-
     }
 }

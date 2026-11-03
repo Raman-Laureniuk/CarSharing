@@ -5,6 +5,7 @@
     using CarSharing.Domain.Services.Client;
     using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Client.Mappers.Client.Request;
+    using CarSharing.WebApi.Common.Mappers;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -21,21 +22,19 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddClientAsync()
+        public async Task<IActionResult> AddClientAsync()
         {
             Result result = await _clientService.AddClientAsync(User.ToAddClientRequestDto());
 
-            return result.IsSuccess ? Ok()
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateClientAsync()
+        public async Task<IActionResult> UpdateClientAsync()
         {
             Result result = await _clientService.UpdateClientAsync(User.ToUpdateClientRequestDto());
 
-            return result.IsSuccess ? Ok()
-                                    : BadRequest(result.ErrorDetails.Message);
+            return result.ToActionResult();
         }
     }
 }
