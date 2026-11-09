@@ -16,7 +16,7 @@
         [TestMethod]
         public void Constructor_IsSuccessTrue_ErrorDetailsHasValue_ArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Result(true, new ErrorDetails(ErrorType.Unknown, "Test")));
+            Assert.Throws<ArgumentException>(() => new Result(true, new ErrorDetails(ErrorType.Validation, "Test")));
         }
 
         [TestMethod]
@@ -32,12 +32,12 @@
         [TestMethod]
         public void Constructor_IsSuccessFalse_ErrorDetailsHasValue_ResultCreated()
         {
-            Result result = new Result(false, new ErrorDetails(ErrorType.Unknown, "Test"));
+            Result result = new Result(false, new ErrorDetails(ErrorType.Validation, "Test"));
 
             Assert.IsNotNull(result);
             Assert.IsFalse(result.IsSuccess);
             Assert.IsNotNull(result.ErrorDetails);
-            Assert.AreEqual(ErrorType.Unknown, result.ErrorDetails.ErrorType);
+            Assert.AreEqual(ErrorType.Validation, result.ErrorDetails.ErrorType);
             Assert.AreEqual("Test", result.ErrorDetails.Message);
         }
 
@@ -84,7 +84,7 @@
         [TestMethod]
         public void Generic_Constructor_IsSuccessTrue_ErrorDetailsHasValue_ArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Result<int>(true, new ErrorDetails(ErrorType.Unknown, "Test"), default));
+            Assert.Throws<ArgumentException>(() => new Result<int>(true, new ErrorDetails(ErrorType.Validation, "Test"), default));
         }
 
         [TestMethod]
@@ -101,13 +101,13 @@
         [TestMethod]
         public void Generic_Constructor_IsSuccessFalse_ErrorDetailsHasValue_ResultCreated()
         {
-            Result<int> result = new Result<int>(false, new ErrorDetails(ErrorType.Unknown, "Test"), 1);
+            Result<int> result = new Result<int>(false, new ErrorDetails(ErrorType.Validation, "Test"), 1);
 
             Assert.IsNotNull(result);
             Assert.IsFalse(result.IsSuccess);
             Assert.AreEqual(1, result.Value);
             Assert.IsNotNull(result.ErrorDetails);
-            Assert.AreEqual(ErrorType.Unknown, result.ErrorDetails.ErrorType);
+            Assert.AreEqual(ErrorType.Validation, result.ErrorDetails.ErrorType);
             Assert.AreEqual("Test", result.ErrorDetails.Message);
         }
 
