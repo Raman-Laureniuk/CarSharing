@@ -51,8 +51,35 @@
 
             return new ProblemDetails()
             {
-                Status = status,
+                Status = errorDetails.ErrorType.ToStatusCode(),
+                Title  = errorDetails.ErrorType.ToTitle(),
                 Detail = errorDetails.Message
+            };
+        }
+
+        private static int ToStatusCode(this ErrorType errorType)
+        {
+            return errorType switch
+            {
+                ErrorType.Unknown      => StatusCodes.Status400BadRequest,
+                ErrorType.Validation   => StatusCodes.Status422UnprocessableEntity,
+                ErrorType.NotFound     => StatusCodes.Status404NotFound,
+                ErrorType.Unauthorized => StatusCodes.Status401Unauthorized,
+                ErrorType.Conflict     => StatusCodes.Status409Conflict,
+                _                      => throw new ArgumentOutOfRangeException(nameof(errorType))
+            };
+        }
+
+        private static string ToTitle(this ErrorType errorType)
+        {
+            return errorType switch
+            {
+                ErrorType.Unknown      => "Unknown Error",
+                ErrorType.Validation   => "Validation Error",
+                ErrorType.NotFound     => "Resource Not Found",
+                ErrorType.Unauthorized => "Unauthorized",
+                ErrorType.Conflict     => "Conflict",
+                _                      => throw new ArgumentOutOfRangeException(nameof(errorType))
             };
         }
     }
