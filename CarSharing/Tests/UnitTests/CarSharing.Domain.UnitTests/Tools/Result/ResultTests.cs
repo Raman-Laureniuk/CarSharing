@@ -25,8 +25,8 @@
             Result result = new Result(true, null);
 
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsSuccess);
-            Assert.IsNull(result.ErrorDetails);
+            Assert.IsTrue   (result.IsSuccess);
+            Assert.IsNull   (result.ErrorDetails);
         }
 
         [TestMethod]
@@ -35,10 +35,10 @@
             Result result = new Result(false, new ErrorDetails(ErrorType.Validation, "Test"));
 
             Assert.IsNotNull(result);
-            Assert.IsFalse(result.IsSuccess);
+            Assert.IsFalse  (result.IsSuccess);
             Assert.IsNotNull(result.ErrorDetails);
-            Assert.AreEqual(ErrorType.Validation, result.ErrorDetails.ErrorType);
-            Assert.AreEqual("Test", result.ErrorDetails.Message);
+            Assert.AreEqual (ErrorType.Validation, result.ErrorDetails.ErrorType);
+            Assert.AreEqual ("Test",               result.ErrorDetails.Message);
         }
 
         [TestMethod]
@@ -47,8 +47,8 @@
             Result result = Result.Success();
 
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsSuccess);
-            Assert.IsNull(result.ErrorDetails);
+            Assert.IsTrue   (result.IsSuccess);
+            Assert.IsNull   (result.ErrorDetails);
         }
 
         [TestMethod]
@@ -57,10 +57,10 @@
             Result result = Result.Error(new ErrorDetails(ErrorType.Validation, "Test"));
 
             Assert.IsNotNull(result);
-            Assert.IsFalse(result.IsSuccess);
+            Assert.IsFalse  (result.IsSuccess);
             Assert.IsNotNull(result.ErrorDetails);
-            Assert.AreEqual(ErrorType.Validation, result.ErrorDetails.ErrorType);
-            Assert.AreEqual("Test", result.ErrorDetails.Message);
+            Assert.AreEqual (ErrorType.Validation, result.ErrorDetails.ErrorType);
+            Assert.AreEqual ("Test",               result.ErrorDetails.Message);
         }
 
         [TestMethod]
@@ -69,10 +69,10 @@
             Result result = new ErrorDetails(ErrorType.Validation, "Test");
 
             Assert.IsNotNull(result);
-            Assert.IsFalse(result.IsSuccess);
+            Assert.IsFalse  (result.IsSuccess);
             Assert.IsNotNull(result.ErrorDetails);
-            Assert.AreEqual(ErrorType.Validation, result.ErrorDetails.ErrorType);
-            Assert.AreEqual("Test", result.ErrorDetails.Message);
+            Assert.AreEqual (ErrorType.Validation, result.ErrorDetails.ErrorType);
+            Assert.AreEqual ("Test",               result.ErrorDetails.Message);
         }
 
         [TestMethod]
@@ -93,9 +93,9 @@
             Result<int> result = new Result<int>(true, null, 1);
 
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsSuccess);
-            Assert.AreEqual(1, result.Value);
-            Assert.IsNull(result.ErrorDetails);
+            Assert.IsTrue   (result.IsSuccess);
+            Assert.AreEqual (1, result.Value);
+            Assert.IsNull   (result.ErrorDetails);
         }
 
         [TestMethod]
@@ -104,11 +104,11 @@
             Result<int> result = new Result<int>(false, new ErrorDetails(ErrorType.Validation, "Test"), 1);
 
             Assert.IsNotNull(result);
-            Assert.IsFalse(result.IsSuccess);
-            Assert.AreEqual(1, result.Value);
+            Assert.IsFalse  (result.IsSuccess);
+            Assert.AreEqual (1,                    result.Value);
             Assert.IsNotNull(result.ErrorDetails);
-            Assert.AreEqual(ErrorType.Validation, result.ErrorDetails.ErrorType);
-            Assert.AreEqual("Test", result.ErrorDetails.Message);
+            Assert.AreEqual (ErrorType.Validation, result.ErrorDetails.ErrorType);
+            Assert.AreEqual ("Test",               result.ErrorDetails.Message);
         }
 
         [TestMethod]
@@ -117,9 +117,9 @@
             Result<int> result = Result<int>.Success(1);
 
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsSuccess);
-            Assert.AreEqual(1, result.Value);
-            Assert.IsNull(result.ErrorDetails);
+            Assert.IsTrue   (result.IsSuccess);
+            Assert.AreEqual (1, result.Value);
+            Assert.IsNull   (result.ErrorDetails);
         }
 
         [TestMethod]
@@ -128,11 +128,11 @@
             Result<int> result = Result<int>.Error(new ErrorDetails(ErrorType.Validation, "Test"));
             
             Assert.IsNotNull(result);
-            Assert.IsFalse(result.IsSuccess);
-            Assert.AreEqual(default, result.Value);
+            Assert.IsFalse  (result.IsSuccess);
+            Assert.AreEqual (default,              result.Value);
             Assert.IsNotNull(result.ErrorDetails);
-            Assert.AreEqual(ErrorType.Validation, result.ErrorDetails.ErrorType);
-            Assert.AreEqual("Test", result.ErrorDetails.Message);
+            Assert.AreEqual (ErrorType.Validation, result.ErrorDetails.ErrorType);
+            Assert.AreEqual ("Test",               result.ErrorDetails.Message);
         }
 
         [TestMethod]
@@ -141,9 +141,9 @@
             Result<int> result = 1;
 
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsSuccess);
-            Assert.AreEqual(1, result.Value);
-            Assert.IsNull(result.ErrorDetails);
+            Assert.IsTrue   (result.IsSuccess);
+            Assert.AreEqual (1, result.Value);
+            Assert.IsNull   (result.ErrorDetails);
         }
 
         [TestMethod]
@@ -152,11 +152,11 @@
             Result<int> result = new ErrorDetails(ErrorType.Validation, "Test");
 
             Assert.IsNotNull(result);
-            Assert.IsFalse(result.IsSuccess);
-            Assert.AreEqual(default, result.Value);
+            Assert.IsFalse  (result.IsSuccess);
+            Assert.AreEqual (default,              result.Value);
             Assert.IsNotNull(result.ErrorDetails);
-            Assert.AreEqual(ErrorType.Validation, result.ErrorDetails.ErrorType);
-            Assert.AreEqual("Test", result.ErrorDetails.Message);
+            Assert.AreEqual (ErrorType.Validation, result.ErrorDetails.ErrorType);
+            Assert.AreEqual ("Test",               result.ErrorDetails.Message);
         }
     }
 }
