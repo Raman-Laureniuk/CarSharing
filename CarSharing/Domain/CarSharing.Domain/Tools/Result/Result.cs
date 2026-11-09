@@ -7,7 +7,7 @@
         public bool         IsSuccess    { get; }
         public ErrorDetails ErrorDetails { get; }
 
-        protected Result(bool isSuccess, ErrorDetails errorDetails)
+        public Result(bool isSuccess, ErrorDetails errorDetails)
         {
             if (isSuccess == true ^ errorDetails == default)
             {
@@ -28,7 +28,7 @@
     {
         public T Value { get; }
 
-        protected Result(bool isSuccess, ErrorDetails errorDetails, T value) : base(isSuccess, errorDetails)
+        public Result(bool isSuccess, ErrorDetails errorDetails, T value) : base(isSuccess, errorDetails)
         {
             Value = value;
         }
