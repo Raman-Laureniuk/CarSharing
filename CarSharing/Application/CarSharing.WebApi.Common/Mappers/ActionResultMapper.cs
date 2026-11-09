@@ -39,16 +39,6 @@
         {
             ArgumentNullException.ThrowIfNull(errorDetails);
             
-            int status = errorDetails.ErrorType switch
-            {
-                ErrorType.Unknown      => StatusCodes.Status400BadRequest,
-                ErrorType.Validation   => StatusCodes.Status422UnprocessableEntity,
-                ErrorType.NotFound     => StatusCodes.Status404NotFound,
-                ErrorType.Unauthorized => StatusCodes.Status401Unauthorized,
-                ErrorType.Conflict     => StatusCodes.Status409Conflict,
-                _                      => throw new ArgumentOutOfRangeException(nameof(errorDetails.ErrorType))
-            };
-
             return new ProblemDetails()
             {
                 Status = errorDetails.ErrorType.ToStatusCode(),
