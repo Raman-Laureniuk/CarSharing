@@ -3,10 +3,10 @@
     using System;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Client.Request;
-    using CarSharing.Domain.Dto.Client.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Repository.Client;
     using CarSharing.Domain.RepositoryFactory.Client;
+    using CarSharing.Domain.Tools.Result;
 
     internal class DeactivateClientCommandAsync : IDeactivateClientCommandAsync
     {
@@ -17,7 +17,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<DeactivateClientResponseDto> ExecuteAsync(DeactivateClientRequestDto request)
+        public async Task<Result> ExecuteAsync(DeactivateClientRequestDto request)
         {
             if (request == null)
             {
@@ -38,10 +38,7 @@
                 await repo.UpdateAsync(client, true).ConfigureAwait(false);
             }
 
-            return new DeactivateClientResponseDto()
-            {
-                Success = true
-            };
+            return Result.Success();
         }
     }
 }

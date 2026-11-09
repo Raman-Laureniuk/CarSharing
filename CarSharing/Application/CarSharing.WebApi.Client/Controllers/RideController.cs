@@ -6,6 +6,7 @@
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Services.Ride;
+    using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Client.Mappers.Ride.Request;
     using CarSharing.WebApi.Client.Mappers.Ride.Response;
     using CarSharing.WebApi.Client.Messages.Ride.Request;
@@ -32,9 +33,9 @@
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
-            StartRideResponseDto response = await _rideService.StartRideAsync(request.ToStartRideRequestDto(clientId));
+            Result<StartRideResponseDto> result = await _rideService.StartRideAsync(request.ToStartRideRequestDto(clientId));
 
-            return Ok(response.ToStartRideResponseMessage());
+            return result.ToActionResult();
         }
 
         [HttpPost]
@@ -43,9 +44,9 @@
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
 
-            EndRideResponseDto response = await _rideService.EndRideAsync(request.ToEndRideRequestDto(clientId));
+            Result<EndRideResponseDto> result = await _rideService.EndRideAsync(request.ToEndRideRequestDto(clientId));
 
-            return Ok(response.ToEndRideResponseMessage());
+            return result.ToActionResult();
         }
 
         [HttpGet]
@@ -53,12 +54,12 @@
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
 
-            GetRideHistoryResponseDto response = await _rideService.GetRideHistoryAsync(new GetRideHistoryRequestDto()
+            Result<GetRideHistoryResponseDto> result = await _rideService.GetRideHistoryAsync(new GetRideHistoryRequestDto()
             {
                 ClientId = clientId
             });
 
-            return Ok(response.ToGetRideHistoryResponseMessage());
+            return result.ToActionResult();
         }
     }
 }

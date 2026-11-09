@@ -5,6 +5,7 @@
     using CarSharing.Domain.Commands.Tariff;
     using CarSharing.Domain.Dto.Tariff.Request;
     using CarSharing.Domain.Dto.Tariff.Response;
+    using CarSharing.Domain.Tools.Result;
 
     internal class TariffService : ITariffService
     {
@@ -27,27 +28,27 @@
             _calculatePriceCommand = calculatePriceCommand ?? throw new ArgumentNullException(nameof(calculatePriceCommand));
         }
 
-        public Task<AddTariffResponseDto> AddTariffAsync(AddTariffRequestDto request)
+        public Task<Result<AddTariffResponseDto>> AddTariffAsync(AddTariffRequestDto request)
         {
             return _addTariffCommand.ExecuteAsync(request);
         }
 
-        public CalculatePriceResponseDto CalculatePrice(CalculatePriceRequestDto request)
+        public Result<CalculatePriceResponseDto> CalculatePrice(CalculatePriceRequestDto request)
         {
             return _calculatePriceCommand.Execute(request);
         }
 
-        public Task<DeleteTariffResponseDto> DeleteTariffAsync(DeleteTariffRequestDto request)
+        public Task<Result> DeleteTariffAsync(DeleteTariffRequestDto request)
         {
             return _deleteTariffCommand.ExecuteAsync(request);
         }
 
-        public Task<GetTariffsResponseDto> GetTariffsAsync(GetTariffsRequestDto request)
+        public Task<Result<GetTariffsResponseDto>> GetTariffsAsync(GetTariffsRequestDto request)
         {
             return _getTariffsCommand.ExecuteAsync(request);
         }
 
-        public Task<UpdateTariffResponseDto> UpdateTariffAsync(UpdateTariffRequestDto request)
+        public Task<Result> UpdateTariffAsync(UpdateTariffRequestDto request)
         {
             return _updateTariffCommand.ExecuteAsync(request);
         }

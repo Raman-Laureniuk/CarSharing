@@ -5,6 +5,7 @@
     using CarSharing.Domain.Commands.Client;
     using CarSharing.Domain.Dto.Client.Request;
     using CarSharing.Domain.Dto.Client.Response;
+    using CarSharing.Domain.Tools.Result;
 
     internal class ClientService : IClientService
     {
@@ -30,32 +31,32 @@
             _updateClientCommand = updateClientCommand ?? throw new ArgumentNullException(nameof(updateClientCommand));
         }
 
-        public Task<AddClientResponseDto> AddClientAsync(AddClientRequestDto request)
+        public Task<Result> AddClientAsync(AddClientRequestDto request)
         {
             return _addClientCommand.ExecuteAsync(request);
         }
 
-        public Task<ActivateClientResponseDto> ActivateClientAsync(ActivateClientRequestDto request)
+        public Task<Result> ActivateClientAsync(ActivateClientRequestDto request)
         {
             return _activateClientCommand.ExecuteAsync(request);
         }
 
-        public Task<DeactivateClientResponseDto> DeactivateClientAsync(DeactivateClientRequestDto request)
+        public Task<Result> DeactivateClientAsync(DeactivateClientRequestDto request)
         {
             return _deactivateClientCommand.ExecuteAsync(request);
         }
 
-        public Task<DeleteClientResponseDto> DeleteClientAsync(DeleteClientRequestDto request)
+        public Task<Result> DeleteClientAsync(DeleteClientRequestDto request)
         {
             return _deleteClientCommand.ExecuteAsync(request);
         }
 
-        public Task<GetClientsResponseDto> GetClientsAsync(GetClientsRequestDto request)
+        public Task<Result<GetClientsResponseDto>> GetClientsAsync(GetClientsRequestDto request)
         {
             return _getClientsCommand.ExecuteAsync(request);
         }
 
-        public Task<UpdateClientResponseDto> UpdateClientAsync(UpdateClientRequestDto request)
+        public Task<Result> UpdateClientAsync(UpdateClientRequestDto request)
         {
             return _updateClientCommand.ExecuteAsync(request);
         }

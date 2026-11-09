@@ -2,10 +2,10 @@
 {
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Coordinates.Request;
-    using CarSharing.Domain.Dto.Coordinates.Response;
+    using CarSharing.Domain.Tools.Result;
 
     public interface ICoordinatesService
     {
-        Task<AddUpdateCoordinatesResponseDto> AddOrUpdateCoordinatesAsync(AddOrUpdateCoordinatesRequestDto request);
+        Task<Result> AddOrUpdateCoordinatesAsync(AddOrUpdateCoordinatesRequestDto request);
     }
 }

@@ -7,6 +7,7 @@
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
     using CarSharing.Domain.Providers.CarControl;
+    using CarSharing.Domain.Tools.Result;
 
     internal class StartRideCarControlDecorator : IStartRideCommandAsync
     {
@@ -20,11 +21,11 @@
             _decoratee = decoratee ?? throw new ArgumentNullException(nameof(decoratee));
         }
 
-        public async Task<StartRideResponseDto> ExecuteAsync(StartRideRequestDto request)
+        public async Task<Result<StartRideResponseDto>> ExecuteAsync(StartRideRequestDto request)
         {
-            StartRideResponseDto response = await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
+            Result<StartRideResponseDto> result = await _decoratee.ExecuteAsync(request).ConfigureAwait(false);
 
-            if (request != null && response?.Success == true)
+            if (request != null && result.IsSuccess)
             {
                 await _carControlProvider.UnlockCarAsync(new UnlockRequestDto()
                 {
@@ -32,7 +33,7 @@
                 }).ConfigureAwait(false);
             }
 
-            return response;
+            return result;
         }
     }
 }

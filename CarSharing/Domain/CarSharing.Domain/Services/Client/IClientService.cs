@@ -3,14 +3,15 @@
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Client.Request;
     using CarSharing.Domain.Dto.Client.Response;
+    using CarSharing.Domain.Tools.Result;
 
     public interface IClientService
     {
-        Task<AddClientResponseDto> AddClientAsync(AddClientRequestDto request);
-        Task<UpdateClientResponseDto> UpdateClientAsync(UpdateClientRequestDto request);
-        Task<DeleteClientResponseDto> DeleteClientAsync(DeleteClientRequestDto request);
-        Task<GetClientsResponseDto> GetClientsAsync(GetClientsRequestDto request);
-        Task<ActivateClientResponseDto> ActivateClientAsync(ActivateClientRequestDto request);
-        Task<DeactivateClientResponseDto> DeactivateClientAsync(DeactivateClientRequestDto request);
+        Task<Result> AddClientAsync(AddClientRequestDto request);
+        Task<Result> UpdateClientAsync(UpdateClientRequestDto request);
+        Task<Result> DeleteClientAsync(DeleteClientRequestDto request);
+        Task<Result<GetClientsResponseDto>> GetClientsAsync(GetClientsRequestDto request);
+        Task<Result> ActivateClientAsync(ActivateClientRequestDto request);
+        Task<Result> DeactivateClientAsync(DeactivateClientRequestDto request);
     }
 }

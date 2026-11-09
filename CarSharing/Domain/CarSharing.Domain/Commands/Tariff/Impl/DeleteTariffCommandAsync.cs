@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Tariff.Request;
-    using CarSharing.Domain.Dto.Tariff.Response;
     using CarSharing.Domain.Repository.Tariff;
     using CarSharing.Domain.RepositoryFactory.Tariff;
+    using CarSharing.Domain.Tools.Result;
 
     internal class DeleteTariffCommandAsync : IDeleteTariffCommandAsync
     {
@@ -16,7 +16,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<DeleteTariffResponseDto> ExecuteAsync(DeleteTariffRequestDto request)
+        public async Task<Result> ExecuteAsync(DeleteTariffRequestDto request)
         {
             if (request == null)
             {
@@ -28,10 +28,7 @@
                 await repo.DeleteAsync(request.TariffId, true).ConfigureAwait(false);
             }
 
-            return new DeleteTariffResponseDto()
-            {
-                Success = true
-            };
+            return Result.Success();
         }
     }
 }

@@ -5,9 +5,6 @@
 
     public class EndRideResponseMessage
     {
-        [JsonPropertyName("success")]
-        public bool Success { get; set; }
-
         [JsonPropertyName("endDateUtc")]
         public DateTime EndDateUtc { get; set; }
 

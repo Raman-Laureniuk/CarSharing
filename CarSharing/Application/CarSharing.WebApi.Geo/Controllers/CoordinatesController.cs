@@ -3,12 +3,11 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
-    using CarSharing.Domain.Dto.Coordinates.Response;
     using CarSharing.Domain.Services.Coordinates;
+    using CarSharing.Domain.Tools.Result;
+    using CarSharing.WebApi.Common.Mappers;
     using CarSharing.WebApi.Geo.Mappers.Request;
-    using CarSharing.WebApi.Geo.Mappers.Response;
     using CarSharing.WebApi.Geo.Messages.Coordinates.Request;
-    using CarSharing.WebApi.Geo.Messages.Coordinates.Response;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -25,11 +24,11 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<AddOrUpdateCoordinatesResponseMessage>> AddOrUpdateCoordinatesAsync([FromBody][Required] AddOrUpdateCoordinatesRequestMessage request)
+        public async Task<IActionResult> AddOrUpdateCoordinatesAsync([FromBody][Required] AddOrUpdateCoordinatesRequestMessage request)
         {
-            AddUpdateCoordinatesResponseDto response = await _coordinatesService.AddOrUpdateCoordinatesAsync(request.ToAddOrUpdateCoordinatesRequestDto());
+            Result result = await _coordinatesService.AddOrUpdateCoordinatesAsync(request.ToAddOrUpdateCoordinatesRequestDto());
 
-            return Ok(response.ToAddOrUpdateCoordinatesResponseMessage());
+            return result.ToActionResult();
         }
     }
 }

@@ -5,6 +5,7 @@
     using CarSharing.Domain.Commands.Car;
     using CarSharing.Domain.Dto.Car.Request;
     using CarSharing.Domain.Dto.Car.Response;
+    using CarSharing.Domain.Tools.Result;
 
     internal class CarService : ICarService
     {
@@ -24,22 +25,22 @@
             _updateCarCommand = updateCarCommand ?? throw new ArgumentNullException(nameof(updateCarCommand));
         }
 
-        public Task<AddCarResponseDto> AddCarAsync(AddCarRequestDto request)
+        public Task<Result<AddCarResponseDto>> AddCarAsync(AddCarRequestDto request)
         {
             return _addCarCommand.ExecuteAsync(request);
         }
 
-        public Task<DeleteCarResponseDto> DeleteCarAsync(DeleteCarRequestDto request)
+        public Task<Result> DeleteCarAsync(DeleteCarRequestDto request)
         {
             return _deleteCarCommand.ExecuteAsync(request);
         }
 
-        public Task<GetCarsResponseDto> GetCarsAsync(GetCarsRequestDto request)
+        public Task<Result<GetCarsResponseDto>> GetCarsAsync(GetCarsRequestDto request)
         {
             return _getCarsCommand.ExecuteAsync(request);
         }
 
-        public Task<UpdateCarResponseDto> UpdateCarAsync(UpdateCarRequestDto request)
+        public Task<Result> UpdateCarAsync(UpdateCarRequestDto request)
         {
             return _updateCarCommand.ExecuteAsync(request);
         }

@@ -3,11 +3,12 @@
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Ride.Request;
     using CarSharing.Domain.Dto.Ride.Response;
+    using CarSharing.Domain.Tools.Result;
 
     public interface IRideService
     {
-        Task<StartRideResponseDto> StartRideAsync(StartRideRequestDto request);
-        Task<EndRideResponseDto> EndRideAsync(EndRideRequestDto request);
-        Task<GetRideHistoryResponseDto> GetRideHistoryAsync(GetRideHistoryRequestDto request);
+        Task<Result<StartRideResponseDto>> StartRideAsync(StartRideRequestDto request);
+        Task<Result<EndRideResponseDto>> EndRideAsync(EndRideRequestDto request);
+        Task<Result<GetRideHistoryResponseDto>> GetRideHistoryAsync(GetRideHistoryRequestDto request);
     }
 }

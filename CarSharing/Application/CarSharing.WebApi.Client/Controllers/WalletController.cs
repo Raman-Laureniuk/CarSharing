@@ -6,11 +6,13 @@
     using CarSharing.Domain.Dto.Wallet.Request;
     using CarSharing.Domain.Dto.Wallet.Response;
     using CarSharing.Domain.Services.Wallet;
+    using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Client.Mappers.Wallet.Request;
     using CarSharing.WebApi.Client.Mappers.Wallet.Response;
     using CarSharing.WebApi.Client.Messages.Wallet.Request;
     using CarSharing.WebApi.Client.Messages.Wallet.Response;
     using CarSharing.WebApi.Common.Claims;
+    using CarSharing.WebApi.Common.Mappers;
     using CarSharing.WebApi.Common.Validation.Attributes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -32,23 +34,23 @@
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
-            AddWalletResponseDto response = await _walletService.AddWalletAsync(request.ToAddWalletRequestDto(clientId));
+            Result<AddWalletResponseDto> result = await _walletService.AddWalletAsync(request.ToAddWalletRequestDto(clientId));
 
-            return Ok(response.ToAddWalletResponseMessage());
+            return result.ToActionResult();
         }
 
         [HttpDelete]
-        public async Task<ActionResult<DeleteWalletResponseMessage>> DeleteWalletAsync([FromQuery][Required][ForbidDefaultValue] int walletId)
+        public async Task<IActionResult> DeleteWalletAsync([FromQuery][Required][ForbidDefaultValue] int walletId)
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
-            DeleteWalletResponseDto response = await _walletService.DeleteWalletAsync(new DeleteWalletRequestDto()
+            Result result = await _walletService.DeleteWalletAsync(new DeleteWalletRequestDto()
             {
                 WalletId = walletId,
                 ClientId = clientId
             });
 
-            return Ok(response.ToDeleteWalletResponseMessage());
+            return result.ToActionResult();
         }
 
         [HttpGet]
@@ -56,12 +58,12 @@
         {
             Guid clientId = ClaimsHelper.GetClientId(User);
             
-            GetWalletsResponseDto response = await _walletService.GetWalletsAsync(new GetWalletsRequestDto()
+            Result<GetWalletsResponseDto> result = await _walletService.GetWalletsAsync(new GetWalletsRequestDto()
             {
                 ClientId = clientId
             });
 
-            return Ok(response.ToGetWalletsResponseMessage());
+            return result.ToActionResult();
         }
     }
 }

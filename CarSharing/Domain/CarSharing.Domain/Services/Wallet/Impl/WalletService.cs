@@ -5,6 +5,7 @@
     using CarSharing.Domain.Commands.Wallet;
     using CarSharing.Domain.Dto.Wallet.Request;
     using CarSharing.Domain.Dto.Wallet.Response;
+    using CarSharing.Domain.Tools.Result;
 
     internal class WalletService : IWalletService
     {
@@ -24,22 +25,22 @@
             _checkWalletForClientCommand = checkWalletForClientCommand ?? throw new ArgumentNullException(nameof(checkWalletForClientCommand));
         }
 
-        public Task<AddWalletResponseDto> AddWalletAsync(AddWalletRequestDto request)
+        public Task<Result<AddWalletResponseDto>> AddWalletAsync(AddWalletRequestDto request)
         {
             return _addWalletCommand.ExecuteAsync(request);
         }
 
-        public Task<DeleteWalletResponseDto> DeleteWalletAsync(DeleteWalletRequestDto request)
+        public Task<Result> DeleteWalletAsync(DeleteWalletRequestDto request)
         {
             return _deleteWalletCommand.ExecuteAsync(request);
         }
 
-        public Task<GetWalletsResponseDto> GetWalletsAsync(GetWalletsRequestDto request)
+        public Task<Result<GetWalletsResponseDto>> GetWalletsAsync(GetWalletsRequestDto request)
         {
             return _getWalletsCommand.ExecuteAsync(request);
         }
 
-        public Task<CheckWalletForClientResponseDto> CheckWalletForClientAsync(CheckWalletForClientRequestDto request)
+        public Task<Result<CheckWalletForClientResponseDto>> CheckWalletForClientAsync(CheckWalletForClientRequestDto request)
         {
             return _checkWalletForClientCommand.ExecuteAsync(request);
         }

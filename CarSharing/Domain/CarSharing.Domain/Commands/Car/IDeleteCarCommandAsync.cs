@@ -2,9 +2,8 @@
 {
     using CarSharing.Domain.Commands.Base;
     using CarSharing.Domain.Dto.Car.Request;
-    using CarSharing.Domain.Dto.Car.Response;
 
-    internal interface IDeleteCarCommandAsync : ICommandAsync<DeleteCarRequestDto, DeleteCarResponseDto>
+    internal interface IDeleteCarCommandAsync : ICommandAsync<DeleteCarRequestDto>
     {
     }
 }

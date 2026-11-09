@@ -3,10 +3,10 @@
     using System;
     using System.Threading.Tasks;
     using CarSharing.Domain.Dto.Tariff.Request;
-    using CarSharing.Domain.Dto.Tariff.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Repository.Tariff;
     using CarSharing.Domain.RepositoryFactory.Tariff;
+    using CarSharing.Domain.Tools.Result;
 
     internal class UpdateTariffCommandAsync : IUpdateTariffCommandAsync
     {
@@ -17,7 +17,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<UpdateTariffResponseDto> ExecuteAsync(UpdateTariffRequestDto request)
+        public async Task<Result> ExecuteAsync(UpdateTariffRequestDto request)
         {
             if (request == null)
             {
@@ -38,10 +38,7 @@
                 await repo.UpdateAsync(tariff, true).ConfigureAwait(false);
             }
 
-            return new UpdateTariffResponseDto()
-            {
-                Success = true
-            };
+            return Result.Success();
         }
     }
 }

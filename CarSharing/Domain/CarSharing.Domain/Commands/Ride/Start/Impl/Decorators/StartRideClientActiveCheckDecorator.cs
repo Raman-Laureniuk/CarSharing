@@ -9,6 +9,7 @@
     using CarSharing.Domain.Exceptions;
     using CarSharing.Domain.Repository.Client;
     using CarSharing.Domain.RepositoryFactory.Client;
+    using CarSharing.Domain.Tools.Result;
 
     internal class StartRideClientActiveCheckDecorator : IStartRideCommandAsync
     {
@@ -22,11 +23,11 @@
             _decoratee = decoratee ?? throw new ArgumentNullException(nameof(decoratee));
         }
 
-        public async Task<StartRideResponseDto> ExecuteAsync(StartRideRequestDto request)
+        public async Task<Result<StartRideResponseDto>> ExecuteAsync(StartRideRequestDto request)
         {
             if (request != null)
             {
-                await ThrowIfClientNotActive(request.ClientId).ConfigureAwait(false);
+                await ThrowIfClientNotActive(request.ClientId).ConfigureAwait(false);  // TODO: Return failed result.
             }
 
             return await _decoratee.ExecuteAsync(request).ConfigureAwait(false);

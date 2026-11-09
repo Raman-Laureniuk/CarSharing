@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using CarSharing.Domain.Commands.Coordinates;
     using CarSharing.Domain.Dto.Coordinates.Request;
-    using CarSharing.Domain.Dto.Coordinates.Response;
+    using CarSharing.Domain.Tools.Result;
 
     internal class CoordinatesService : ICoordinatesService
     {
@@ -15,7 +15,7 @@
             _addOrUpdateCoordinatesCommand = updateCoordinatesCommand ?? throw new ArgumentNullException(nameof(updateCoordinatesCommand));
         }
 
-        public Task<AddUpdateCoordinatesResponseDto> AddOrUpdateCoordinatesAsync(AddOrUpdateCoordinatesRequestDto request)
+        public Task<Result> AddOrUpdateCoordinatesAsync(AddOrUpdateCoordinatesRequestDto request)
         {
             return _addOrUpdateCoordinatesCommand.ExecuteAsync(request);
         }

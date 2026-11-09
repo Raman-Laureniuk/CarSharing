@@ -9,6 +9,7 @@
     using CarSharing.Domain.Mappers.Wallet.Response;
     using CarSharing.Domain.Repository.Wallet;
     using CarSharing.Domain.RepositoryFactory.Wallet;
+    using CarSharing.Domain.Tools.Result;
 
     internal class GetWalletsCommandAsync : IGetWalletsCommandAsync
     {
@@ -19,7 +20,7 @@
             _repoFactory = repoFactory ?? throw new ArgumentNullException(nameof(repoFactory));
         }
 
-        public async Task<GetWalletsResponseDto> ExecuteAsync(GetWalletsRequestDto request)
+        public async Task<Result<GetWalletsResponseDto>> ExecuteAsync(GetWalletsRequestDto request)
         {
             if (request == null)
             {

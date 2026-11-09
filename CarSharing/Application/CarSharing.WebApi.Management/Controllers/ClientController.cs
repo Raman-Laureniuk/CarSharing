@@ -7,7 +7,9 @@
     using CarSharing.Domain.Dto.Client.Response;
     using CarSharing.Domain.Entities;
     using CarSharing.Domain.Services.Client;
+    using CarSharing.Domain.Tools.Result;
     using CarSharing.WebApi.Common.Constants;
+    using CarSharing.WebApi.Common.Mappers;
     using CarSharing.WebApi.Common.Validation.Attributes;
     using CarSharing.WebApi.Management.Constants;
     using CarSharing.WebApi.Management.Mappers.Client.Request;
@@ -18,7 +20,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Authorize(PolicyNames.CLIENT_MANAGEMENT)]
+    [Authorize(Policy = PolicyNames.CLIENT_MANAGEMENT)]
     [Route("api/[controller]")]
     public class ClientController : ControllerBase
     {
@@ -30,14 +32,14 @@
         }
 
         [HttpDelete]
-        public async Task<ActionResult<DeleteClientResponseMessage>> DeleteClientAsync([FromQuery][Required][ForbidDefaultValue] Guid clientId)
+        public async Task<IActionResult> DeleteClientAsync([FromQuery][Required][ForbidDefaultValue] Guid clientId)
         {
-            DeleteClientResponseDto response = await _clientService.DeleteClientAsync(new DeleteClientRequestDto()
+            Result result = await _clientService.DeleteClientAsync(new DeleteClientRequestDto()
             {
                 ClientId = clientId
             });
 
-            return Ok(response.ToDeleteClientResponseMessage());
+            return result.ToActionResult();
         }
 
         [HttpGet]
@@ -46,7 +48,7 @@
                                                                                    [FromQuery]                 int    offset        = ApiParametersConstants.DEFAULT_OFFSET,
                                                                                    [FromQuery][Range(1, 1000)] int    limit         = ApiParametersConstants.DEFAULT_LIMIT)
         {
-            GetClientsResponseDto response = await _clientService.GetClientsAsync(new GetClientsRequestDto()
+            Result<GetClientsResponseDto> result = await _clientService.GetClientsAsync(new GetClientsRequestDto()
             {
                 OrderBy = orderBy,
                 SortAscending = sortAscending,
@@ -54,25 +56,25 @@
                 Limit = limit
             });
 
-            return Ok(response.ToGetClientsResponseMessage());
+            return result.ToActionResult();
         }
 
         [HttpPost]
         [Route("activate")]
-        public async Task<ActionResult<ActivateClientResponseMessage>> ActivateClientAsync([FromBody][Required] ActivateClientRequestMessage request)
+        public async Task<IActionResult> ActivateClientAsync([FromBody][Required] ActivateClientRequestMessage request)
         {
-            ActivateClientResponseDto response = await _clientService.ActivateClientAsync(request.ToActivateClientRequestDto());
+            Result result = await _clientService.ActivateClientAsync(request.ToActivateClientRequestDto());
 
-            return Ok(response.ToActivateClientResponseMessage());
+            return result.ToActionResult();
         }
 
         [HttpPost]
         [Route("deactivate")]
-        public async Task<ActionResult<DeactivateClientResponseMessage>> DeactivateClientAsync([FromBody][Required] DeactivateClientRequestMessage request)
+        public async Task<IActionResult> DeactivateClientAsync([FromBody][Required] DeactivateClientRequestMessage request)
         {
-            DeactivateClientResponseDto response = await _clientService.DeactivateClientAsync(request.ToDeactivateClientRequestDto());
+            Result result = await _clientService.DeactivateClientAsync(request.ToDeactivateClientRequestDto());
 
-            return Ok(response.ToDeactivateClientResponseMessage());
+            return result.ToActionResult();
         }
     }
 }
