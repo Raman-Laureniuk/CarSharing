@@ -11,7 +11,8 @@
             builder.HasKey(x => x.TariffId).IsClustered(true);
 
             builder.Property(x => x.TariffId).HasColumnName("TariffId").IsRequired(true).ValueGeneratedOnAdd();
-            builder.Property(x => x.PricePerHour).HasColumnName("PricePerHour").IsRequired(true).HasPrecision(9, 2);
+            builder.Property(x => x.PricePerHour).HasColumnName("PricePerHour").IsRequired(true).HasPrecision(9, 2);  // TODO: Unique (?)
+            // TODO: TariffName, unique
 
             builder.HasMany(x => x.Cars).WithOne(x => x.Tariff).HasForeignKey(x => x.TariffId).IsRequired().HasPrincipalKey(x => x.TariffId).OnDelete(DeleteBehavior.ClientNoAction);
 

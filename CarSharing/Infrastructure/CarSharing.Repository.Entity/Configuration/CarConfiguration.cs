@@ -14,7 +14,7 @@
             builder.Property(x => x.Model).HasColumnName("Model").IsRequired(true).HasMaxLength(200).IsFixedLength(false).IsUnicode(true);
             builder.Property(x => x.Year).HasColumnName("Year").IsRequired(true);
             builder.Property(x => x.Color).HasColumnName("Color").IsRequired(true).HasMaxLength(100).IsFixedLength(false).IsUnicode(true);
-            builder.Property(x => x.PlateNumber).HasColumnName("PlateNumber").IsRequired(true).HasMaxLength(50).IsFixedLength(false).IsUnicode(true);
+            builder.Property(x => x.PlateNumber).HasColumnName("PlateNumber").IsRequired(true).HasMaxLength(50).IsFixedLength(false).IsUnicode(true);  // TODO: Unique.
             builder.Property(x => x.TariffId).HasColumnName("TariffId").IsRequired(true);
 
             builder.HasOne(x => x.Tariff).WithMany(x => x.Cars).HasForeignKey(x => x.TariffId).IsRequired(true).HasPrincipalKey(x => x.TariffId).OnDelete(DeleteBehavior.ClientNoAction);

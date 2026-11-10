@@ -13,9 +13,9 @@
             builder.Property(x => x.ClientId).HasColumnName("ClientId").IsRequired(true).ValueGeneratedNever();
             builder.Property(x => x.Name).HasColumnName("Name").IsRequired(true).HasMaxLength(50).IsFixedLength(false).IsUnicode(true);
             builder.Property(x => x.Surname).HasColumnName("Surname").IsRequired(true).HasMaxLength(50).IsFixedLength(false).IsUnicode(true);
-            builder.Property(x => x.LicenseNumber).HasColumnName("LicenseNumber").IsRequired(true).HasMaxLength(50).IsFixedLength(false).IsUnicode(true);
-            builder.Property(x => x.PhoneNumber).HasColumnName("PhoneNumber").IsRequired(true).HasMaxLength(50).IsFixedLength(false).IsUnicode(false);
-            builder.Property(x => x.Email).HasColumnName("Email").IsRequired(true).HasMaxLength(100).IsFixedLength(false).IsUnicode(false);
+            builder.Property(x => x.LicenseNumber).HasColumnName("LicenseNumber").IsRequired(true).HasMaxLength(50).IsFixedLength(false).IsUnicode(true);  // TODO: Unique.
+            builder.Property(x => x.PhoneNumber).HasColumnName("PhoneNumber").IsRequired(true).HasMaxLength(50).IsFixedLength(false).IsUnicode(false);  // TODO: Unique.
+            builder.Property(x => x.Email).HasColumnName("Email").IsRequired(true).HasMaxLength(100).IsFixedLength(false).IsUnicode(false);  // TODO: Unique.
             builder.Property(x => x.IsActive).HasColumnName("IsActive").IsRequired(true);
 
             builder.HasMany(x => x.Wallets).WithOne(x => x.Client).HasForeignKey(x => x.ClientId).IsRequired(true).HasPrincipalKey(x => x.ClientId).OnDelete(DeleteBehavior.Cascade);
